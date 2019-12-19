@@ -9,7 +9,7 @@ Usage: python RamMaster.py dumpfile.mem
 | text file | config.txt       |  |
 | bash file | shell.txt        |  |
 
-- [x] Still under construction
+![Screenshot](picture2.png)
 - [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
 
 A python script file to remotely examine Microsoft Windows systems- It can pull usernames, passwords, hashes, and much much more.
