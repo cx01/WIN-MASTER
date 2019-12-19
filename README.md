@@ -10,9 +10,9 @@ Usage: python RamMaster.py dumpfile.mem
 | bash file | shell.txt        |  |
 
 - [x] Still under construction
-- [x] Requires Inpacket
+- [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
 
-A python script file to remotely examine Microsoft Windows system- It can pull usernames, passwords, hashes, and much much more.
+A python script file to remotely examine Microsoft Windows systems- It can pull usernames, passwords, hashes, and much much more.
 
 ### CONSOLE DISPLAY
 ![Screenshot](picture1.png)
