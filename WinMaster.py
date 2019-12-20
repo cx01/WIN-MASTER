@@ -261,8 +261,8 @@ def display():
    print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) services  (34) rpcdump    (44) getadusers     (54) BLANK (64) WIN_RM            " + u'\u2551'
    print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) atexec    (35) reg        (45) getnpusers     (55) BLANK (65) BLANK             " + u'\u2551'
    print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + SKEW    (26) dcomexec  (36) smbmap     (46) BLANK          (56) BLANK (66) BLANK             " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) psexec    (37) smbclient  (47) secretsdump    (57) BLANK (67) BLANK             " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) smbexec   (38) BLANK      (48) windapsearch   (58) BLANK (68) BLANK             " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) psexec    (37) SmbClient  (47) secretsdump    (57) BLANK (67) BLANK             " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) smbexec   (38) SmbMount   (48) windapsearch   (58) BLANK (68) BLANK             " + u'\u2551'
    print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) wmiexec   (39) enum4linux (49) ldapdomaindump (59) BLANK (69) BLANK             " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
@@ -426,14 +426,21 @@ while True:
 
       os.system("echo " + DNSN + " >> config.txt")
       os.system("echo " + TIP  + " >> config.txt")
-      os.system("echo " + USR  + " >> config.txt")  
-      os.system("echo " + PAS  + " >> config.txt")  
+      if USR.rstrip(" ") == "\"\"":
+         os.system("echo '\"\"' >> config.txt")
+      else:
+         os.system("echo " + USR  + " >> config.txt")     
+      if PAS.rstrip(" ") == "\"\"":
+         os.system("echo '\"\"' >> config.txt")
+      else:
+         os.system("echo " + PAS  + " >> config.txt")
       os.system("echo " + FRST + " >> config.txt") 
       os.system("echo " + HST  + " >> config.txt")  
       os.system("echo " + WGRP + " >> config.txt") 
       os.system("echo " + HIP  + " >> config.txt")  
       os.system("echo " + POR  + " >> config.txt")  
-      os.system("echo " + PRM  + " >> config.txt")  
+      tmp = '\"' + PRM.rstrip(" ") + '\"'
+      os.system("echo " + tmp + " >> config.txt")  
       os.system("echo " + PI1  + " >> config.txt")  
       os.system("echo " + DIR  + " >> config.txt")  
 
@@ -1038,26 +1045,25 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - ./smbclient.py raj/Administrator:Ignite@123@192.168.1.103
-# Details : Menu option selected - smbclient -H xxx.xxx.xxx.xxx
-# Details : Menu option selected - smbclient //xxx.xxx.xxx.xx//Report$
-# Modified: There are two versions of smbclient to consider.....
+# Details : Menu option selected - smbclient -L \\\\reblog.htb -U coby%championship2005
+# Modified: Note there are two versions of smbclient to consider.....
 # -------------------------------------------------------------------------------------
 
    if selection =='37':
-      CMD = PRO + "smbclient.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ")
+      CMD = "smbclient -L \\\\\\\\" + TIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" ")
       command(CMD)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - rdpcheck [[domain/]USR[:PAS]@]<targetName or address>
+# Details : Menu option selected - smbclient \\\\xxx.xxx.xxx.xx\\Report$
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '38':
-      exit(1)  
+      CMD = "smbclient \\\\\\\\" + TIP.rstrip(" ") + "\\\\" + HIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" ")
+      command(CMD)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
