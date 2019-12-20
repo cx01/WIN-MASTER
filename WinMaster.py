@@ -79,7 +79,7 @@ def gettime(value):
    return variable
 
 def command(command):
-#      print "Using Command: " + CMD
+      print "Using Command: " + CMD #DEBUG 
       os.system(command)
       raw_input("\nPress ENTER to continue...")
       return
@@ -1086,7 +1086,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '40':
-      CMD = "rpcclient -U " + USR.rstrip(" ") + " " + TIP.rstrip(" ")
+      CMD = "rpcclient -U " + USR.rstrip(" ") + "%" + PAS.strip(" ") + " " + TIP.rstrip(" ")
       command(CMD)
 
 # ------------------------------------------------------------------------------------- 
