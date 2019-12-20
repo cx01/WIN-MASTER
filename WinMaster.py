@@ -254,16 +254,16 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) BLANK     (30) ifmap      (40) rpcclient      (50) BLANK (60) FTP               " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) BLANK     (31) opdump     (41) getgt          (51) BLANK (61) SSH               " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) BLANK     (32) lookupsid  (42) getst          (52) BLANK (62) TELNET            " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) netview   (33) samrdump   (43) getuserspns    (53) BLANK (63) NETCAT            " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) services  (34) rpcdump    (44) getadusers     (54) BLANK (64) WIN_RM            " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) atexec    (35) reg        (45) getnpusers     (55) BLANK (65) BLANK             " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + SKEW    (26) dcomexec  (36) smbmap     (46) BLANK          (56) BLANK (66) BLANK             " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) psexec    (37) SmbClient  (47) secretsdump    (57) BLANK (67) BLANK             " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) smbexec   (38) SmbMount   (48) windapsearch   (58) BLANK (68) BLANK             " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) wmiexec   (39) enum4linux (49) ldapdomaindump (59) BLANK (69) BLANK             " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) BLANK     (30) ifmap      (40) rpcclient      (50) BLANK    (60) FTP            " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) BLANK     (31) opdump     (41) getgt          (51) BLANK    (61) SSH            " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) BLANK     (32) lookupsid  (42) getst          (52) BLANK    (62) TELNET         " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) netview   (33) samrdump   (43) getuserspns    (53) BLANK    (63) NETCAT         " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) services  (34) rpcdump    (44) getadusers     (54) BLANK    (64) WIN_RM         " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) atexec    (35) reg        (45) getnpusers     (55) BLANK    (65) BLANK          " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + SKEW    (26) dcomexec  (36) smbmap     (46) BLANK          (56) BLANK    (66) BLANK          " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) psexec    (37) SmbClient  (47) secretsdump    (57) BLANK    (67) BLANK          " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) smbexec   (38) SmbMount   (48) windapsearch   (58) BLANK    (68) BLANK          " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) wmiexec   (39) enum4linux (49) ldapdomaindump (59) BLANK    (69) BLANK          " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
