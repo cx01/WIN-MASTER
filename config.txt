@@ -1,12 +1,12 @@
-resolute.megabank.l
-10.10.10.169
-ryan
-Serv3r4Admin4cc123!
 EMPTY
-megabank.local
 EMPTY
-SYSVOL
+""
+""
+EMPTY
+EMPTY
+EMPTY
+EMPTY
 administrator
 'dir -FORCE'
-19:31
+21:31
 WORKAREA
