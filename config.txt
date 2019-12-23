@@ -5,8 +5,8 @@ s3rvice
 EMPTY
 htb.local
 EMPTY
-EMPTY
+NETLOGON
 administrator
 'dir -FORCE'
-17:09
+17:40
 WORKAREA
