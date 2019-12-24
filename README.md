@@ -13,7 +13,7 @@ Usage: python WinMaster.py neo4j password
 - [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
 - [x] Requires Neo4j (https://github.com/neo4j) to be installed.
 
-A python script file to remotely examine Microsoft Windows systems- It can pull usernames, passwords, hashes, and much much more.
+A python script file to remotely exploit Microsoft Windows systems- It can pull usernames, passwords, hashes, and much much more.
 
 ### CONSOLE DISPLAY
 ![Screenshot](picture1.png)
