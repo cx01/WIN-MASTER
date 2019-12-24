@@ -5,11 +5,12 @@ Usage: python WinMaster.py neo4j password
 
 | LANGUAGE  | FILENAME         | MD5 Hash                         |
 |------     |------            | -------                          |
-| python    | WinMaster.py     |                                  |
-| text file | config.txt       |                                  |
-| bash file | shell.txt        |                                  |
+| python    | WinMaster.py     | e610215decf55a5aeaa655f5820e381c |
+| text file | config.txt       | fbc9f46c8be696a9a40207999d013ede |
+| bash file | shell.txt        | bace3193abb905876c00e082fc94d550 |
 
 ![Screenshot](picture2.png)
+
 - [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
 - [x] Requires Neo4j (https://github.com/neo4j) to be installed.
 

