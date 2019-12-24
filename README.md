@@ -1,7 +1,7 @@
 # WIN MASTER
-## A PYTHON SCRIPT FILE TO REMOTELY INVESTIGATE AND ANALYSE MICROSOFT WINDOWS SYSTEMS VIA IMPACKET.
+## A PYTHON SCRIPT FILE TO REMOTELY ANALYSE AND EXPLOIT MICROSOFT WINDOWS SYSTEMS VIA IMPACKET.
 
-Usage: python WinMAster.py neo4j password
+Usage: python WinMaster.py neo4j password
 
 | LANGUAGE  | FILENAME         | MD5 Hash                         |
 |------     |------            | -------                          |
