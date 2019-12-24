@@ -259,16 +259,16 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) BLANK     (30) IfMap          (40) RpcClient      (50) ACLPWN       (60) FTP    " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) BLANK     (31) OpDump         (41) GetGt          (51) SecretsDump  (61) SSH    " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) GetArch   (32) LookupSid      (42) GetSt          (52) CrackMapExec (62) TelNet " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) NetView   (33) SamrDump       (43) GetUsersPns    (53) WmiExec HASH (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) AdiDNSdump Records (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK        (64) WinRem " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) AtExec    (35) Reg            (45) KerbCheckUsers (55) BLANK        (65) BLANK  " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK        (66) BLANK  " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) PsExec    (37) SmbMap SHARE   (47) BLANK          (57) BLANK        (67) BLANK  " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) SmbExec   (38) SmbMount SHARE (48) WinDapSearch   (58) BLANK        (68) BLANK  " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) WmiExec   (39) Enum4Linux     (49) LdapDomainDump (59) BLANK        (69) BLANK  " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch   (30)                (40) RpcClient      (50) ACLPWN       (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView   (31)                (41) GetGt          (51) SecretsDump  (61) SSH    " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services  (32) LookupSid      (42) GetSt          (52) CrackMapExec (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) AtExec    (33) SamrDump       (43) GetUsersPns    (53) WmiExec HASH (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) AdiDNSdump Records (24) DcomExec  (34) RpcDump        (44) GetAdUsers     (54)              (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) PsExec    (35) Reg            (45) KerbCheckUsers (55)              (65)        " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec   (36) SmbClient      (46) GetNpUsers     (56)              (66)        " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec   (37) SmbMap SHARE   (47) BLANK          (57)              (67)        " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap     (38) SmbMount SHARE (48) WinDapSearch   (58)              (68)        " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump    (39) Enum4Linux     (49) LdapDomainDump (59)              (69)        " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
@@ -772,33 +772,11 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - Full, slow and comprehensive nmap scan.
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '20':
-      exit(1)
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected -
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '21':
-     exit(1)
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
 # Details : Menu option selected - ./getArch.py -target xxx.xxx.xxx.xxx -> 32/64 bit
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '22':
+   if selection == '20':
       command(PRO + "getArch.py -target " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -809,7 +787,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='23':
+   if selection =='21':
       command(PRO + "netview.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -target " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -820,7 +798,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='24':
+   if selection =='22':
       command(PRO + "services.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " list")
 
 # ------------------------------------------------------------------------------------- 
@@ -831,7 +809,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '25':
+   if selection == '23':
       command(PRO + "atexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -842,7 +820,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '26':
+   if selection == '24':
       command(PRO + "dcomexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -853,7 +831,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '27':
+   if selection == '25':
       os.remove("SHARES.tmp")
       os.system(PRO + "psexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " > SHARES.tmp")
       command("cat SHARES.tmp")
@@ -947,7 +925,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '28':
+   if selection == '26':
       command(PRO + "smbexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -958,7 +936,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '29':
+   if selection == '27':
       command(PRO + "wmiexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -969,7 +947,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='30':
+   if selection == '28':
       command(PRO + "ifmap.py " + TIP.rstrip(" ") + " 135")
 
 # ------------------------------------------------------------------------------------- 
@@ -980,9 +958,31 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='31':
+   if selection == '29':
       ifmap = raw_input("\nEnter MSRPC interface (ifmap) : ")     
       command(PRO + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap)
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - ./ifmap.py 192.168.1.103 135
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection =='30':
+      exit(1)
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection =='31':
+      exit(1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1166,11 +1166,11 @@ while True:
    if selection == '45':
       print "\nPlease wait..."
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
-      os.remove("USERS.tmp")	# CLEAR WORK FILE
-      os.remove("users.txt")	# CLEAR WORK FILE
       os.system("sed -i '/@/!d' KUSERS.tmp")
       os.system("sort KUSERS.tmp > USERS2.tmp")
       os.remove("KUSERS.tmp")
+      os.remove("USERS.tmp")	# CLEAR WORK FILE
+      os.remove("users.txt")	# CLEAR WORK FILE
 	
       for x in range (0,MAX):
          US[x] = linecache.getline("USERS2.tmp", x+1)
