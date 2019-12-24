@@ -310,17 +310,17 @@ if not os.path.exists("USERS.tmp"):		# HOLDS INITIAL USERS DATA
 else:
    print "[-] File USERS.tmp already exists..."
 
-if not os.path.exists("SHARES.tmp"):		# HOLDS INITIAL SHARE DATA
-   os.system("touch SHARES.tmp")
-   print "[-] File SHARES.tmp created..."
-else:
-   print "[-] File SHARES.tmp already exists..."
-
 if not os.path.exists("users.txt"):		# HOLDS CURRENT FILTERED USER LIST
    os.system("touch users.txt")
    print "[-] File users.txt created..."
 else:
    print "[-] File users.txt already exists..."
+
+if not os.path.exists("SHARES.tmp"):		# HOLDS INITIAL SHARE DATA
+   os.system("touch SHARES.tmp")
+   print "[-] File SHARES.tmp created..."
+else:
+   print "[-] File SHARES.tmp already exists..."
 
 if not os.path.exists("SECRETS.tmp"):		# HOLDS INITIAL SECRETS DATA
    os.system("touch SECRETS.tmp")
@@ -384,7 +384,7 @@ MAX  = 39
 # -------------------------------------------------------------------------------------
 
 if not os.path.exists('config.txt'):
-   print "[-] Configuration file not found - using defualt values...."
+   print "[-] Configuration file not found - using defualt values..."
    DNSN = "EMPTY              " # DNS NAME
    TIP  = "EMPTY              " # REMOTE IP
    USR  = '""                 ' # USERNAME
@@ -425,10 +425,11 @@ else:
    PI1  = padding(PI1,  COL1)
    DIR  = padding(DIR,  COL1)
 
-print "[-] Starting exploit database..."
+print "[*] Starting neo4j database..."
 
-os.system("neo4j start")
-os.system("neo4j console")
+os.system("neo4j start   > log.txt 2>&1")
+os.system("neo4j console > log.txt 2>&1")
+os.remove("log.txt")
 
 raw_input("\nPlease ENTER key to continue...")
 
@@ -1022,8 +1023,7 @@ while True:
                os.system("echo " + US[x] + " >> users.txt")	# ASSIGN USER NAME
             else:
                US[x] = "                                "	# ASSIGN EMPTY USER
-            if PA[x] == "                                ":
-               PA[x]  = "................................";
+            PA[x] = "................................";		# RESET PASSWORDS
       
       if US[12] != "                                ":
          US[11] = "Some users are not shown!!..."
@@ -1162,8 +1162,8 @@ while True:
 
    if selection == '45':
       print "\nPlease wait..."
-      os.remove("USERS.tmp")	# CLEAR WORK FILE
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      os.remove("USERS.tmp")	# CLEAR WORK FILE
       os.remove("users.txt")	# CLEAR WORK FILE
       os.system("sed -i '/@/!d' KUSERS.tmp")
       os.system("sort KUSERS.tmp > USERS2.tmp")
@@ -1182,9 +1182,7 @@ while True:
                os.system("echo " + US[x] + " >> users.txt")	# ASSIGN NEW USER
             else:
                US[x] = "                                "	# ASSIGN EMPTY USER
-
-            if PA[x] == "                                ":
-               PA[x]  = "................................";     
+            PA[x] = "................................";		# RESET PASSWORDS
       
       if US[12] != "":
          US[11] = "Some users are not shown!!..."
@@ -1253,7 +1251,6 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='50':
-      print "\nBLOODHOUND NEEDS TO BE RUNNING AND CONFIGURED FOR THIS TO WORK...\n"
       command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + HST.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
