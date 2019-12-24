@@ -36,6 +36,13 @@ if os.geteuid() != 0:
     print "\nPlease run this python script as root..."
     exit(True)
 
+if len(sys.argv) < 3:
+    print "\nUse the command python WinMaster.py neo4j password\n"
+    exit(True)
+
+BH1 = sys.argv[1]	# BLOODHOUND USERNAME
+BH2 = sys.argv[2]	# BLOODHOUND PASSWORD
+
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
@@ -368,9 +375,6 @@ US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,
 PA   = [X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 40 PASSWORDS
 MAX  = 39
 
-BH1 = "neo4j"		# TEMP
-BH2 = "neo4j"		# TEMP
-
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
@@ -420,6 +424,11 @@ else:
    PRM  = padding(PRM,  COL1)
    PI1  = padding(PI1,  COL1)
    DIR  = padding(DIR,  COL1)
+
+print "[-] Starting exploit database..."
+
+os.system("neo4j start")
+os.system("neo4j console")
 
 raw_input("\nPlease ENTER key to continue...")
 
