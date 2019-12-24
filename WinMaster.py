@@ -261,9 +261,9 @@ def display():
 
    print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) BLANK     (30) IfMap          (40) RpcClient      (50) ACLPWN       (60) FTP    " + u'\u2551'
    print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) BLANK     (31) OpDump         (41) GetGt          (51) SecretsDump  (61) SSH    " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) BLANK     (32) LookupSid      (42) GetSt          (52) CrackMapExec (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) GetArch   (32) LookupSid      (42) GetSt          (52) CrackMapExec (62) TelNet " + u'\u2551'
    print u'\u2551' + "(3) Re/Set USERNAME    (13) Ping REMOTE IP     (23) NetView   (33) SamrDump       (43) GetUsersPns    (53) WmiExec HASH (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Get Architecture   (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK        (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) AdiDNSdump Records (24) Services  (34) RpcDump        (44) GetAdUsers     (54) BLANK        (64) WinRem " + u'\u2551'
    print u'\u2551' + "(5) Re/Set FOREST NAME (15) Fierce DNS SERVER  (25) AtExec    (35) Reg            (45) KerbCheckUsers (55) BLANK        (65) BLANK  " + u'\u2551'
    print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) DcomExec  (36) SmbClient      (46) GetNpUsers     (56) BLANK        (66) BLANK  " + u'\u2551'
    print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) PsExec    (37) SmbMap SHARE   (47) BLANK          (57) BLANK        (67) BLANK  " + u'\u2551'
@@ -703,12 +703,15 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - ./getArch.py -target xxx.xxx.xxx.xxx -> 32/64 bit
+# Details : Menu option selected - adidnsdump -u megabank.local\\ryan -p Serv3r4Admin4cc123! megabank.local --include-tombstoned -r
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '14':
-      command(PRO + "getArch.py -target " + TIP.rstrip(" "))
+      os.system("adidnsdump -u " + HST.rstrip(" ") + "\\\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " " + HST.rstrip(" ") + " --include-tombstoned -r")
+      os.system("sed -i '1d' records.csv")
+      print ""
+      command("cat records.csv")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -791,12 +794,12 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected -
+# Details : Menu option selected - ./getArch.py -target xxx.xxx.xxx.xxx -> 32/64 bit
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '22':
-     exit(1)
+      command(PRO + "getArch.py -target " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
