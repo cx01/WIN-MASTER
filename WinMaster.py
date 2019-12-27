@@ -827,13 +827,13 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - /psexec.py raj/Administrator:Ignite@123@192.168.1.103
+# Details : Menu option selected - /psexec.py domain/user:password@ip cmd.exe
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '25':
       os.remove("SHARES.tmp")
-      os.system(PRO + "psexec.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " > SHARES.tmp")
+      os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " cmd.exe > SHARES.tmp")
       command("cat SHARES.tmp")
     
       os.system("sed -i '1,3d' SHARES.tmp")
