@@ -10,6 +10,7 @@ Usage: python WinMaster.py neo4j password
 | bash file | shell.txt        | bace3193abb905876c00e082fc94d550 |
 
 ![Screenshot](picture2.png)
+
 [-] Testing stage.
 
 - [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
