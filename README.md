@@ -11,6 +11,7 @@ Usage: python WinMaster.py neo4j password
 
 ![Screenshot](picture2.png)
 
+[+] Programming stage.
 [-] Testing stage.
 
 - [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
