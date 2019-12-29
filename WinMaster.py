@@ -86,7 +86,7 @@ def gettime(value):
    return variable
 
 def command(command):
-   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
+#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
