@@ -5,12 +5,8 @@ Usage: python WinMaster.py neo4j password
 
 | LANGUAGE  | FILENAME         | MD5 Hash                         |
 |------     |------            | -------                          |
-<<<<<<< HEAD
 | python    | WinMaster.py     | 14dba7843f38be7b8d35e42775d34590 |
-=======
-| python    | WinMaster.py     | 38524a50f1a06635264308855b641e79 |
->>>>>>> 3f7791159a8d5b522505e2e75e7332854c88a8f6
-| text file | config.txt       | fbc9f46c8be696a9a40207999d013ede |
+| text file | config.txt       | 517ca6d2b592ac7aefeaf1e03e890ee6 |
 | bash file | shell.txt        | bace3193abb905876c00e082fc94d550 |
 
 ![Screenshot](picture2.png)
