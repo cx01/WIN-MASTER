@@ -734,7 +734,7 @@ while True:
       if (PAS[:2] == '""'): 
          command("echo 'Password not specified...'")
       else:
-         os.system("adidnsdump -u " + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " " + HST.rstrip(" ") + " --include-tombstoned -r")
+         os.system("adidnsdump -u '" + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + HST.rstrip(" ") + " --include-tombstoned -r")
          os.system("sed -i '1d' records.csv")
          command("\ncat records.csv")
 
