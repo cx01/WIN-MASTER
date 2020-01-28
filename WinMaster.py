@@ -1523,7 +1523,7 @@ while True:
    if selection =='55':
       if (USR[:1] != "\"") & (PAS[:1] != "\""):
          print "\n[-]Trying user " + USR.rstrip(" ") + " with password " + PAS.rstrip(" ") + "...\n"
-         command("crackmapexec -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" ")) 
+         command("crackmapexec smb -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" ")) 
          print "\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n"
          HASH = " "
          for x in range (0, MAX):
