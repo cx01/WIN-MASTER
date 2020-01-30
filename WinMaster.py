@@ -44,7 +44,7 @@ if len(sys.argv) < 3:
 
 BH1 = sys.argv[1]	# NEO4J USERNAME
 BH2 = sys.argv[2]	# NEO4J PASSWORD
-BUG = 1			# DEBUG COMMANDS
+BUG = 0			# DEBUG COMMANDS
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -1730,7 +1730,7 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - rdesktop - u user -p password -d domain / IP
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
