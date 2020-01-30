@@ -44,7 +44,7 @@ if len(sys.argv) < 3:
 
 BH1 = sys.argv[1]	# NEO4J USERNAME
 BH2 = sys.argv[2]	# NEO4J PASSWORD
-BUG = 0			# DEBUG COMMANDS
+BUG = 1			# DEBUG COMMANDS
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -275,7 +275,7 @@ def display():
    print u'\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass the Hash   (56) PsExec HASH  (66)        " + u'\u2551'
    print u'\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass the Ticket (57) SmbExec HASH (67)        " + u'\u2551'
    print u'\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) Silver Ticket   (58) WmiExec HASH (68)        " + u'\u2551'
-   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Remote Login (69)        " + u'\u2551'
+   print u'\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Remote Login (69) Desktop" + u'\u2551'
    print u'\u255A' + (u'\u2550')*132 + u'\u255D'
 
 # -------------------------------------------------------------------------------------
@@ -1735,6 +1735,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='69':
-      exit(1)   
+      command("rdesktop -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" "))
+      prompt()
 
-#Eof...
+#Eof...	
