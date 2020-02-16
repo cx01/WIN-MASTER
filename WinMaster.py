@@ -1305,7 +1305,11 @@ while True:
 
    if selection == '45':
       if PAS[:1] != "\"":
-         FRST = binascii.hexlify(hashlib.new("md4", PAS.rstrip(" ").encode("utf-16le")).digest())
+         FRST = hashlib.new("md4", PAS.rstrip(" ").encode("utf-16le")).digest()
+         FRST = binascii.hexlify(FRST)
+         FRST = str(FRST)
+         FRST = FRST.lstrip("b'")
+         FRST = FRST.rstrip("'")
       else:
          print("Password not found...")
       prompt()
