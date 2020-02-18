@@ -1629,13 +1629,16 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='59':
-      command("cewl -d 2 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
-      print("\nUserlist generated via website...")
+      command("cewl -d 3 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
+      print("\n[+] Userlist generated via website...")
       for x in range (0,MAX):
          US[x] = linecache.getline("users.txt", x+1)
          US[x] = US[x].rstrip(" ")
          if len(US[x]) < COL3:
             US[x] = padding(US[x], COL3)
+      if os.path.exists("/usr/share/ncrack/minimal.usr"):
+         command("cat /usr/share/ncrack/minimal.usr >> users.txt 2>&1")
+         print("[+] NCrack minimal.usr list added as well...")
       if US[12] != "                          ":
          US[11] = "Some users are not shown!!"
       prompt()
