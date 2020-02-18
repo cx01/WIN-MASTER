@@ -1225,7 +1225,7 @@ while True:
          print("[+] User file empty - generating bespoke username list from host...\n")
          command("cewl -d 2 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
       print("\n[+] Checking to see if any found username is assigned to Kerberous...")
-      command("nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      command("nmap -p 88 -script krb5-enum-users -script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       command("sed -i '/@/!d' KUSERS.tmp")
       command("sort KUSERS.tmp > USERS2.tmp")
       os.remove("KUSERS.tmp")
@@ -1247,9 +1247,8 @@ while True:
          US[x] = padding(US[x], COL3)
          PA[x] = padding(PA[x], COL4)
       
-      if linecache.getline('users.txt', 11) != "":
-         US[11] = "Some users are not shown!!..."
-         US[11] = padding(US[11], COL3)
+      if US[12] != "                          ":
+         US[11] = "Some users are not shown!!"
       command("mv USERS2.tmp USERS.tmp")
       print("[*] All done!")
       prompt()
