@@ -44,7 +44,7 @@ if len(sys.argv) < 3:
 
 BH1 = sys.argv[1]	# NEO4J USERNAME
 BH2 = sys.argv[2]	# NEO4J PASSWORD
-BUG = 0			# DEBUG COMMANDS
+BUG = 0			# DEBUG = 1
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -105,9 +105,9 @@ def display():
 
    print('\u2551' + " DNS SERVER   " + '\u2502', end=' ')
    if DNSN == "EMPTY              ":
-      print(colored(DNSN[:19],'yellow'), end=' ')
+      print(colored(DNSN[:COL1],'yellow'), end=' ')
    else:
-      print(colored(DNSN[:19],'blue'), end=' ')
+      print(colored(DNSN[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH0,'blue'), end=' ')
    print(colored(SHA0,'blue'), end=' ')
@@ -118,9 +118,9 @@ def display():
 
    print('\u2551' + " REMOTE IP    " + '\u2502', end=' ')
    if TIP == "EMPTY              ":
-      print(colored(TIP,'yellow'), end=' ')
+      print(colored(TIP[:COL1],'yellow'), end=' ')
    else:
-      print(colored(TIP,'blue'), end=' ')
+      print(colored(TIP[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH1,'blue'), end=' ')
    print(colored(SHA1,'blue'), end=' ')
@@ -131,9 +131,9 @@ def display():
 
    print('\u2551' + " USERNAME     " + '\u2502', end=' ')
    if USR == '""                 ':
-      print(colored(USR,'yellow'), end=' ')
+      print(colored(USR[:COL1],'yellow'), end=' ')
    else:
-      print(colored(USR,'blue'), end=' ')
+      print(colored(USR[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH2,'blue'), end=' ')
    print(colored(SHA2,'blue'), end=' ')
@@ -144,9 +144,9 @@ def display():
    
    print('\u2551' + " PASSWORD     " + '\u2502', end=' ')
    if PAS == '""                 ':
-      print(colored(PAS,'yellow'), end=' ')
+      print(colored(PAS[:COL1],'yellow'), end=' ')
    else:
-      print(colored(PAS,'blue'), end=' ')
+      print(colored(PAS[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH3,'blue'), end=' ')
    print(colored(SHA3,'blue'), end=' ')
@@ -157,9 +157,9 @@ def display():
 
    print('\u2551' + " NTLM HASH    " + '\u2502', end=' ')
    if FRST == "EMPTY              ":
-      print(colored(FRST[:19],'yellow'), end=' ')
+      print(colored(FRST[:COL1],'yellow'), end=' ')
    else:
-      print(colored(FRST[:19],'red'), end=' ')
+      print(colored(FRST[:COL1],'red'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH4,'blue'), end=' ')
    print(colored(SHA4,'blue'), end=' ')
@@ -170,9 +170,9 @@ def display():
    
    print('\u2551' + " DOMAIN NAME  " + '\u2502', end=' ')
    if HST == "EMPTY              ":
-      print(colored(HST[:20],'yellow'), end=' ')
+      print(colored(HST[:COL1],'yellow'), end=' ')
    else:
-      print(colored(HST[:20],'blue'), end=' ')
+      print(colored(HST[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH5,'blue'), end=' ')
    print(colored(SHA5,'blue'), end=' ')
@@ -183,9 +183,9 @@ def display():
 
    print('\u2551' + " DOMAIN SID   " + '\u2502', end=' ')
    if WGRP == "EMPTY              ":
-      print(colored(WGRP[:19],'yellow'), end=' ')
+      print(colored(WGRP[:COL1],'yellow'), end=' ')
    else:
-      print(colored(WGRP[:19],'red'), end=' ')
+      print(colored(WGRP[:COL1],'red'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH6,'blue'), end=' ')
    print(colored(SHA6,'blue'), end=' ')
@@ -508,7 +508,7 @@ while True:
       BAK = DNSN
       DNSN = input("\nPlease enter DNS SERVER name: ")
       if DNSN != "":
-         if len(DNSN) < 19:
+         if len(DNSN) < COL1:
             DNSN = padding(DNSN, COL1)
          command("echo '" + TIP.rstrip(" ") + "\t" + DNSN.rstrip(" ") + "' >> /etc/hosts")
          print("DNS SERVER " + DNSN.rstrip(" ") + " has been added to /etc/hosts...")
@@ -528,7 +528,8 @@ while True:
       BAK = TIP
       TIP = input("\nPlease enter REMOTE IP address: ")
       if TIP != "":
-         TIP = padding(TIP, COL1)
+         if len(TIP) < COL1:
+            TIP = padding(TIP, COL1)
       else:
          TIP = BAK      
 
@@ -544,12 +545,13 @@ while True:
       BAK = USR
       USR = input("\nPlease enter USERNAME: ")
       if USR != "":
-         USR = padding(USR, COL1)
+         if len(USR) < COL1:
+            USR = padding(USR, COL1)
          for a in range(0, MAX):
             if US[a].rstrip(" ") == USR.rstrip(" "):
                FRST = PA[a]	# UPDATE HASH VALUE TO MATCH USER.
       else:
-         USR = BAK      
+         USR = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -563,9 +565,10 @@ while True:
       BAK = PAS
       PAS = input("\nPlease enter PASSWORD: ")
       if PAS != "":
-         PAS = padding(PAS, COL1)
+         if len(PAS) < COL1:
+            PAS = padding(PAS, COL1)
       else:
-         PAS = BAK      
+         PAS = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -579,7 +582,7 @@ while True:
       BAK = FRST
       FRST = input("\nPlease enter HASH value: ")
       if FRST != "":
-         if len(FRST) < 19:
+         if len(FRST) < COL1:
             FRST = padding(FRST, COL1)
       else:
          FRST = BAK
@@ -596,7 +599,7 @@ while True:
       BAK = HST
       HST = input("\nPlease enter DOMAIN name: ")
       if HST != "":
-         if len(HST) < 19:
+         if len(HST) < COL1:
             HST = padding(HST, COL1)
          command("echo '" + TIP.rstrip(" ") + "\t" + HST.rstrip(" ") + "' >> /etc/hosts")
          print("DOMAIN " + HST.rstrip(" ") + " has been added to /etc/hosts...")
@@ -616,10 +619,10 @@ while True:
       BAK = WGRP
       WGRP = input("\nPlease enter DOMAIN SID value: ")
       if WGRP != "":
-         if len(WGRP) < 19:
+         if len(WGRP) < COL1:
             WGRP = padding(WGRP, COL1)
       else:
-         WGRP = BAK      
+         WGRP = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -633,7 +636,8 @@ while True:
       BAK = HIP
       HIP = input("\nPlease enter SHARE name: ")
       if HIP != "":
-         HIP = padding(HIP,COL1)
+         if len(HIP) < COL1:
+            HIP = padding(HIP,COL1)
       else:
          HIP = BAK
 
@@ -649,7 +653,8 @@ while True:
       BAK = POR
       POR = input("\nPlease enter IMPERSONATOR name: ")
       if POR != "":
-         POR = padding(POR, COL1)
+         if len(POR) < COL1:
+            POR = padding(POR, COL1)
       else:
          POR = BAK
 
@@ -665,7 +670,8 @@ while True:
       BAK = PRM
       PRM = input("\nPlease enter Windows COMMAND: ")
       if PRM != "":
-         PRM = padding(PRM, COL1)
+         if len(PRM) < COL1:
+            PRM = padding(PRM, COL1)
       else:
          PRM = BAK
 
@@ -703,7 +709,8 @@ while True:
          if len(directory) > 0:
             os.mkdir(directory)
             DIR = directory
-            DIR = padding(DIR, COL1)
+            if len(DIR) < COL1:
+               DIR = padding(DIR, COL1)
             print("Working directory changed...")
       prompt()
 
@@ -1286,7 +1293,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='44':
-      if linecache.getline('users.txt', 1) != "":
+      if linecache.getline('users.txt', 1) != " ":
          command(PRO + "GetNPUsers.py -outputfile hashroast2.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
          print("\n[+] Cracking hash values if they exists...\n")
          command("hashcat -m 18200 --force -a 0 hashroast2.txt /usr/share/wordlists/rockyou.txt -o cracked2.txt")
