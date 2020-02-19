@@ -5,14 +5,13 @@ Usage: python3 WinMaster.py neo4j password
 
 | LANGUAGE  | FILENAME         | MD5 Hash                         |
 |------     |------            | -------                          |
-| python    | WinMaster.py     | 7c50df92147337e0a09ba32efe12f060 |
-| text file | config.txt       | 711f5a3954a9c8b6eb3acb9bb5bab87d |
-| bash file | shell.txt        | bace3193abb905876c00e082fc94d550 |
+| python3   | WinMaster.py     | 7c50df92147337e0a09ba32efe12f060 |
 
-- [x] Requires impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
-- [x] Requires Neo4j (https://github.com/neo4j) to be installed.
+- [x] Requires Impacket (https://github.com/SecureAuthCorp/impacket) to be installed.
+- [x] Requires Evil-WinRm (https://github.com/Hackplayers/evil-winrm) to be installed.
+- [ ] Requires Neo4j (https://github.com/neo4j) to be installed.
 
-A python script file to remotely exploit Microsoft Windows systems- It can pull usernames, passwords, hashes, and much much more.
+A python script file to remotely exploit Microsoft Windows systems- It can pull domains, usernames, passwords, crack hashes, and much much more.
 
 ### CONSOLE DISPLAY
 ![Screenshot](picture1.png)
