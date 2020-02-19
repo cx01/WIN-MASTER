@@ -275,7 +275,7 @@ def display():
    print('\u2551' + "(6) Re/Set DOMAIN NAME (16) Nmap O/S + Skew    (26) SmbExec  (36) Smb Client     (46) Pass the Hash   (56) PsExec HASH  (66)        " + '\u2551')
    print('\u2551' + "(7) Re/Set DOMAIN SID  (17) Nmap Subdomains    (27) WmiExec  (37) SmbMap SHARE   (47) Pass the Ticket (57) SmbExec HASH (67)        " + '\u2551')
    print('\u2551' + "(8) Re/Set SHARE NAME  (18) Nmap Intense TCP   (28) IfMap    (38) SmbMount SHARE (48) Silver Ticket   (58) WmiExec HASH (68)        " + '\u2551')
-   print('\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Gen Userlist (69)        " + '\u2551')
+   print('\u2551' + "(9) Re/Set IMPERSONATE (19) Nmap Slow and Full (29) OpDump   (39) Rpc Client     (49) Golden Ticket   (59) Gen Userlist (69) Editor " + '\u2551')
    print('\u255A' + ('\u2550')*132 + '\u255D')
 
 # -------------------------------------------------------------------------------------
@@ -1700,16 +1700,8 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='64':
-      command('echo "require \'winrm\' " > winshell.rb')
-      command('echo "" >> winshell.rb')
-      command('echo "conn = WinRM::Connection.new(" >> winshell.rb')
-      command('echo "  endpoint: \'http://"' + TIP.rstrip(" ") + '":5985/wsman\', " >> winshell.rb')
-      command('echo "  user: \'"' + USR.rstrip(" ") + '"\'," >> winshell.rb')
-      command('echo "  password: \'"' + PAS.rstrip(" ") + '"\'," >> winshell.rb')
-      command('echo ")" >> winshell.rb')
-      command("cat shell.txt >> winshell.rb") # ADD REST WHEN YOU HAVE TIME!!
-      command("ruby winshell.rb")
-      prompt() 
+      command("evil-winrm -i " + TIP.rstrip(" ") + " -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" "))
+      prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
@@ -1753,8 +1745,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection =='69':
-      exit(1)       
-
-
+      command("nano users.txt")
+      prompt()
 
 #Eof...	
