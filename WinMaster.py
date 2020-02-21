@@ -327,6 +327,7 @@ else:
 print("[+] Populating system variables...")
 
 PATH = "/usr/share/doc/python3-impacket/examples/" 	# IMPACKET LOCATION
+
 COL1 = 19	 # SESSION
 COL2 = 15	 # SHARE
 COL3 = 26	 # USERNAME
@@ -938,16 +939,16 @@ while True:
       SH10 = SH10.replace("'", "")
       SH11 = SH11.replace("'", "")
 
-      if SH0 !="":  SH0,SHA0   = SH0.split("is")
-      if SH1 !="":  SH1,SHA1   = SH1.split("is")
-      if SH2 !="":  SH2,SHA2   = SH2.split("is")
-      if SH3 !="":  SH3,SHA3   = SH3.split("is")
-      if SH4 !="":  SH4,SHA4   = SH4.split("is")
-      if SH5 !="":  SH5,SHA5   = SH5.split("is")
-      if SH6 !="":  SH6,SHA6   = SH6.split("is")
-      if SH7 !="":  SH7,SHA7   = SH7.split("is")
-      if SH8 !="":  SH8,SHA8   = SH8.split("is")
-      if SH9 !="":  SH9,SHA9   = SH9.split("is")
+      if SH0  !="":  SH0,SHA0   = SH0.split("is")
+      if SH1  !="":  SH1,SHA1   = SH1.split("is")
+      if SH2  !="":  SH2,SHA2   = SH2.split("is")
+      if SH3  !="":  SH3,SHA3   = SH3.split("is")
+      if SH4  !="":  SH4,SHA4   = SH4.split("is")
+      if SH5  !="":  SH5,SHA5   = SH5.split("is")
+      if SH6  !="":  SH6,SHA6   = SH6.split("is")
+      if SH7  !="":  SH7,SHA7   = SH7.split("is")
+      if SH8  !="":  SH8,SHA8   = SH8.split("is")
+      if SH9  !="":  SH9,SHA9   = SH9.split("is")
       if SH10 !="": SH10,SHA10 = SH10.split("is")
       if SH11 !="": SH11,SHA11 = SH11.split("is")
 
@@ -1039,7 +1040,7 @@ while True:
 # -------------------------------------------------------------------------------------
 
    if selection == '30':
-      command("enum4linux -v -u " + USR.rstrip(" ") + " -p '" + PAS.rstrip(" ") +"' " + TIP.rstrip(" "))
+      command("enum4linux -v -u " + USR.rstrip(" ") + " -p " + PAS.rstrip(" ") +" " + TIP.rstrip(" "))
       prompt()
 
 #------------------------------------------------------------------------------------- 
