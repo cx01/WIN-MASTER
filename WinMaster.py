@@ -1306,6 +1306,7 @@ while True:
          NTM = NTM.rstrip("'")
          for x in range(0, MAX):
             if US[x].rstrip(" ") == USR.rstrip(" "): PA[x] = NTM.rstrip(" ") # RESET USERS HASH
+         NTM = padding(NTM, COL4)
       else:
          print("Password not found...")
       prompt()
