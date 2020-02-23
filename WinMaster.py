@@ -1508,8 +1508,8 @@ while True:
          get4 = get4.rstrip("\n")
 
          print("[+] Found User ", get1)
-         US[x] = get1
-         PA[x] = get4
+         US[x] = get1[:COL3]
+         PA[x] = get4[:COL4]
          if len(US[x]) < COL3: US[x] = padding(US[x], COL3) 			# USER
          if len(PA[x]) < COL4: PA[x] = padding(PA[x], COL4) 			# PASSWORD
 
